@@ -171,3 +171,20 @@ body.showcase-active .door-leaf{box-shadow:inset 0 0 0 2px #c79868,inset 0 0 0 1
 body.detail-open{overflow:hidden}
 @media(max-width:1000px){.catalogue-product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.catalogue-product-image{min-height:220px}}
 @media(max-width:700px){.product-collection-hero{padding:125px 7% 45px}.product-collection-body{padding:38px 6% 60px}.catalogue-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.catalogue-product-image{min-height:175px}.catalogue-product-info{padding:12px}.catalogue-product-info>strong{font-size:1rem}.catalogue-inline-spec{font-size:.57rem!important}.product-detail-dialog{grid-template-columns:1fr;max-height:calc(100vh - 20px)}.product-detail-image{min-height:290px;background-size:500% 400%}.product-detail-copy{padding:28px 22px}.product-detail-backdrop{padding:10px}.product-collection-toolbar{font-size:.62rem}.collection-page .category-card:before{background-size:500% 400%!important;filter:none!important;opacity:1!important}.collection-page .category-card:after{background:linear-gradient(180deg,#10143b05 0%,#171b4b18 36%,#171b4be8 100%)!important}}
+
+/* Fix catalogue card artwork: use real photographic backgrounds, never the broken sprite/green fallback. */
+.collection-page .collection-catalogue .category-card{position:relative;isolation:isolate;background:#20245f!important;overflow:hidden}
+.collection-page .collection-catalogue .category-card:before{
+ content:"";position:absolute;inset:0;z-index:-1;
+ background-image:var(--category-image)!important;
+ background-repeat:no-repeat!important;background-size:cover!important;background-position:center 42%!important;
+ background-color:#292b40!important;opacity:1!important;filter:none!important;
+ transform:scale(1.01);transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .45s;
+}
+.collection-page .collection-catalogue .category-card:after{
+ content:"";position:absolute;inset:0;z-index:-1;
+ background:linear-gradient(180deg,rgba(15,20,48,.03) 0%,rgba(15,20,48,.16) 30%,rgba(19,24,62,.68) 61%,rgba(18,22,55,.97) 100%)!important;
+}
+.collection-page .collection-catalogue .category-card:hover:before{transform:scale(1.07);filter:brightness(1.04)!important}
+.collection-page .collection-catalogue .category-card-copy{position:relative;z-index:1}
+.collection-page .collection-catalogue .category-number,.collection-page .collection-catalogue .category-icon{z-index:1}
