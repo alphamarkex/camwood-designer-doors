@@ -95,4 +95,41 @@
  });
 })();
 </script>
+
+<script>
+/* Prefer the locally uploaded Camwood catalogue photos over third-party sample photos. */
+(function(){
+ const byCategory={
+  "sagwan-doors":["page-02-image-5.webp","page-02-image-256.webp","page-02-image-7.webp"],
+  "sagwan-jali-doors":["page-18-image-15887.webp","page-18-image-16866.webp","page-18-image-16868.webp"],
+  "sagwan-glass-doors":["page-18-image-16870.webp","page-17-image-15759.webp","page-17-image-15765.webp"],
+  "texture-membrane-doors":["page-09-image-6908.webp","page-09-image-6909.webp","page-10-image-9103.webp"],
+  "pvc-doors":["page-08-image-6890.webp","page-08-image-6892.webp","page-08-image-6893.webp"],
+  "door-locks":["page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16870.webp"],
+  "handles-hardware":["page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16870.webp"],
+  "smart-locks":["page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16870.webp"],
+  "3d-doors":["page-13-image-11777.webp","page-14-image-12887.webp","page-15-image-13998.webp"],
+  "membrane-doors":["page-03-image-395.webp","page-03-image-396.webp","page-03-image-397.webp","page-04-image-2469.webp","page-05-image-3574.webp","page-06-image-4679.webp","page-07-image-5785.webp","page-08-image-6890.webp"],
+  "mica-doors":["page-09-image-6908.webp","page-09-image-6909.webp","page-10-image-9103.webp"],
+  "frp-doors":["page-08-image-6890.webp","page-08-image-6892.webp","page-08-image-6893.webp"],
+  "frp-jali-doors":["page-18-image-15887.webp","page-18-image-16866.webp","page-18-image-16868.webp"],
+  "wpc-doors":["page-08-image-6890.webp","page-08-image-6892.webp","page-08-image-6893.webp"],
+  "melamine-doors":["page-09-image-6908.webp","page-09-image-6909.webp","page-10-image-9103.webp"],
+  "designer-doors":["page-13-image-11777.webp","page-14-image-12887.webp","page-15-image-13998.webp","page-16-image-15103.webp","page-17-image-15759.webp"],
+  "windows":["page-18-image-15887.webp","page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16870.webp"],
+  "frames":["page-18-image-15887.webp","page-18-image-16866.webp","page-18-image-16868.webp"],
+  "mortise-locks":["page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16870.webp"]
+ };
+ document.querySelectorAll(".category-card").forEach(card=>{
+   const href=card.getAttribute("href")||"", match=href.match(/[?&]category=([^&]+)/);
+   if(!match)return;
+   const slug=decodeURIComponent(match[1]), photos=byCategory[slug];
+   if(!photos||!photos.length)return;
+   const img=card.querySelector("img.category-photo");
+   if(img){img.src=photos[0];img.onerror=()=>{img.style.display="none"};}
+   card.style.setProperty("--category-image","none");
+   card.style.backgroundImage="none";
+ });
+})();
+</script>
 </body></html>
