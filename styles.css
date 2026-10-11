@@ -79,7 +79,7 @@ body.showcase-active .door-leaf{box-shadow:inset 0 0 0 2px #c79868,inset 0 0 0 1
 
 /* Homepage catalogue teaser links to its own dedicated collection page */
 .collections-teaser{position:relative;isolation:isolate;overflow:hidden;min-height:510px;padding:100px 10%;display:flex;align-items:center;justify-content:space-between;gap:40px;background:var(--blue-deep);color:white}
-.teaser-art{position:absolute;inset:-6%;z-index:-3;background:url('https://images.weserv.nl/?url=i.pinimg.com%2Foriginals%2Fd4%2F1e%2F2a%2Fd41e2a1f6d4ed6e9948a8498f3be5847.jpg&w=1800&q=82&output=webp') center 48%/cover;opacity:.4;transform:scale(1.05)}
+.teaser-art{position:absolute;inset:-6%;z-index:-3;background:url('assets/digital-range.jpg') center 48%/cover;opacity:.4;transform:scale(1.05)}
 .teaser-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#20245ff5 0%,#20245fcf 48%,#20245f50 100%)}
 .teaser-copy{max-width:620px}.teaser-copy .section-kicker{color:var(--teal)}.teaser-copy h2{font-family:Nunito,sans-serif;font-size:clamp(3.1rem,6vw,5.8rem);line-height:.95;letter-spacing:-.065em;margin:22px 0}.teaser-copy h2 em{font-style:normal;color:var(--teal)}.teaser-copy p{max-width:470px;color:#e0e4ff;line-height:1.85;font-size:.9rem;margin-bottom:26px}.teaser-count{display:flex;align-items:center;gap:16px;padding:20px 0;border-top:1px solid #ffffff66;border-bottom:1px solid #ffffff66;flex-shrink:0}.teaser-count strong{font-family:Nunito,sans-serif;font-size:4.5rem;line-height:1;color:var(--yellow)}.teaser-count span{font-size:.56rem;letter-spacing:.16em;line-height:1.8;color:#e1e5ff}
 .collection-page{background:#f7f8fc}.collection-nav{position:absolute}.collection-hero{position:relative;isolation:isolate;min-height:710px;height:88svh;max-height:900px;overflow:hidden;display:flex;align-items:center;background:var(--blue);color:white;padding:130px 10% 75px}
@@ -147,7 +147,7 @@ body.showcase-active .door-leaf{box-shadow:inset 0 0 0 2px #c79868,inset 0 0 0 1
 .catalogue-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .catalogue-product-card{padding:0;text-align:left;border:1px solid #dfe2f2;background:white;color:#202354;cursor:pointer;min-width:0;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
 .catalogue-product-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px #20245f18;border-color:#55b5b6}
-.catalogue-product-image,.product-detail-image{display:block;background-color:#f1efe8;background-image:url('assets/portfolio-door-sprite.jpg');background-repeat:no-repeat;background-size:500% 400%;background-position:var(--sprite-position,0% 0%);min-height:245px}
+.catalogue-product-image{display:block;position:relative;overflow:hidden;background:#e8eaf4;min-height:245px;height:270px}.catalogue-product-image img,.product-detail-image img{display:block;width:100%;height:100%;min-height:245px;object-fit:cover;object-position:center;position:absolute;inset:0}.product-detail-image{display:block;position:relative;overflow:hidden;background:#e8eaf4;min-height:320px;height:100%;}
 .catalogue-product-info{display:flex;flex-direction:column;gap:9px;padding:17px}
 .catalogue-product-info>small{font-size:.56rem;letter-spacing:.14em;color:#2c929a;font-weight:700}
 .catalogue-product-info>strong{font-family:Nunito,sans-serif;font-size:1.15rem;line-height:1.2}
