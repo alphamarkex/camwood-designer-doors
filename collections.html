@@ -77,4 +77,22 @@
 </main>
 <footer><a class="brand footer-brand" href="index.html"><span class="brand-word">cam<span>wood</span></span><small>DESIGNER DOORS & WINDOWS</small></a><span>OPEN THE DOOR TO BETTER DESIGN.</span><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">BACK TO TOP ↑</a></footer>
 <script src="script.js"></script>
+<script>
+(function(){
+ const localFallback=["assets/catalog-05.jpg","assets/catalog-06.jpg","assets/membrane-range.jpg","assets/digital-range.jpg"];
+ document.querySelectorAll(".category-card").forEach((card,index)=>{
+   const raw=card.getAttribute("style")||"";
+   const match=raw.match(/--category-image:\s*url\(['"]?(.+?)['"]?\)\s*;?/);
+   if(!match)return;
+   const original=match[1].replace(/['"]$/,"");
+   const img=document.createElement("img");
+   img.className="category-photo";img.alt="";img.setAttribute("aria-hidden","true");img.loading="lazy";img.decoding="async";img.width=1000;img.height=800;
+   const optimized="https://images.weserv.nl/?url="+encodeURIComponent(original.replace(/^https?:\/\//,""))+"&w=1000&q=78&output=webp";
+   const choices=[optimized,original,localFallback[index%localFallback.length]];
+   let attempt=0;
+   img.onerror=()=>{attempt++;if(attempt<choices.length)img.src=choices[attempt];else img.style.display="none"};
+   img.src=choices[0];card.prepend(img);
+ });
+})();
+</script>
 </body></html>
