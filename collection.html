@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#20245f">
+<meta name="description" content="Browse Camwood designer door models and request exact material, thickness and length details.">
+<title>Door Collection | Camwood Designer Doors & Windows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="product-collection-page">
+<header class="nav collection-nav">
+  <a class="brand" href="index.html" aria-label="Camwood home"><span class="brand-word">cam<span>wood</span></span><small>DESIGNER DOORS & WINDOWS</small></a>
+  <nav><a href="index.html">Home</a><a href="collections.html">All categories</a><a href="index.html#contact">Enquire</a></nav>
+  <a class="nav-cta" href="index.html#contact">Find your door <span>↗</span></a><button class="menu" aria-label="Open menu" id="menuBtn">☰</button>
+</header>
+<main>
+<section class="product-collection-hero">
+  <p class="section-kicker">CAMWOOD CATALOGUE / COLLECTION</p>
+  <p class="collection-breadcrumb"><a href="index.html">HOME</a><span>/</span><a href="collections.html">COLLECTIONS</a><span>/</span><span id="collectionCrumb">PRODUCTS</span></p>
+  <h1 id="collectionTitle">Explore the collection.</h1>
+  <p id="collectionDescription">Browse the models below. Select a product to view its available specifications or ask Camwood to confirm sizing.</p>
+  <a class="button button-teal" href="collections.html">← All categories</a>
+</section>
+<section class="product-collection-body">
+  <div class="product-collection-toolbar"><span id="productCount">20 design references</span><span>Tap any design for details ↗</span></div>
+  <div class="catalogue-product-grid" id="catalogueProducts"></div>
+  <p class="spec-note">Important: dimensions and material can vary by model and order. The portfolio pages do not provide verified thickness or length for every pictured design, so confirm the exact specifications with Camwood before ordering.</p>
+</section>
+<section class="collection-contact"><div class="section-kicker">NEED EXACT SIZING?</div><h2>Let’s find the<br><em>right fit.</em></h2><p>Ask our team to confirm the wood/material, thickness, length and available finish for the model you like.</p><a class="button button-teal" id="enquireCollection" href="index.html#contact">Enquire about this collection <span>↗</span></a></section>
+</main>
+<div class="product-detail-backdrop" id="productDetail" hidden>
+  <section class="product-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <button class="product-detail-close" id="detailClose" aria-label="Close details">×</button>
+    <div class="product-detail-image" id="detailImage"></div>
+    <div class="product-detail-copy">
+      <p class="section-kicker">CAMWOOD DESIGN REFERENCE</p><h2 id="detailTitle">Door model</h2><p id="detailModel" class="detail-model"></p>
+      <div class="detail-specs">
+        <div><span>Wood / material</span><strong id="detailMaterial">Confirm with Camwood</strong></div>
+        <div><span>Thickness</span><strong>Confirm for selected model</strong></div>
+        <div><span>Length / height</span><strong>Confirm required size</strong></div>
+        <div><span>Finish</span><strong>As pictured; availability to confirm</strong></div>
+      </div>
+      <p class="detail-honesty">Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.</p>
+      <a class="button button-teal" id="detailEnquire" href="index.html#contact">Ask about this model <span>↗</span></a>
+    </div>
+  </section>
+</div>
+<script src="script.js"></script>
+<script>
+(function(){
+ const names={"sagwan-doors":"Sagwan Doors","sagwan-jali-doors":"Sagwan Jali Doors","sagwan-glass-doors":"Sagwan Glass Doors","texture-membrane-doors":"Texture Membrane Doors","pvc-doors":"PVC Doors","door-locks":"Door Locks","handles-hardware":"Handles & Hardware Items","smart-locks":"Smart Locks","3d-doors":"3D Doors","membrane-doors":"Membrane Doors","mica-doors":"Mica Doors","frp-doors":"FRP Doors","frp-jali-doors":"FRP Jali Doors","wpc-doors":"WPC Doors","melamine-doors":"Melamine Doors","designer-doors":"Designer Doors","windows":"Windows","frames":"Frames","mortise-locks":"Mortise Locks"};
+ const params=new URLSearchParams(location.search), slug=params.get("category")||"designer-doors", title=names[slug]||"Designer Doors";
+ const hardware=["door-locks","handles-hardware","smart-locks","mortise-locks","frames"].includes(slug);
+ document.title=title+" | Camwood Designer Doors & Windows";
+ document.getElementById("collectionTitle").textContent=title;
+ document.getElementById("collectionCrumb").textContent=title.toUpperCase();
+ document.getElementById("collectionDescription").textContent=hardware?"Browse the available finishing and hardware references. Ask Camwood to confirm the exact product, finish and compatibility.":"Browse door design references from the Camwood portfolio. Select a model to ask about material, thickness, length and finish.";
+ document.getElementById("enquireCollection").href="index.html#contact";
+ const grid=document.getElementById("catalogueProducts");
+ const doorModels=["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013","CW-014","CW-015","CW-016","CW-017","CW-018","CW-019","CW-020","CW-021"];
+ const material=hardware?"Material / finish varies by hardware item":slug.includes("sagwan")?"Sagwan / wood finish — confirm exact material":"Material varies by model — confirm with Camwood";
+ const offsetMap={"sagwan-doors":0,"sagwan-jali-doors":3,"sagwan-glass-doors":4,"texture-membrane-doors":6,"pvc-doors":8,"door-locks":10,"handles-hardware":11,"smart-locks":12,"3d-doors":13,"membrane-doors":0,"mica-doors":5,"frp-doors":8,"frp-jali-doors":13,"wpc-doors":6,"melamine-doors":7,"designer-doors":2,"windows":16,"frames":17,"mortise-locks":18};
+ const offset=offsetMap[slug]||0;
+ const total=hardware?8:12;
+ document.getElementById("productCount").textContent=total+" design references";
+ function pos(i){return ((i%5)*25)+"% "+(Math.floor(i/5)*100/3)+"%"}
+ for(let i=0;i<total;i++){
+   const idx=(offset+i)%20, model=doorModels[idx], card=document.createElement("button");
+   card.type="button";card.className="catalogue-product-card";card.innerHTML='<span class="catalogue-product-image" style="--sprite-position:'+pos(idx)+'"></span><span class="catalogue-product-info"><small>MODEL REFERENCE '+String(i+1).padStart(2,"0")+'</small><strong>'+title+'</strong><span>'+model+' · View specifications ↗</span><span class="catalogue-inline-spec"><b>Material</b> Confirm · <b>Thickness</b> Confirm · <b>Length</b> Confirm</span></span>';
+   card.addEventListener("click",()=>openDetail(idx,model,title,material));
+   grid.appendChild(card);
+ }
+ function openDetail(idx,model,category,materialText){
+   const back=document.getElementById("productDetail");
+   document.getElementById("detailTitle").textContent=category;
+   document.getElementById("detailModel").textContent="Catalogue reference: "+model;
+   document.getElementById("detailMaterial").textContent=materialText;
+   document.getElementById("detailImage").style.setProperty("--sprite-position",pos(idx));
+   document.getElementById("detailEnquire").href="index.html#contact";
+   back.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
+ }
+ document.getElementById("detailClose").addEventListener("click",()=>{document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")});
+ document.getElementById("productDetail").addEventListener("click",e=>{if(e.target.id==="productDetail"){e.currentTarget.hidden=true;document.body.classList.remove("detail-open")}});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")}});
+})();
+</script>
+</body></html>
