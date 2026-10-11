@@ -51,35 +51,65 @@
 <script>
 (function(){
  const names={"sagwan-doors":"Sagwan Doors","sagwan-jali-doors":"Sagwan Jali Doors","sagwan-glass-doors":"Sagwan Glass Doors","texture-membrane-doors":"Texture Membrane Doors","pvc-doors":"PVC Doors","door-locks":"Door Locks","handles-hardware":"Handles & Hardware Items","smart-locks":"Smart Locks","3d-doors":"3D Doors","membrane-doors":"Membrane Doors","mica-doors":"Mica Doors","frp-doors":"FRP Doors","frp-jali-doors":"FRP Jali Doors","wpc-doors":"WPC Doors","melamine-doors":"Melamine Doors","designer-doors":"Designer Doors","windows":"Windows","frames":"Frames","mortise-locks":"Mortise Locks"};
- const params=new URLSearchParams(location.search), slug=params.get("category")||"designer-doors", title=names[slug]||"Designer Doors";
+ const images={
+ "sagwan-doors":"https://img.staticmb.com/mbcontent/images/crop/uploads/2026/5/solid-teak-wood-main-door_0_1200.jpg.webp",
+ "sagwan-jali-doors":"https://housiey.com/blogs/wp-content/uploads/2024/12/Woods.jpg",
+ "sagwan-glass-doors":"https://i.pinimg.com/originals/d4/1e/2a/d41e2a1f6d4ed6e9948a8498f3be5847.jpg",
+ "texture-membrane-doors":"https://c.cdnmp.net/771605560/p/l/6/usa-interior-din-mdf-porta-laminate-cpl-model-5-1~15086.jpg",
+ "pvc-doors":"https://s.alicdn.com/@sc04/kf/H8d57efd6323344a780039a7bca91c680V/Factory-Direct-Upvc-Pvc-Door-Modern-White-Upvc-Pvc-Bathroom-Doors.png",
+ "door-locks":"https://www.plantex.in/cdn/shop/files/81fcBXKz8EL_1200x1200.jpg?v=1781072314",
+ "handles-hardware":"https://yaleonline.in/cdn/shop/files/SM040101SS5_750x.jpg?v=1740808919",
+ "smart-locks":"https://lockintegration.com/content/media/2026/04/ddd2f7707baf7e4d94603d641b522f31.png",
+ "3d-doors":"https://tressadoors.in/cdn/shop/files/modern-interior-flush-door-tressamodern-interior-flush-door-tressa-369181.png",
+ "membrane-doors":"https://c.cdnmp.net/771605560/p/l/6/usa-interior-din-mdf-porta-laminate-cpl-model-5-1~15086.jpg",
+ "mica-doors":"https://img.yfisher.com/m4200/1667630396245-zl-t92a.png",
+ "frp-doors":"https://sc04.alicdn.com/kf/Hf5ef8c6231974821a78fcc08c539dc3fy.jpg",
+ "frp-jali-doors":"https://housiey.com/blogs/wp-content/uploads/2024/12/Woods.jpg",
+ "wpc-doors":"https://www.wpcinteriordoor.com/photo/pl207915284-moisture_and_rot_resistant_termite_proof_wpc_hollow_door_with_30_db_sound_insulation_for_interior_use.jpg",
+ "melamine-doors":"https://img.yfisher.com/m4200/1667630396245-zl-t92a.png",
+ "designer-doors":"https://static.wixstatic.com/media/e9a7f3_b7b4093420e94dbca2b82901621a321a~mv2.webp/v1/fill/w_588%2Ch_532%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/e9a7f3_b7b4093420e94dbca2b82901621a321a~mv2.webp",
+ "windows":"https://cedarwest.com.au/media/catalog/product/cache/1/image/x800/040ec09b1e35df139433887a97daa66f/Doors/Photos2/Prahran_door_Cedar_West_black_frame.jpg",
+ "frames":"https://www.wpcinteriordoor.com/photo/pl207915284-moisture_and_rot_resistant_termite_proof_wpc_hollow_door_with_30_db_sound_insulation_for_interior_use.jpg",
+ "mortise-locks":"https://yaleonline.in/cdn/shop/files/SM040101SS5_750x.jpg?v=1740808919"
+ };
+ const fallback=["assets/catalog-05.jpg","assets/catalog-06.jpg","assets/catalog-03.jpg","assets/catalog-04.jpg","assets/membrane-door-interior.jpg"];
+ const params=new URLSearchParams(location.search),slug=params.get("category")||"designer-doors",title=names[slug]||"Designer Doors";
  const hardware=["door-locks","handles-hardware","smart-locks","mortise-locks","frames"].includes(slug);
  document.title=title+" | Camwood Designer Doors & Windows";
  document.getElementById("collectionTitle").textContent=title;
  document.getElementById("collectionCrumb").textContent=title.toUpperCase();
- document.getElementById("collectionDescription").textContent=hardware?"Browse the available finishing and hardware references. Ask Camwood to confirm the exact product, finish and compatibility.":"Browse door design references from the Camwood portfolio. Select a model to ask about material, thickness, length and finish.";
- document.getElementById("enquireCollection").href="index.html#contact";
+ document.getElementById("collectionDescription").textContent=hardware?"Browse finishing and hardware references. Ask Camwood to confirm the exact product, finish and compatibility.":"Browse door design references. Select a model to ask about material, thickness, length and finish.";
  const grid=document.getElementById("catalogueProducts");
- const doorModels=["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013","CW-014","CW-015","CW-016","CW-017","CW-018","CW-019","CW-020","CW-021"];
+ const models=["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013","CW-014","CW-015","CW-016","CW-017","CW-018","CW-019","CW-020","CW-021"];
  const material=hardware?"Material / finish varies by hardware item":slug.includes("sagwan")?"Sagwan / wood finish — confirm exact material":"Material varies by model — confirm with Camwood";
- const offsetMap={"sagwan-doors":0,"sagwan-jali-doors":3,"sagwan-glass-doors":4,"texture-membrane-doors":6,"pvc-doors":8,"door-locks":10,"handles-hardware":11,"smart-locks":12,"3d-doors":13,"membrane-doors":0,"mica-doors":5,"frp-doors":8,"frp-jali-doors":13,"wpc-doors":6,"melamine-doors":7,"designer-doors":2,"windows":16,"frames":17,"mortise-locks":18};
- const offset=offsetMap[slug]||0;
- const total=hardware?8:12;
+ const offsets={"sagwan-doors":0,"sagwan-jali-doors":3,"sagwan-glass-doors":4,"texture-membrane-doors":6,"pvc-doors":8,"door-locks":10,"handles-hardware":11,"smart-locks":12,"3d-doors":13,"membrane-doors":0,"mica-doors":5,"frp-doors":8,"frp-jali-doors":13,"wpc-doors":6,"melamine-doors":7,"designer-doors":2,"windows":16,"frames":17,"mortise-locks":18};
+ const offset=offsets[slug]||0,total=hardware?8:12;
  document.getElementById("productCount").textContent=total+" design references";
- function pos(i){return ((i%5)*25)+"% "+(Math.floor(i/5)*100/3)+"%"}
+ function optimized(url,w=1000){return "https://images.weserv.nl/?url="+encodeURIComponent(url.replace(/^https?:\/\//,""))+"&w="+w+"&q=80&output=webp"}
+ function setPhoto(container,url,idx,large=false){
+   container.replaceChildren();
+   const img=document.createElement("img");
+   img.alt=title+" design reference "+(idx+1);
+   img.loading=large?"eager":"lazy";img.decoding="async";img.width=1200;img.height=1500;
+   let stage=0;
+   const choices=[optimized(url,large?1400:900),url,...fallback];
+   img.src=choices[0];
+   img.addEventListener("error",function retry(){stage++;if(stage<choices.length){img.src=choices[stage]}else{img.removeEventListener("error",retry);container.classList.add("image-unavailable")}});
+   container.appendChild(img);
+ }
  for(let i=0;i<total;i++){
-   const idx=(offset+i)%20, model=doorModels[idx], card=document.createElement("button");
-   card.type="button";card.className="catalogue-product-card";card.innerHTML='<span class="catalogue-product-image" style="--sprite-position:'+pos(idx)+'"></span><span class="catalogue-product-info"><small>MODEL REFERENCE '+String(i+1).padStart(2,"0")+'</small><strong>'+title+'</strong><span>'+model+' · View specifications ↗</span><span class="catalogue-inline-spec"><b>Material</b> Confirm · <b>Thickness</b> Confirm · <b>Length</b> Confirm</span></span>';
-   card.addEventListener("click",()=>openDetail(idx,model,title,material));
-   grid.appendChild(card);
+   const idx=(offset+i)%models.length,model=models[idx],card=document.createElement("button");
+   card.type="button";card.className="catalogue-product-card";
+   const picture=document.createElement("span");picture.className="catalogue-product-image";setPhoto(picture,images[slug]||images["designer-doors"],idx);
+   const info=document.createElement("span");info.className="catalogue-product-info";
+   info.innerHTML='<small>MODEL REFERENCE '+String(i+1).padStart(2,"0")+'</small><strong>'+title+'</strong><span>'+model+' · View specifications ↗</span><span class="catalogue-inline-spec"><b>Material</b> Confirm · <b>Thickness</b> Confirm · <b>Length</b> Confirm</span>';
+   card.append(picture,info);card.addEventListener("click",()=>openDetail(idx,model,title,material));grid.appendChild(card);
  }
  function openDetail(idx,model,category,materialText){
    const back=document.getElementById("productDetail");
-   document.getElementById("detailTitle").textContent=category;
-   document.getElementById("detailModel").textContent="Catalogue reference: "+model;
-   document.getElementById("detailMaterial").textContent=materialText;
-   document.getElementById("detailImage").style.setProperty("--sprite-position",pos(idx));
-   document.getElementById("detailEnquire").href="index.html#contact";
-   back.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
+   document.getElementById("detailTitle").textContent=category;document.getElementById("detailModel").textContent="Catalogue reference: "+model;document.getElementById("detailMaterial").textContent=materialText;
+   setPhoto(document.getElementById("detailImage"),images[slug]||images["designer-doors"],idx,true);
+   document.getElementById("detailEnquire").href="index.html#contact";back.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
  }
  document.getElementById("detailClose").addEventListener("click",()=>{document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")});
  document.getElementById("productDetail").addEventListener("click",e=>{if(e.target.id==="productDetail"){e.currentTarget.hidden=true;document.body.classList.remove("detail-open")}});
