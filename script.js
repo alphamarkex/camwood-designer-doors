@@ -4,7 +4,7 @@ menuBtn?.addEventListener('click',()=>nav.classList.toggle('open'));
 document.querySelectorAll('.nav nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 
 // Scroll reveals: each catalogue piece arrives as the visitor moves through the story.
-const revealTargets=document.querySelectorAll('.intro-strip,.section-top,.product-card,.showcase-foot,.collections-heading,.collection-row,.feature-image,.feature-copy,.contact>* ,.latest-content');
+const revealTargets=document.querySelectorAll('.intro-strip,.section-top,.product-card,.showcase-foot,.collections-heading,.collection-row,.category-card,.top-selling,.top-selling-links a,.feature-image,.feature-copy,.contact>* ,.latest-content');
 revealTargets.forEach((el,i)=>{el.classList.add('reveal');if(el.classList.contains('collection-row'))el.style.transitionDelay=`${(i%4)*70}ms`});
 if('IntersectionObserver'in window){
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target)}}),{threshold:.12});
