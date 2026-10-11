@@ -98,3 +98,17 @@ body.showcase-active .door-leaf{box-shadow:inset 0 0 0 2px #c79868,inset 0 0 0 1
 @keyframes collectionArtIn{from{transform:scale(1.17);filter:blur(4px)}to{transform:scale(1.08);filter:blur(0)}}@keyframes stampFloat{0%,100%{translate:0 0}50%{translate:0 -10px}}
 @media(max-width:900px){.collection-hero{padding-left:7%;padding-right:7%}.collection-hero-stamp{right:6%;width:140px;height:140px}.collection-hero-stamp strong{font-size:1.8rem}.collection-page .catalogue-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.collection-intro{padding:75px 7%;gap:15px 35px}.collections-teaser{padding:80px 7%}}
 @media(max-width:650px){.collections-teaser{min-height:590px;display:block;padding:85px 7%}.teaser-copy h2{font-size:clamp(3.2rem,13vw,4.7rem)}.teaser-count{margin-top:40px;display:inline-flex}.collection-hero{min-height:790px;height:auto;padding:135px 7% 45px;align-items:flex-start}.collection-hero h1{font-size:clamp(3.7rem,15vw,5.5rem)}.collection-hero-description{font-size:.85rem}.collection-hero-foot{gap:12px 20px;margin-top:45px;max-width:320px}.collection-hero-foot span:last-child{display:none}.collection-hero-stamp{width:105px;height:105px;right:7%;bottom:7%;opacity:.88}.collection-hero-stamp strong{font-size:1.4rem}.collection-hero-stamp span{font-size:.38rem}.collection-hero-stamp i{font-size:.29rem}.shape-one{width:55px;height:55px;right:6%;top:20%}.shape-two{width:48px;height:48px;right:28%;bottom:6%}.collection-intro{display:block;padding:65px 7%}.collection-intro h2{font-size:clamp(2.8rem,12vw,4.2rem);margin:18px 0}.collection-intro>p{font-size:.84rem}.collection-page .collections{padding:70px 6% 55px;gap:30px}.collection-page .catalogue-categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.collection-page .category-card{min-height:190px;padding:13px}.collection-page .category-card-copy strong{font-size:1.02rem;overflow-wrap:anywhere}.collection-page .category-card-copy small{font-size:.43rem;letter-spacing:.08em;line-height:1.4}.collection-page .category-card-copy>span{font-size:.48rem;gap:5px}.favourites-top{align-items:flex-start;flex-direction:column;gap:15px}.favourites-top h2{font-size:clamp(2.8rem,12vw,4.2rem)}.collection-favourites{padding:70px 6%}.favourites-list a{grid-template-columns:25px 1fr 20px;gap:12px;padding:18px 0}.favourites-list strong{font-size:1rem}.favourites-list small{display:none}.favourites-list b{grid-column:3;grid-row:1}.collection-contact{padding:75px 6%}.collection-contact h2{font-size:clamp(2.8rem,12vw,4.2rem)}}
+
+/* Collection cards use individual crops from the supplied Camwood portfolio catalogue pages. */
+.collection-page .category-card[style*="catalog-"]:before{
+  background-size:600% 230%;
+  background-position:var(--image-position,center);
+  opacity:.82;
+  filter:saturate(.92) contrast(1.04);
+}
+.collection-page .category-card[style*="catalog-"]:after{
+  background:linear-gradient(180deg,#10143b12 0%,#171b4b40 38%,#171b4be8 100%);
+}
+.collection-page .category-card[style*="catalog-"]:hover:before{opacity:1;filter:saturate(1.05) contrast(1.06)}
+.collection-page .category-card{background:#252b70}
+.collection-page .category-card-copy strong{text-shadow:0 2px 16px #10143b66}
