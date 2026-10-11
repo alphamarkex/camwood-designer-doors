@@ -6,7 +6,7 @@
 .hero-copy{will-change:transform,opacity}
 .hero-scroll-hint{display:inline-flex;align-items:center;gap:12px}
 .latest-drop{min-height:min(850px,100svh);position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;background:var(--blue-deep);color:white;padding:110px 10%;isolation:isolate}
-.latest-bg{position:absolute;inset:-8%;z-index:-3;background-image:url('https://img.staticmb.com/mbcontent/images/crop/uploads/2026/5/solid-teak-wood-main-door_0_1200.jpg.webp');background-position:center 48%;background-size:cover;transform:scale(1.08);will-change:transform;filter:saturate(.82)}
+.latest-bg{position:absolute;inset:-8%;z-index:-3;background-image:url('https://images.weserv.nl/?url=img.staticmb.com%2Fmbcontent%2Fimages%2Fcrop%2Fuploads%2F2026%2F5%2Fsolid-teak-wood-main-door_0_1200.jpg.webp&w=1800&q=82&output=webp');background-position:center 48%;background-size:cover;transform:scale(1.08);will-change:transform;filter:saturate(.82)}
 .latest-overlay{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(32,36,95,.96) 0%,rgba(32,36,95,.86) 40%,rgba(32,36,95,.38) 72%,rgba(32,36,95,.2) 100%),linear-gradient(0deg,#20245f55,#20245f22)}
 .latest-content{position:relative;z-index:2;max-width:640px}
 .latest-content .section-kicker{color:#a6f0e8}
@@ -79,7 +79,7 @@ body.showcase-active .door-leaf{box-shadow:inset 0 0 0 2px #c79868,inset 0 0 0 1
 
 /* Homepage catalogue teaser links to its own dedicated collection page */
 .collections-teaser{position:relative;isolation:isolate;overflow:hidden;min-height:510px;padding:100px 10%;display:flex;align-items:center;justify-content:space-between;gap:40px;background:var(--blue-deep);color:white}
-.teaser-art{position:absolute;inset:-6%;z-index:-3;background:url('https://i.pinimg.com/originals/d4/1e/2a/d41e2a1f6d4ed6e9948a8498f3be5847.jpg') center 48%/cover;opacity:.4;transform:scale(1.05)}
+.teaser-art{position:absolute;inset:-6%;z-index:-3;background:url('https://images.weserv.nl/?url=i.pinimg.com%2Foriginals%2Fd4%2F1e%2F2a%2Fd41e2a1f6d4ed6e9948a8498f3be5847.jpg&w=1800&q=82&output=webp') center 48%/cover;opacity:.4;transform:scale(1.05)}
 .teaser-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#20245ff5 0%,#20245fcf 48%,#20245f50 100%)}
 .teaser-copy{max-width:620px}.teaser-copy .section-kicker{color:var(--teal)}.teaser-copy h2{font-family:Nunito,sans-serif;font-size:clamp(3.1rem,6vw,5.8rem);line-height:.95;letter-spacing:-.065em;margin:22px 0}.teaser-copy h2 em{font-style:normal;color:var(--teal)}.teaser-copy p{max-width:470px;color:#e0e4ff;line-height:1.85;font-size:.9rem;margin-bottom:26px}.teaser-count{display:flex;align-items:center;gap:16px;padding:20px 0;border-top:1px solid #ffffff66;border-bottom:1px solid #ffffff66;flex-shrink:0}.teaser-count strong{font-family:Nunito,sans-serif;font-size:4.5rem;line-height:1;color:var(--yellow)}.teaser-count span{font-size:.56rem;letter-spacing:.16em;line-height:1.8;color:#e1e5ff}
 .collection-page{background:#f7f8fc}.collection-nav{position:absolute}.collection-hero{position:relative;isolation:isolate;min-height:710px;height:88svh;max-height:900px;overflow:hidden;display:flex;align-items:center;background:var(--blue);color:white;padding:130px 10% 75px}
