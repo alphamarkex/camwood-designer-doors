@@ -116,4 +116,50 @@
  document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")}});
 })();
 </script>
+
+<script>
+/* Render the uploaded catalogue images locally, grouped by their PDF catalogue sections. */
+(async function(){
+ const slug=new URLSearchParams(location.search).get("category")||"designer-doors";
+ const pageGroups={
+  membrane:[3,4,5,6,7,8],
+  texture:[9,10,11],
+  double:[12],
+  digital:[13,14,15,16,17],
+  windows:[17,18],
+  lifestyle:[1,2]
+ };
+ let group="membrane";
+ if(["texture-membrane-doors","mica-doors","melamine-doors"].includes(slug))group="texture";
+ else if(["3d-doors","designer-doors"].includes(slug))group="digital";
+ else if(["windows","sagwan-glass-doors","sagwan-jali-doors","frp-jali-doors","frames","door-locks","handles-hardware","smart-locks","mortise-locks"].includes(slug))group="windows";
+ else if(slug==="sagwan-doors")group="lifestyle";
+ else if(slug==="double-doors")group="double";
+ try{
+  const response=await fetch("image-index.csv",{cache:"no-cache"});
+  if(!response.ok)throw new Error("catalogue index unavailable");
+  const rows=(await response.text()).trim().split(/\r?\n/).slice(1).map(line=>line.split(","));
+  const pages=pageGroups[group]||pageGroups.membrane;
+  const photos=rows.filter(row=>pages.includes(Number(row[1]))).map(row=>row[0]).filter(Boolean);
+  if(!photos.length)return;
+  const cards=[...document.querySelectorAll(".catalogue-product-card")];
+  cards.forEach((card,i)=>{
+   const img=card.querySelector(".catalogue-product-image img");
+   if(img){img.src=photos[i%photos.length];img.removeAttribute("srcset");img.onerror=()=>{img.style.display="none"};}
+   card.dataset.cataloguePhoto=photos[i%photos.length];
+  });
+  const detail=document.getElementById("detailImage");
+  const originalOpen=window.openDetail;
+  const observer=new MutationObserver(()=>{
+   const shown=detail&&detail.querySelector("img");
+   if(!shown)return;
+   const selected=document.querySelector(".catalogue-product-card:focus");
+   const idx=selected?cards.indexOf(selected):0;
+   shown.src=photos[Math.max(0,idx)%photos.length];
+   shown.onerror=()=>{shown.style.display="none"};
+  });
+  if(detail)observer.observe(detail,{childList:true,subtree:true});
+ }catch(error){console.warn("Camwood catalogue photos could not be loaded",error);}
+})();
+</script>
 </body></html>
