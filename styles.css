@@ -194,3 +194,19 @@ body.detail-open{overflow:hidden}
 .category-card .category-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2;display:block;transition:transform .7s cubic-bezier(.2,.65,.2,1)}
 .category-card:hover .category-photo{transform:scale(1.07)}
 .catalogue-product-image img,.product-detail-image img{object-fit:cover;object-position:center;image-rendering:auto}
+
+
+/* Keep the complete Camwood catalogue image visible without cropping. */
+.category-card .category-photo,
+.catalogue-product-image img,
+.product-detail-image img {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+.category-card .category-photo {
+  background: #f4f4f2;
+}
+.catalogue-product-image,
+.product-detail-image {
+  background: #f4f4f2;
+}
