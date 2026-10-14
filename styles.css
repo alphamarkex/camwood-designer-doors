@@ -301,3 +301,87 @@ body.detail-open{overflow:hidden}
  .door-view-gallery span{font-size:.52rem}
  .door-zoom-controls{bottom:105px}
 }
+
+
+/* Fix product-detail layout: keep the complete door, zoom controls and all thumbnails visible. */
+.product-detail-dialog {
+  width: min(1120px, 96vw);
+  max-height: min(88dvh, 900px);
+  overflow: hidden;
+  align-items: stretch;
+}
+.product-detail-image {
+  position: relative;
+  height: min(76dvh, 760px);
+  min-height: 420px;
+  max-height: 760px;
+  overflow: hidden;
+  background: #f3f3f1;
+  isolation: isolate;
+}
+.product-detail-image > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  padding: 0 0 118px;
+  box-sizing: border-box;
+  object-fit: contain !important;
+  object-position: center center !important;
+  image-rendering: auto;
+  background: #f3f3f1;
+}
+.door-view-gallery {
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.door-view-gallery button {
+  overflow: hidden;
+  border-radius: 4px;
+  min-height: 88px;
+}
+.door-view-gallery img {
+  height: 56px;
+  min-height: 0;
+  object-fit: contain;
+}
+.door-view-gallery span {
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.door-zoom-controls {
+  bottom: 112px;
+}
+.product-detail-copy {
+  overflow-y: auto;
+  min-height: 0;
+}
+@media (max-width: 700px) {
+  .product-detail-dialog {
+    width: 100%;
+    max-height: 94dvh;
+    overflow-y: auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .product-detail-image {
+    height: 58dvh;
+    min-height: 360px;
+    max-height: 560px;
+  }
+  .product-detail-image > img {
+    padding-bottom: 112px;
+  }
+  .door-view-gallery button { min-height: 76px; padding: 4px; }
+  .door-view-gallery img { height: 44px; }
+  .door-view-gallery span { font-size: .52rem; }
+  .door-zoom-controls { bottom: 104px; }
+  .product-detail-copy { overflow: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-detail-image > img { transition: none !important; }
+}
