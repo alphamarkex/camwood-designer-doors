@@ -118,7 +118,7 @@
 </script>
 
 <script>
-/* Render the uploaded catalogue images locally, grouped by their PDF catalogue sections. */
+/* Use real door pages from the uploaded Camwood catalogue, with a gentle image carousel. */
 (async function(){
  const slug=new URLSearchParams(location.search).get("category")||"designer-doors";
  const pageGroups={
@@ -133,8 +133,8 @@
  if(["texture-membrane-doors","mica-doors","melamine-doors"].includes(slug))group="texture";
  else if(["3d-doors","designer-doors"].includes(slug))group="digital";
  else if(["windows","sagwan-glass-doors","sagwan-jali-doors","frp-jali-doors","frames","door-locks","handles-hardware","smart-locks","mortise-locks"].includes(slug))group="windows";
- else if(slug==="sagwan-doors")group="lifestyle";
  else if(slug==="double-doors")group="double";
+ else if(["sagwan-doors","membrane-doors","pvc-doors","frp-doors","wpc-doors"].includes(slug))group="membrane";
  try{
   const response=await fetch("image-index.csv",{cache:"no-cache"});
   if(!response.ok)throw new Error("catalogue index unavailable");
@@ -143,19 +143,45 @@
   const photos=rows.filter(row=>pages.includes(Number(row[1]))).map(row=>row[0]).filter(Boolean);
   if(!photos.length)return;
   const cards=[...document.querySelectorAll(".catalogue-product-card")];
+  const portfolioNames=["Classic Wood Tones","Statement Patterns","Design That Stands Out"];
   cards.forEach((card,i)=>{
    const img=card.querySelector(".catalogue-product-image img");
-   if(img){img.src=photos[i%photos.length];img.removeAttribute("srcset");img.onerror=()=>{img.style.display="none"};}
-   card.dataset.cataloguePhoto=photos[i%photos.length];
+   if(!img)return;
+   const photo=photos[i%photos.length];
+   img.src=photo;img.removeAttribute("srcset");img.style.opacity="1";
+   img.onerror=()=>{img.style.display="none"};
+   card.dataset.cataloguePhoto=photo;
+   const small=card.querySelector(".catalogue-product-info>small");
+   const strong=card.querySelector(".catalogue-product-info>strong");
+   if(small)small.textContent=i===0?"POPULAR PICK · PORTFOLIO":("PORTFOLIO DESIGN "+String(i+1).padStart(2,"0"));
+   if(strong)strong.textContent=portfolioNames[i%portfolioNames.length];
+   if(i===0){
+    const tag=document.createElement("span");
+    tag.className="catalogue-popular-tag";tag.textContent="POPULAR PICK";
+    card.querySelector(".catalogue-product-image")?.appendChild(tag);
+   }
+   /* Fade between actual doors from the same catalogue section. */
+   if(photos.length>1){
+    let next=(i+1)%photos.length;
+    window.setInterval(()=>{
+      img.classList.add("catalogue-slide-fade");
+      window.setTimeout(()=>{
+       img.src=photos[next%photos.length];
+       card.dataset.cataloguePhoto=photos[next%photos.length];
+       next++;
+       img.classList.remove("catalogue-slide-fade");
+      },280);
+    },4200+(i%4)*430);
+   }
   });
   const detail=document.getElementById("detailImage");
-  const originalOpen=window.openDetail;
   const observer=new MutationObserver(()=>{
    const shown=detail&&detail.querySelector("img");
    if(!shown)return;
    const selected=document.querySelector(".catalogue-product-card:focus");
    const idx=selected?cards.indexOf(selected):0;
-   shown.src=photos[Math.max(0,idx)%photos.length];
+   shown.src=photos[(idx<0?0:idx)%photos.length];
+   shown.style.objectFit="contain";
    shown.onerror=()=>{shown.style.display="none"};
   });
   if(detail)observer.observe(detail,{childList:true,subtree:true});
