@@ -101,16 +101,18 @@
   el.replaceChildren();
   const img=document.createElement("img");
   img.alt=alt;img.loading="lazy";img.decoding="async";
-  img.dataset.originalSrc=src;
   img.src=src;
   img.onerror=()=>{
    const pageMatch=(src||"").match(/^page-(\\d+)-image-/);
    const pageNo=pageMatch?Number(pageMatch[1]):null;
-   const candidates=(window.__camwoodImageIndex||[]).filter(item=>pageNo&&item.page===pageNo&&item.file!==src&&item.w<500&&item.h>300);
-   const fallback=candidates[0]?.file;
-   if(fallback&&!img.dataset.fallbackTried){img.dataset.fallbackTried="1";img.src=fallback;return;}
-   img.onerror=null;img.classList.add("image-unavailable");img.alt=alt+" (image unavailable)";
-   const notice=document.createElement("span");notice.className="image-fallback-label";notice.textContent="Image temporarily unavailable";
+   const candidates=(window.__camwoodImageIndex||[]).filter(item=>pageNo&&item.page===pageNo&&item.w<500&&item.h>300&&item.file!==src);
+   let next=candidates.find(item=>!img.dataset.triedFiles?.split("|").includes(item.file));
+   if(next){
+    img.dataset.triedFiles=[...(img.dataset.triedFiles?img.dataset.triedFiles.split("|"):[]),src].join("|");
+    img.src=next.file;return;
+   }
+   img.onerror=null;img.classList.add("image-unavailable");
+   const notice=document.createElement("span");notice.className="image-fallback-label";notice.textContent="Image unavailable";
    el.replaceChildren(notice);
   };
   el.appendChild(img);
@@ -120,8 +122,25 @@
   document.getElementById("detailModel").textContent=title+" · Portfolio page "+product.page;
   document.getElementById("detailMaterial").textContent="As pictured in Camwood catalogue; confirm exact material and finish";
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
-  detailImage.className="product-detail-image view-original";
-  setImage(detailImage,product.file,product.code+" original catalogue design");
+  detailImage.replaceChildren();
+  detailImage.className="product-detail-image";
+  const main=document.createElement("div");main.className="detail-main-photo";
+  setImage(main,product.file,product.code+" original catalogue design");
+  detailImage.appendChild(main);
+  const gallery=document.createElement("div");gallery.className="door-view-gallery";
+  const original=document.createElement("button");original.type="button";original.className="is-active";
+  const thumb=document.createElement("span");thumb.className="detail-thumb";
+  setImage(thumb,product.file,product.code+" original design thumbnail");
+  const label=document.createElement("span");label.textContent="Original design";
+  original.append(thumb,label);original.onclick=()=>{main.replaceChildren();setImage(main,product.file,product.code+" original catalogue design");gallery.querySelectorAll("button").forEach(b=>b.classList.remove("is-active"));original.classList.add("is-active")};
+  gallery.appendChild(original);
+  ["Modern interior","Warm classic interior"].forEach(name=>{
+   const button=document.createElement("button");button.type="button";button.className="detail-view-pending";button.disabled=true;
+   const placeholder=document.createElement("span");placeholder.className="detail-view-placeholder";placeholder.textContent="AI view";
+   const textLabel=document.createElement("span");textLabel.textContent=name+" · coming soon";
+   button.append(placeholder,textLabel);gallery.appendChild(button);
+  });
+  detailImage.appendChild(gallery);
   detail.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
  }
  document.getElementById("detailClose").onclick=()=>{detail.hidden=true;document.body.classList.remove("detail-open")};
@@ -135,7 +154,7 @@
    const indexedFiles=rows.filter(r=>r.page===p&&r.w<500&&r.h>300).map(r=>r.file);
    const files=(explicit[p]||exactFiles[p]||indexedFiles).filter(file=>rows.some(r=>r.file===file));
    const safeFiles=files.length?files:indexedFiles;
-   codes.forEach((code,i)=>{const file=files[i%files.length];if(file)products.push({code,file,page:p,category:title})});
+   codes.forEach((code,i)=>{const file=safeFiles.length?safeFiles[i%safeFiles.length]:null;if(file)products.push({code,file,page:p,category:title})});
   });
   if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
    const all=explicit[18];products.forEach((product,i)=>{product.file=slug==="solid-wood-window"?all[i%5]:all[(i+5)%all.length]});
