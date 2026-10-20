@@ -46,8 +46,9 @@
 <script src="script.js"></script>
 <script>
 (function(){
- const names={"sagwan-doors":"Sagwan Doors","sagwan-jali-doors":"Sagwan Jali Doors","sagwan-glass-doors":"Sagwan Glass Doors","texture-membrane-doors":"Texture Membrane Doors","pvc-doors":"PVC Doors","door-locks":"Door Locks","handles-hardware":"Handles & Hardware Items","smart-locks":"Smart Locks","3d-doors":"3D Doors","membrane-doors":"Membrane Doors","mica-doors":"Mica Doors","frp-doors":"FRP Doors","frp-jali-doors":"FRP Jali Doors","wpc-doors":"WPC Doors","melamine-doors":"Melamine Doors","designer-doors":"Designer Doors","windows":"Windows","frames":"Frames","mortise-locks":"Mortise Locks"};
+ const names={"textured-door":"Textured Door","membrane-door":"Membrane Door","double-door":"Double Door","digital-door":"Digital Door","solid-wood-window":"Solid Wood Window","jali-glass-window-door":"Jali & Glass Window and Door"};
  const images={
+ "textured-door":"page-09-image-6908.webp", "membrane-door":"page-03-image-395.webp", "double-door":"page-12-image-11311.webp", "digital-door":"page-18-image-15887.webp", "solid-wood-window":"page-01-image-17886.webp", "jali-glass-window-door":"page-02-image-259.webp",
  "sagwan-doors":"https://img.staticmb.com/mbcontent/images/crop/uploads/2026/5/solid-teak-wood-main-door_0_1200.jpg.webp",
  "sagwan-jali-doors":"https://housiey.com/blogs/wp-content/uploads/2024/12/Woods.jpg",
  "sagwan-glass-doors":"https://i.pinimg.com/originals/d4/1e/2a/d41e2a1f6d4ed6e9948a8498f3be5847.jpg",
@@ -68,20 +69,20 @@
  "frames":"https://www.wpcinteriordoor.com/photo/pl207915284-moisture_and_rot_resistant_termite_proof_wpc_hollow_door_with_30_db_sound_insulation_for_interior_use.jpg",
  "mortise-locks":"https://yaleonline.in/cdn/shop/files/SM040101SS5_750x.jpg?v=1740808919"
  };
- const fallback=["assets/catalog-05.jpg","assets/catalog-06.jpg","assets/catalog-03.jpg","assets/catalog-04.jpg","assets/membrane-door-interior.jpg"];
- const params=new URLSearchParams(location.search),slug=params.get("category")||"designer-doors",title=names[slug]||"Designer Doors";
- const hardware=["door-locks","handles-hardware","smart-locks","mortise-locks","frames"].includes(slug);
+ const fallback=["page-03-image-395.webp","page-09-image-6908.webp","page-12-image-11311.webp","page-17-image-15764.webp"];
+ const params=new URLSearchParams(location.search),slug=params.get("category")||"membrane-door",title=names[slug]||"Membrane Door";
+ const hardware=false;
  document.title=title+" | Camwood Designer Doors & Windows";
  document.getElementById("collectionTitle").textContent=title;
  document.getElementById("collectionCrumb").textContent=title.toUpperCase();
- document.getElementById("collectionDescription").textContent=hardware?"Browse finishing and hardware references. Ask Camwood to confirm the exact product, finish and compatibility.":"Browse door design references. Select a model to ask about material, thickness, length and finish.";
+ document.getElementById("collectionDescription").textContent=slug==="solid-wood-window"?"Browse solid wood window references extracted from the Camwood portfolio. Confirm dimensions, wood type and finish with our team.":slug==="jali-glass-window-door"?"Explore jali and glass window and door references from the Camwood portfolio. Confirm style, dimensions and availability with our team.":"Browse "+title.toLowerCase()+" design references extracted from the Camwood portfolio. Ask Camwood to confirm dimensions, material and finish.";
  const grid=document.getElementById("catalogueProducts");
  const models=["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013","CW-014","CW-015","CW-016","CW-017","CW-018","CW-019","CW-020","CW-021"];
- const material=hardware?"Material / finish varies by hardware item":slug.includes("sagwan")?"Sagwan / wood finish — confirm exact material":"Material varies by model — confirm with Camwood";
- const offsets={"sagwan-doors":0,"sagwan-jali-doors":3,"sagwan-glass-doors":4,"texture-membrane-doors":6,"pvc-doors":8,"door-locks":10,"handles-hardware":11,"smart-locks":12,"3d-doors":13,"membrane-doors":0,"mica-doors":5,"frp-doors":8,"frp-jali-doors":13,"wpc-doors":6,"melamine-doors":7,"designer-doors":2,"windows":16,"frames":17,"mortise-locks":18};
+ const material=slug==="solid-wood-window"?"Solid wood finish — confirm exact material": "Material varies by design — confirm with Camwood";
+ const offsets={"textured-door":6,"membrane-door":0,"double-door":12,"digital-door":13,"solid-wood-window":16,"jali-glass-window-door":17};
  const offset=offsets[slug]||0,total=hardware?8:12;
  document.getElementById("productCount").textContent=total+" design references";
- function optimized(url,w=1000){return "https://images.weserv.nl/?url="+encodeURIComponent(url.replace(/^https?:\/\//,""))+"&w="+w+"&q=80&output=webp"}
+ function optimized(url,w=1000){return url.startsWith("http")?"https://images.weserv.nl/?url="+encodeURIComponent(url.replace(/^https?:\/\//,""))+"&w="+w+"&q=80&output=webp":url}
  function setPhoto(container,url,idx,large=false){
    container.replaceChildren();
    const img=document.createElement("img");
@@ -117,12 +118,12 @@
 /* Category gallery: zoom controls plus three catalogue views. */
 (async function(){
  const slug=new URLSearchParams(location.search).get("category")||"designer-doors";
- const pageGroups={membrane:[3,4,5,6,7,8],texture:[9,10,11],double:[12],digital:[13,14,15,16,17],windows:[17,18],lifestyle:[1,2]};
+ const pageGroups={membrane:[3,4,5,6,7,8],texture:[9,10,11],double:[12],digital:[13,14,15,16],windows:[17,18]};
  let group="membrane";
- if(["texture-membrane-doors","mica-doors","melamine-doors"].includes(slug))group="texture";
- else if(["3d-doors","designer-doors"].includes(slug))group="digital";
- else if(["windows","sagwan-glass-doors","sagwan-jali-doors","frp-jali-doors","frames","door-locks","handles-hardware","smart-locks","mortise-locks"].includes(slug))group="windows";
- else if(slug==="double-doors")group="double";
+ if(slug==="textured-door")group="texture";
+ else if(slug==="digital-door")group="digital";
+ else if(slug==="double-door")group="double";
+ else if(["solid-wood-window","jali-glass-window-door"].includes(slug))group="windows";
  try{
   const response=await fetch("image-index.csv",{cache:"no-cache"});
   if(!response.ok)throw new Error("catalogue index unavailable");
