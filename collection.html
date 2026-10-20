@@ -103,7 +103,7 @@
   img.alt=alt;img.loading="lazy";img.decoding="async";
   img.src=src;
   img.onerror=()=>{
-   const pageMatch=(src||"").match(/^page-(\\d+)-image-/);
+   const pageMatch=(src||"").match(/^page-(\d+)-image-/);
    const pageNo=pageMatch?Number(pageMatch[1]):null;
    const candidates=(window.__camwoodImageIndex||[]).filter(item=>pageNo&&item.page===pageNo&&item.w<500&&item.h>300&&item.file!==src);
    let next=candidates.find(item=>!img.dataset.triedFiles?.split("|").includes(item.file));
