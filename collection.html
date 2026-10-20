@@ -46,136 +46,100 @@
 <script src="script.js"></script>
 <script>
 (function(){
- const names={"textured-door":"Textured Door","membrane-door":"Membrane Door","double-door":"Double Door","digital-door":"Digital Door","solid-wood-window":"Solid Wood Window","jali-glass-window-door":"Jali & Glass Window and Door"};
- const images={
-  "textured-door":"page-09-image-6908.webp",
-  "membrane-door":"page-03-image-395.webp",
-  "double-door":"page-12-image-11311.webp",
-  "digital-door":"page-18-image-15887.webp",
-  "solid-wood-window":"page-01-image-17886.webp",
-  "jali-glass-window-door":"page-02-image-259.webp"
+ const categories={
+  "textured-door":{title:"Textured Door",pages:[9,10,11],codes:{
+   9:["CW-073","CW-074","CW-075","CW-079","CW-080","CW-081","CW-076","CW-077","CW-078","CW-082","CW-083","CW-084"],
+   10:["CW-085","CW-086","CW-087","CW-091","CW-092","CW-093","CW-088","CW-089","CW-090","CW-094","CW-095","CW-096"],
+   11:["CW-097","CW-098","CW-099","CW-103","CW-104","CW-105","CW-100","CW-101","CW-102","CW-106","CW-107","CW-108"]}},
+  "membrane-door":{title:"Membrane Door",pages:[3,4,5,6,7,8],codes:{
+   3:["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013"],
+   4:["CW-014","CW-015","CW-016","CW-020","CW-021","CW-022","CW-017","CW-018","CW-019","CW-023","CW-024","CW-025"],
+   5:["CW-026","CW-027","CW-028","CW-032","CW-033","CW-034","CW-029","CW-030","CW-031","CW-035","CW-036","CW-037"],
+   6:["CW-038","CW-039","CW-040","CW-044","CW-045","CW-046","CW-041","CW-042","CW-043","CW-047","CW-048","CW-049"],
+   7:["CW-050","CW-051","CW-052","CW-056","CW-057","CW-058","CW-053","CW-054","CW-055","CW-059","CW-060","CW-061"],
+   8:["CW-062","CW-063","CW-064","CW-068","CW-069","CW-070","CW-065","CW-066","CW-067","CW-071","CW-072","CW-121"]}},
+  "double-door":{title:"Double Door",pages:[12],codes:{12:["CW-109","CW-110","CW-111","CW-115","CW-116","CW-117","CW-112","CW-113","CW-114","CW-118","CW-119","CW-120"]}},
+  "digital-door":{title:"Digital Door",pages:[13,14,15,16,17],codes:{
+   13:["KD-01","KD-02","KD-03","KD-04","KD-05","KD-06","KD-07"],
+   14:["KD-08","KD-09","KD-10","KD-14","KD-15","KD-16","KD-11","KD-12","KD-13","KD-17","KD-18","KD-19"],
+   15:["KD-20","KD-21","KD-22","KD-26","KD-27","KD-28","KD-23","KD-24","KD-25","KD-29","KD-30","KD-31"],
+   16:["KD-32","KD-33","KD-34","KD-38","KD-39","KD-40","KD-35","KD-36","KD-37","KD-41","KD-42","KD-43"],
+   17:["KD-44","KD-45","KD-46","KD-47","KD-48","KD-49"]}},
+  "solid-wood-window":{title:"Solid Wood Window",pages:[18],codes:{18:["W-01","W-02","W-03","W-04","W-05"]}},
+  "jali-glass-window-door":{title:"Jali & Glass Window and Door",pages:[18],codes:{18:["W-06","W-07","W-08","W-09","W-10","W-11","W-12","W-13","W-14","W-15"]}}
  };
- const fallback=["page-03-image-395.webp","page-09-image-6908.webp","page-12-image-11311.webp","page-17-image-15764.webp"];
- const params=new URLSearchParams(location.search),slug=params.get("category")||"membrane-door",title=names[slug]||"Membrane Door";
- const hardware=false;
+ const slug=new URLSearchParams(location.search).get("category")||"membrane-door";
+ const category=categories[slug]||categories["membrane-door"],title=category.title;
  document.title=title+" | Camwood Designer Doors & Windows";
  document.getElementById("collectionTitle").textContent=title;
  document.getElementById("collectionCrumb").textContent=title.toUpperCase();
- document.getElementById("collectionDescription").textContent=slug==="solid-wood-window"?"Browse solid wood window references extracted from the Camwood portfolio. Confirm dimensions, wood type and finish with our team.":slug==="jali-glass-window-door"?"Explore jali and glass window and door references from the Camwood portfolio. Confirm style, dimensions and availability with our team.":"Browse "+title.toLowerCase()+" design references extracted from the Camwood portfolio. Ask Camwood to confirm dimensions, material and finish.";
- const grid=document.getElementById("catalogueProducts");
- const models=["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013","CW-014","CW-015","CW-016","CW-017","CW-018","CW-019","CW-020","CW-021"];
- const material=slug==="solid-wood-window"?"Solid wood finish — confirm exact material": "Material varies by design — confirm with Camwood";
- const offsets={"textured-door":6,"membrane-door":0,"double-door":12,"digital-door":13,"solid-wood-window":16,"jali-glass-window-door":17};
- const offset=offsets[slug]||0,total=hardware?8:12;
- document.getElementById("productCount").textContent=total+" design references";
- function optimized(url,w=1000){return url.startsWith("http")?"https://images.weserv.nl/?url="+encodeURIComponent(url.replace(/^https?:\/\//,""))+"&w="+w+"&q=80&output=webp":url}
- function setPhoto(container,url,idx,large=false){
-   container.replaceChildren();
-   const img=document.createElement("img");
-   img.alt=title+" design reference "+(idx+1);
-   img.loading=large?"eager":"lazy";img.decoding="async";img.width=1200;img.height=1500;
-   let stage=0;
-   const choices=[optimized(url,large?1400:900),url,...fallback];
-   img.src=choices[0];
-   img.addEventListener("error",function retry(){stage++;if(stage<choices.length){img.src=choices[stage]}else{img.removeEventListener("error",retry);container.classList.add("image-unavailable")}});
-   container.appendChild(img);
- }
- for(let i=0;i<total;i++){
-   const idx=(offset+i)%models.length,model=models[idx],card=document.createElement("button");
-   card.type="button";card.className="catalogue-product-card";
-   const picture=document.createElement("span");picture.className="catalogue-product-image";setPhoto(picture,images[slug]||images["designer-doors"],idx);
-   const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<small>MODEL REFERENCE '+String(i+1).padStart(2,"0")+'</small><strong>'+title+'</strong><span>'+model+' · View specifications ↗</span><span class="catalogue-inline-spec"><b>Material</b> Confirm · <b>Thickness</b> Confirm · <b>Length</b> Confirm</span>';
-   card.append(picture,info);card.addEventListener("click",()=>openDetail(idx,model,title,material));grid.appendChild(card);
- }
- function openDetail(idx,model,category,materialText){
-   const back=document.getElementById("productDetail");
-   document.getElementById("detailTitle").textContent=category;document.getElementById("detailModel").textContent="Catalogue reference: "+model;document.getElementById("detailMaterial").textContent=materialText;
-   setPhoto(document.getElementById("detailImage"),images[slug]||images["designer-doors"],idx,true);
-   document.getElementById("detailEnquire").href="index.html#contact";back.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
- }
- document.getElementById("detailClose").addEventListener("click",()=>{document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")});
- document.getElementById("productDetail").addEventListener("click",e=>{if(e.target.id==="productDetail"){e.currentTarget.hidden=true;document.body.classList.remove("detail-open")}});
- document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.getElementById("productDetail").hidden=true;document.body.classList.remove("detail-open")}});
-})();
-</script>
-
-<script>
-/* Category gallery: zoom controls plus three catalogue views. */
-(async function(){
- const slug=new URLSearchParams(location.search).get("category")||"designer-doors";
- const pageGroups={membrane:[3,4,5,6,7,8],texture:[9,10,11],double:[12],digital:[13,14,15,16],windows:[17,18]};
- let group="membrane";
- if(slug==="textured-door")group="texture";
- else if(slug==="digital-door")group="digital";
- else if(slug==="double-door")group="double";
- else if(["solid-wood-window","jali-glass-window-door"].includes(slug))group="windows";
- try{
-  const response=await fetch("image-index.csv",{cache:"no-cache"});
-  if(!response.ok)throw new Error("catalogue index unavailable");
-  const rows=(await response.text()).trim().split(/\r?\n/).slice(1).map(line=>line.split(","));
-  const pages=pageGroups[group]||pageGroups.membrane;
-  const photos=rows.filter(row=>pages.includes(Number(row[1]))).map(row=>row[0]).filter(Boolean);
-  const cards=[...document.querySelectorAll(".catalogue-product-card")];
-  const portfolioNames=["Classic Wood Tones","Statement Patterns","Design That Stands Out"];
-  cards.forEach((card,i)=>{
-   const img=card.querySelector(".catalogue-product-image img");
-   if(!img||!photos.length)return;
-   const photo=photos[i%photos.length];
-   img.src=photo;img.removeAttribute("srcset");img.style.opacity="1";
-   img.onerror=()=>{img.style.display="none"};
-   card.dataset.cataloguePhoto=photo;
-   const small=card.querySelector(".catalogue-product-info>small");
-   const strong=card.querySelector(".catalogue-product-info>strong");
-   if(small)small.textContent=i===0?"FEATURED PICK · PORTFOLIO":"PORTFOLIO DESIGN "+String(i+1).padStart(2,"0");
-   if(strong)strong.textContent=portfolioNames[i%portfolioNames.length];
-   if(i===0&&!card.querySelector(".catalogue-popular-tag")){
-    const tag=document.createElement("span");tag.className="catalogue-popular-tag";tag.textContent="FEATURED PICK";
-    card.querySelector(".catalogue-product-image")?.appendChild(tag);
-   }
-   /* Clicking the card opens its own photo as the first, selected gallery view. */
-   card.addEventListener("click",()=>{
-    window.setTimeout(()=>{
-     const detail=document.getElementById("detailImage");
-     const mainImg=detail?.querySelector("img");
-     if(!detail||!mainImg)return;
-     const selected=card.dataset.cataloguePhoto||photo;
-     const startAt=Math.max(0,photos.indexOf(selected));
-     const viewPhotos=[selected,photos[(startAt+1)%photos.length],photos[(startAt+2)%photos.length]];
-     let gallery=detail.querySelector(".door-view-gallery");
-     if(!gallery){gallery=document.createElement("div");gallery.className="door-view-gallery";detail.appendChild(gallery);}
-     gallery.replaceChildren();
-     const labels=["Front view","Frame / finish reference","Room / open-door inspiration"];
-     let active=0,zoomed=false;
-     function showView(n){
-      active=n;mainImg.src=viewPhotos[n];mainImg.style.display="block";
-      mainImg.style.transform=zoomed?"scale(2)":"scale(1)";
-      mainImg.style.cursor=zoomed?"zoom-out":"zoom-in";
-      [...gallery.querySelectorAll("button[data-view]")].forEach((b,j)=>b.setAttribute("aria-pressed",String(j===n)));
-     }
-     viewPhotos.forEach((src,n)=>{
-      const b=document.createElement("button");b.type="button";b.dataset.view=String(n);b.setAttribute("aria-label",labels[n]);b.setAttribute("aria-pressed",String(n===0));
-      const thumb=document.createElement("img");thumb.src=src;thumb.alt="";thumb.loading="lazy";b.appendChild(thumb);
-      const label=document.createElement("span");label.textContent=labels[n];b.appendChild(label);
-      b.addEventListener("click",e=>{e.stopPropagation();zoomed=false;showView(n);});
-      gallery.appendChild(b);
-     });
-     let controls=detail.querySelector(".door-zoom-controls");
-     if(!controls){controls=document.createElement("div");controls.className="door-zoom-controls";detail.appendChild(controls);}
-     controls.replaceChildren();
-     const zoomOut=document.createElement("button");zoomOut.type="button";zoomOut.textContent="−";zoomOut.setAttribute("aria-label","Zoom out");
-     const zoomLabel=document.createElement("span");zoomLabel.textContent="Click image to zoom";
-     const zoomIn=document.createElement("button");zoomIn.type="button";zoomIn.textContent="+";zoomIn.setAttribute("aria-label","Zoom in");
-     function setZoom(on){zoomed=on;mainImg.style.transform=on?"scale(2)":"scale(1)";mainImg.style.cursor=on?"zoom-out":"zoom-in";zoomLabel.textContent=on?"Zoomed in · click image to reset":"Click image to zoom";}
-     zoomIn.addEventListener("click",e=>{e.stopPropagation();setZoom(true);});
-     zoomOut.addEventListener("click",e=>{e.stopPropagation();setZoom(false);});
-     mainImg.onclick=()=>setZoom(!zoomed);
-     controls.append(zoomOut,zoomLabel,zoomIn);
-     showView(0);
-    },0);
-   });
+ document.getElementById("collectionDescription").textContent="Browse authentic "+title.toLowerCase()+" references from the Camwood portfolio. The model code follows the catalogue. Confirm dimensions, material, finish and availability with our team.";
+ const grid=document.getElementById("catalogueProducts"),detail=document.getElementById("productDetail"),detailImage=document.getElementById("detailImage");
+ const parseIndex=async()=>{const r=await fetch("image-index.csv");if(!r.ok)throw Error("Image index unavailable");return (await r.text()).trim().split(/\r?\n/).slice(1).map(line=>{const a=line.split(",");return {file:a[0],page:Number(a[1]),w:Number(a[3]),h:Number(a[4])}})};
+ const explicit={
+  13:["page-13-image-11777.webp","page-13-image-11785.webp","page-13-image-11787.webp","page-13-image-11789.webp","page-13-image-11778.webp","page-13-image-11779.webp","page-13-image-11791.webp"],
+  17:["page-17-image-15764.webp","page-17-image-15765.webp","page-17-image-15766.webp","page-17-image-15768.webp","page-17-image-15769.webp","page-17-image-15770.webp"],
+  18:["page-18-image-15887.webp","page-18-image-16870.webp","page-18-image-16872.webp","page-18-image-16874.webp","page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16939.webp"]
+ };
+ const exactFiles={
+  3:["page-03-image-395.webp","page-03-image-396.webp","page-03-image-397.webp","page-03-image-386.webp","page-03-image-387.webp","page-03-image-388.webp","page-03-image-389.webp","page-03-image-390.webp","page-03-image-391.webp","page-03-image-392.webp","page-03-image-393.webp","page-03-image-394.webp"],
+  4:["page-04-image-2477.webp","page-04-image-2478.webp","page-04-image-2479.webp","page-04-image-2480.webp","page-04-image-2469.webp","page-04-image-2470.webp","page-04-image-2471.webp","page-04-image-2472.webp","page-04-image-2473.webp","page-04-image-2474.webp","page-04-image-2475.webp","page-04-image-2476.webp"],
+  5:["page-05-image-3581.webp","page-05-image-3582.webp","page-05-image-3583.webp","page-05-image-3584.webp","page-05-image-3585.webp","page-05-image-3574.webp","page-05-image-3575.webp","page-05-image-3576.webp","page-05-image-3577.webp","page-05-image-3578.webp","page-05-image-3579.webp","page-05-image-3580.webp"],
+  6:["page-06-image-4685.webp","page-06-image-4686.webp","page-06-image-4687.webp","page-06-image-4688.webp","page-06-image-4689.webp","page-06-image-4690.webp","page-06-image-4679.webp","page-06-image-4680.webp","page-06-image-4681.webp","page-06-image-4682.webp","page-06-image-4683.webp","page-06-image-4684.webp"],
+  7:["page-07-image-5789.webp","page-07-image-5790.webp","page-07-image-5791.webp","page-07-image-5792.webp","page-07-image-5793.webp","page-07-image-5794.webp","page-07-image-5795.webp","page-07-image-5784.webp","page-07-image-5785.webp","page-07-image-5786.webp","page-07-image-5787.webp","page-07-image-5788.webp"],
+  8:["page-08-image-6892.webp","page-08-image-6893.webp","page-08-image-6894.webp","page-08-image-6896.webp","page-08-image-6898.webp","page-08-image-6899.webp","page-08-image-6900.webp","page-08-image-6901.webp","page-08-image-6902.webp","page-08-image-6889.webp","page-08-image-6890.webp","page-08-image-6891.webp"],
+  9:["page-09-image-6914.webp","page-09-image-6915.webp","page-09-image-6916.webp","page-09-image-6917.webp","page-09-image-6918.webp","page-09-image-6907.webp","page-09-image-6908.webp","page-09-image-6909.webp","page-09-image-6910.webp","page-09-image-6911.webp","page-09-image-6912.webp","page-09-image-6913.webp"],
+  10:["page-10-image-9101.webp","page-10-image-9102.webp","page-10-image-9103.webp","page-10-image-9104.webp","page-10-image-9105.webp","page-10-image-9106.webp","page-10-image-9107.webp","page-10-image-9108.webp","page-10-image-9109.webp","page-10-image-9110.webp","page-10-image-9111.webp","page-10-image-9112.webp"],
+  11:["page-11-image-10206.webp","page-11-image-10207.webp","page-11-image-10208.webp","page-11-image-10209.webp","page-11-image-10210.webp","page-11-image-10211.webp","page-11-image-10212.webp","page-11-image-10213.webp","page-11-image-10214.webp","page-11-image-10215.webp","page-11-image-10216.webp","page-11-image-10217.webp"],
+  12:["page-12-image-11311.webp","page-12-image-11312.webp","page-12-image-11313.webp","page-12-image-11314.webp","page-12-image-11315.webp","page-12-image-11316.webp","page-12-image-11317.webp","page-12-image-11318.webp","page-12-image-11319.webp","page-12-image-11320.webp","page-12-image-11321.webp","page-12-image-11322.webp"],
+  14:["page-14-image-12887.webp","page-14-image-12888.webp","page-14-image-12889.webp","page-14-image-12890.webp","page-14-image-12891.webp","page-14-image-12892.webp","page-14-image-12893.webp","page-14-image-12894.webp","page-14-image-12895.webp","page-14-image-12896.webp","page-14-image-12898.webp","page-14-image-12900.webp"],
+  15:["page-15-image-14004.webp","page-15-image-14006.webp","page-15-image-14008.webp","page-15-image-14009.webp","page-15-image-13995.webp","page-15-image-13996.webp","page-15-image-13997.webp","page-15-image-13998.webp","page-15-image-13999.webp","page-15-image-14000.webp","page-15-image-14001.webp","page-15-image-14002.webp"],
+  16:["page-16-image-15109.webp","page-16-image-15110.webp","page-16-image-15111.webp","page-16-image-15112.webp","page-16-image-15113.webp","page-16-image-15114.webp","page-16-image-15115.webp","page-16-image-15103.webp","page-16-image-15104.webp","page-16-image-15106.webp","page-16-image-15107.webp","page-16-image-15108.webp"]
+ };
+ const roomClass=["view-original","view-modern","view-classic"];
+ function setImage(el,src,alt){el.replaceChildren();const img=document.createElement("img");img.src=src;img.alt=alt;img.loading="lazy";img.decoding="async";img.onerror=()=>{img.alt="Portfolio image unavailable: "+alt};el.appendChild(img);}
+ function openDetail(product){
+  document.getElementById("detailTitle").textContent=product.code;
+  document.getElementById("detailModel").textContent=title+" · Portfolio page "+product.page;
+  document.getElementById("detailMaterial").textContent="As pictured in Camwood catalogue; confirm exact material and finish";
+  document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
+  detailImage.className="product-detail-image "+roomClass[0];setImage(detailImage,product.file,product.code+" original catalogue design");
+  let gallery=detailImage.querySelector(".door-view-gallery");
+  if(!gallery){gallery=document.createElement("div");gallery.className="door-view-gallery";detailImage.appendChild(gallery)}
+  gallery.replaceChildren();
+  const labels=["Original design","Modern interior","Warm classic interior"];
+  labels.forEach((label,i)=>{
+   const b=document.createElement("button");b.type="button";b.dataset.view=String(i);b.setAttribute("aria-pressed",String(i===0));b.setAttribute("aria-label",label);
+   const thumb=document.createElement("img");thumb.src=product.file;thumb.alt="";b.appendChild(thumb);
+   const span=document.createElement("span");span.textContent=label;b.appendChild(span);
+   b.addEventListener("click",e=>{e.stopPropagation();detailImage.className="product-detail-image "+roomClass[i];detailImage.querySelector("img").src=product.file;gallery.querySelectorAll("button").forEach((x,j)=>x.setAttribute("aria-pressed",String(i===j)))});
+   gallery.appendChild(b);
   });
- }catch(error){console.warn("Camwood gallery could not load the catalogue index",error);}
+  detail.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
+ }
+ document.getElementById("detailClose").onclick=()=>{detail.hidden=true;document.body.classList.remove("detail-open")};
+ detail.onclick=e=>{if(e.target===detail){detail.hidden=true;document.body.classList.remove("detail-open")}};
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"){detail.hidden=true;document.body.classList.remove("detail-open")}});
+ parseIndex().then(rows=>{
+  const products=[];
+  category.pages.forEach(p=>{
+   const codes=category.codes[p]||[];
+   const files=explicit[p]||exactFiles[p]||(rows.filter(r=>r.page===p&&r.w<500&&r.h>300).map(r=>r.file));
+   codes.forEach((code,i)=>{const file=files[i%files.length];if(file)products.push({code,file,page:p,category:title})});
+  });
+  if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
+   const all=explicit[18];products.forEach((product,i)=>{product.file=slug==="solid-wood-window"?all[i%5]:all[(i+5)%all.length]});
+  }
+  document.getElementById("productCount").textContent=products.length+" catalogue designs";
+  grid.replaceChildren();
+  products.forEach((product,i)=>{
+   const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
+   const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
+   const info=document.createElement("span");info.className="catalogue-product-info";
+   info.innerHTML='<small>PORTFOLIO PAGE '+product.page+'</small><strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">Material, dimensions and finish: confirm with Camwood</span>';
+   card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
+  });
+ }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
 })();
 </script>
-<footer class="site-footer"><div class="footer-main"><a class="brand footer-brand" href="index.html"><span class="brand-word">cam<span>wood</span></span><small>DESIGNER DOORS & WINDOWS</small></a><p>Thoughtful doors, windows and finishing details for your space.</p><div class="footer-social"><a href="https://www.instagram.com/Camwood2017/" target="_blank" rel="noopener">Instagram @Camwood2017 ↗</a><a href="https://www.camwood.in/">www.camwood.in ↗</a></div></div><div class="footer-column"><h2>Explore</h2><a href="index.html">Home</a><a href="about.html">About Camwood</a><a href="collections.html">Collections & Products</a><a href="contact.html">Contact & Locations</a></div><div class="footer-column"><h2>Contact</h2><a href="tel:9580466287">+91 95804 66287</a><a href="tel:9555375633">Office: 95553 75633</a><a href="tel:05424068679">0542-4068679</a><a href="mailto:camwoodshowroom@gmail.com">camwoodshowroom@gmail.com</a></div><div class="footer-column footer-address"><h2>Showroom</h2><p>S.14/81-A-4-1-B, Maldahiya, Ground Floor, opposite Singh Medical & Research Centre, Varanasi, Uttar Pradesh – 221002</p><a href="https://www.google.com/maps/search/?api=1&query=S.14%2F81-A-4-1-B%2C+Maldahiya%2C+Varanasi+221002" target="_blank" rel="noopener">Get directions ↗</a></div><div class="footer-bottom"><span>© <span id="copyrightYear">2026</span> Camwood Designer Doors & Windows. All rights reserved.</span><a href="contact.html">Contact Camwood</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div></footer><script>document.getElementById("copyrightYear")?.replaceChildren(String(new Date().getFullYear()))</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Camwood Designer Doors & Windows","alternateName":"Khusi Designer Doors & Windows","url":"https://www.camwood.in/","telephone":["+91-9580466287","+91-9555375633","+91-5424068679"],"email":"camwoodshowroom@gmail.com","sameAs":["https://www.instagram.com/Camwood2017/"],"address":{"@type":"PostalAddress","streetAddress":"S.14/81-A-4-1-B, Maldahiya, Ground Floor, Front of Singh Medical & Research Centre","addressLocality":"Varanasi","addressRegion":"Uttar Pradesh","postalCode":"221002","addressCountry":"IN"},"areaServed":{"@type":"City","name":"Varanasi"},"description":"Designer doors and windows, WPC frames, boards, plywood, mica, fibre, PVC, aluminium and UPVC products, HDHMR doors and windows, door kits and locks in Varanasi."}</script></body></html>
+</body></html>
