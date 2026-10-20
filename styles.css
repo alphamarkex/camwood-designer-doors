@@ -410,3 +410,27 @@ body.detail-open{overflow:hidden}
 .door-view-gallery{z-index:8}
 .door-view-gallery button{border-radius:8px;overflow:hidden}
 .catalogue-product-image img{object-fit:contain!important;image-rendering:auto}
+
+/* Keep gallery thumbnails independent from the large main image. */
+.product-detail-image .door-view-gallery img{
+ position:static!important;inset:auto!important;display:block!important;
+ width:100%!important;height:58px!important;min-height:0!important;max-height:none!important;
+ padding:0!important;object-fit:contain!important;transform:none!important;
+ background:#f4f4f2!important;mix-blend-mode:normal!important;
+}
+.product-detail-image .door-view-gallery button{position:relative;z-index:2}
+.product-detail-image.view-modern:before,.product-detail-image.view-classic:before{
+ content:"";position:absolute;inset:0 0 118px;pointer-events:none;z-index:0;
+}
+.product-detail-image.view-modern:before{
+ background:linear-gradient(90deg,transparent 0 9%,#c6c4bc 9% 11%,transparent 11% 89%,#c6c4bc 89% 91%,transparent 91%),
+ linear-gradient(0deg,#d0c9bd 0 9%,transparent 9% 100%),
+ radial-gradient(ellipse at 14% 67%,#58755c 0 4%,transparent 4.5%),
+ radial-gradient(ellipse at 86% 73%,#6b836a 0 5%,transparent 5.5%);
+}
+.product-detail-image.view-classic:before{
+ background:linear-gradient(90deg,#654936 0 8%,transparent 8% 92%,#654936 92% 100%),
+ linear-gradient(0deg,#b49a7d 0 10%,transparent 10%),
+ radial-gradient(ellipse at 12% 70%,#3f5b42 0 4%,transparent 4.5%),
+ radial-gradient(ellipse at 88% 70%,#536a4e 0 5%,transparent 5.5%);
+}
