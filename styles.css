@@ -385,3 +385,17 @@ body.detail-open{overflow:hidden}
 @media (prefers-reduced-motion: reduce) {
   .product-detail-image > img { transition: none !important; }
 }
+
+
+/* Camwood verified business details and showroom contact panel */
+.business-contact-grid,.business-address-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1120px;margin:42px auto 0;text-align:left}
+.business-contact-card,.business-address-card{min-width:0;padding:25px 22px;background:#fff;border:1px solid #dfe2f2;box-shadow:0 12px 35px #20245f0a}
+.contact-card-kicker{display:block;font-size:.58rem;letter-spacing:.14em;font-weight:800;color:#2c929a;margin-bottom:13px}
+.business-contact-card h3,.business-address-card h3{font-family:Nunito,sans-serif;font-size:1.25rem;margin:0 0 15px;color:#20245f}
+.business-contact-card>a,.business-address-card>a{display:block;margin-top:11px;font-size:.78rem;line-height:1.55;overflow-wrap:anywhere;color:#30358f;font-weight:700}
+.business-contact-card>a:hover,.business-address-card>a:hover{text-decoration:underline;color:#2c929a}
+.business-address-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.business-address-card p{font-size:.8rem;line-height:1.85;color:#656a94;margin:0}
+.business-range{position:relative;z-index:1;max-width:850px;margin:28px auto 0!important;padding:17px 20px;background:#dfe4fa;color:#505680;font-size:.78rem;line-height:1.8;text-align:left}
+.business-range strong{color:#20245f}
+@media(max-width:760px){.business-contact-grid{grid-template-columns:1fr;gap:12px;margin-top:30px}.business-address-grid{grid-template-columns:1fr;gap:12px}.business-contact-card,.business-address-card{padding:21px}.business-contact-card h3,.business-address-card h3{font-size:1.15rem}.business-range{font-size:.74rem;padding:15px}.contact{padding-left:6%;padding-right:6%}}
