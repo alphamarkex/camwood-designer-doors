@@ -132,7 +132,9 @@
   const products=[];
   category.pages.forEach(p=>{
    const codes=category.codes[p]||[];
-   const indexedFiles=rows.filter(r=>r.page===p&&r.w<500&&r.h>300).map(r=>r.file);\n   const files=(explicit[p]||exactFiles[p]||indexedFiles).filter(file=>rows.some(r=>r.file===file));\n   const safeFiles=files.length?files:indexedFiles;
+   const indexedFiles=rows.filter(r=>r.page===p&&r.w<500&&r.h>300).map(r=>r.file);
+   const files=(explicit[p]||exactFiles[p]||indexedFiles).filter(file=>rows.some(r=>r.file===file));
+   const safeFiles=files.length?files:indexedFiles;
    codes.forEach((code,i)=>{const file=files[i%files.length];if(file)products.push({code,file,page:p,category:title})});
   });
   if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
