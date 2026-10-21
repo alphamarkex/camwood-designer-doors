@@ -63,7 +63,7 @@
 <script>
 (function(){
  const photoByCategory={
-  "textured-door":"page-09-image-6908.webp",
+  "textured-door":"page-09-image-6914.webp",
   "membrane-door":"page-03-image-395.webp",
   "double-door":"page-12-image-11311.webp",
   "digital-door":"page-14-image-12887.webp",
@@ -77,8 +77,8 @@
    if(!src)return;
    const img=document.createElement("img");
    img.className="category-photo";img.alt=(card.querySelector("strong")?.textContent||"Camwood portfolio")+" design";
-   img.loading="lazy";img.decoding="async";img.width=900;img.height=1200;
-   img.src=src;img.onerror=()=>{img.style.display="none"};
+   img.loading="eager";img.decoding="async";img.width=900;img.height=1200;
+   img.src=src;img.onerror=()=>{img.style.display="none";card.style.backgroundImage="var(--category-image)";};
    card.prepend(img);
    // Keep the CSS background as a fallback if the portfolio image fails to load.
  });
