@@ -572,3 +572,54 @@ body.detail-open{overflow:hidden}
 .collection-page .collection-catalogue .category-card-copy strong{font-size:1rem}
 .collection-page .collection-catalogue .category-card-copy>span{font-size:.68rem}
 }
+
+
+/* FIX 2026-10: Keep category photos above the card background; negative z-index hid them. */
+.collection-page .collection-catalogue .category-card{
+  position:relative;
+  isolation:isolate;
+  aspect-ratio:3/4;
+  min-height:0;
+  overflow:hidden;
+  background:#f4f1eb;
+}
+.collection-page .collection-catalogue .category-card .category-photo{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain!important;
+  object-position:center center!important;
+  z-index:0!important;
+  padding:0;
+  background:#f4f1eb;
+}
+.collection-page .collection-catalogue .category-card:before{
+  content:none!important;
+}
+.collection-page .collection-catalogue .category-card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1!important;
+  pointer-events:none;
+  background:linear-gradient(180deg,#151a4b05 0%,#171b4b00 45%,#171b4bd9 100%);
+}
+.collection-page .collection-catalogue .category-number,
+.collection-page .collection-catalogue .category-icon,
+.collection-page .collection-catalogue .category-card-copy{
+  position:relative;
+  z-index:2!important;
+}
+.collection-page .collection-catalogue .category-icon{position:absolute}
+.collection-page .collection-catalogue .category-card-copy{
+  margin:0 -18px -18px;
+  width:calc(100% + 36px);
+  padding:14px 12px 10px;
+  background:linear-gradient(180deg,#20245f00,#20245ff2);
+}
+@media(max-width:560px){
+ .collection-page .collection-catalogue .category-card{padding:12px}
+ .collection-page .collection-catalogue .category-card-copy{margin:0 -12px -12px;width:calc(100% + 24px);padding:12px 9px 9px}
+}
