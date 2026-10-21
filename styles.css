@@ -657,3 +657,61 @@ body.detail-open{overflow:hidden}
     aspect-ratio: 3 / 4 !important;
   }
 }
+
+
+/* Catalogue visual quality correction: preserve each door's full shape and avoid enlarging tiny source crops. */
+.collection-page .collection-catalogue .category-card {
+  aspect-ratio: 4 / 5 !important;
+  min-height: 0 !important;
+  background: linear-gradient(180deg, #f4f1eb 0%, #e9e3d9 100%) !important;
+  overflow: hidden !important;
+}
+.collection-page .collection-catalogue .category-card .category-photo {
+  position: absolute !important;
+  inset: 22px 18px 104px !important;
+  width: calc(100% - 36px) !important;
+  height: calc(100% - 126px) !important;
+  max-width: calc(100% - 36px) !important;
+  max-height: calc(100% - 126px) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  z-index: 0 !important;
+}
+.collection-page .collection-catalogue .category-card:after {
+  background: linear-gradient(180deg, #20245f00 42%, #20245f18 62%, #20245ff5 100%) !important;
+}
+.collection-page .collection-catalogue .category-card-copy {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 18px 16px 15px !important;
+  background: linear-gradient(180deg, #20245f00 0%, #20245ff5 30%) !important;
+  z-index: 2 !important;
+}
+.collection-page .collection-catalogue .category-number {
+  z-index: 3 !important;
+  color: #d5b64d !important;
+}
+.collection-page .collection-catalogue .category-icon {
+  z-index: 3 !important;
+  color: #20245f !important;
+  border-color: #20245f55 !important;
+  background: #ffffffa8 !important;
+}
+@media (max-width: 560px) {
+  .collection-page .collection-catalogue .category-card { aspect-ratio: 3 / 4 !important; }
+  .collection-page .collection-catalogue .category-card .category-photo {
+    inset: 16px 10px 110px !important;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 126px) !important;
+    max-width: calc(100% - 20px) !important;
+    max-height: calc(100% - 126px) !important;
+  }
+  .collection-page .collection-catalogue .category-card-copy { padding: 14px 10px 12px !important; }
+}
