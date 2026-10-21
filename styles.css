@@ -623,3 +623,37 @@ body.detail-open{overflow:hidden}
  .collection-page .collection-catalogue .category-card{padding:12px}
  .collection-page .collection-catalogue .category-card-copy{margin:0 -12px -12px;width:calc(100% + 24px);padding:12px 9px 9px}
 }
+
+
+/* 2026-10-21: Catalogue card image resolution and fill fix.
+   Use the available source pixels across the whole portrait card; avoid contain-mode side gutters.
+   Keep the declared category image as a fallback if a dynamically inserted photo cannot load. */
+.collection-page .collection-catalogue .category-card {
+  background-color: #f4f1eb !important;
+  background-image: var(--category-image) !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+.collection-page .collection-catalogue .category-card .category-photo {
+  object-fit: cover !important;
+  object-position: center 28% !important;
+  image-rendering: auto;
+  background: transparent !important;
+}
+.collection-page .collection-catalogue .category-card:nth-child(3) .category-photo {
+  object-position: center center !important;
+}
+.collection-page .collection-catalogue .category-card:after {
+  background: linear-gradient(180deg, #151a4b00 0%, #171b4b00 48%, #171b4be8 100%) !important;
+}
+@media (min-width: 1200px) {
+  .collection-page .collection-catalogue .category-card {
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+@media (max-width: 560px) {
+  .collection-page .collection-catalogue .category-card {
+    aspect-ratio: 3 / 4 !important;
+  }
+}
