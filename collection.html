@@ -134,12 +134,7 @@
   const label=document.createElement("span");label.textContent="Original design";
   original.append(thumb,label);original.onclick=()=>{main.replaceChildren();setImage(main,product.file,product.code+" original catalogue design");gallery.querySelectorAll("button").forEach(b=>b.classList.remove("is-active"));original.classList.add("is-active")};
   gallery.appendChild(original);
-  ["Modern interior","Warm classic interior"].forEach(name=>{
-   const button=document.createElement("button");button.type="button";button.className="detail-view-pending";button.disabled=true;
-   const placeholder=document.createElement("span");placeholder.className="detail-view-placeholder";placeholder.textContent="AI view";
-   const textLabel=document.createElement("span");textLabel.textContent=name+" · coming soon";
-   button.append(placeholder,textLabel);gallery.appendChild(button);
-  });
+   // Only show real, available imagery. Removed fake “AI view / coming soon” gallery tiles.
   detailImage.appendChild(gallery);
   detail.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
  }
