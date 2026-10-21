@@ -80,7 +80,7 @@
    img.loading="lazy";img.decoding="async";img.width=900;img.height=1200;
    img.src=src;img.onerror=()=>{img.style.display="none"};
    card.prepend(img);
-   card.style.setProperty("--category-image","none");
+   // Keep the CSS background as a fallback if the portfolio image fails to load.
  });
 })();
 </script>
