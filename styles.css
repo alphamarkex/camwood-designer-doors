@@ -553,3 +553,22 @@ body.detail-open{overflow:hidden}
  .detail-thumb,.detail-view-placeholder{height:36px}
  .door-view-gallery button>span:last-child{font-size:10px}
 }
+
+/* Camwood repair: portrait door cards, full-height product photography, and responsive windows. */
+.collection-page .collection-catalogue .catalogue-categories{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:22px}
+.collection-page .collection-catalogue .category-card{width:100%;aspect-ratio:3/4;min-height:0;padding:18px;background:#f4f1eb;border:1px solid #ffffff2b}
+.collection-page .collection-catalogue .category-card .category-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain!important;object-position:center center!important;padding:0;background:#f4f1eb}
+.collection-page .collection-catalogue .category-card:after{background:linear-gradient(180deg,#151a4b10 0%,#171b4b08 42%,#171b4bcf 100%)}
+.collection-page .collection-catalogue .category-card-copy{position:relative;z-index:2;padding:14px 12px 10px;margin:0 -18px -18px;width:calc(100% + 36px);background:linear-gradient(180deg,#20245f00,#20245ff2)}
+.collection-page .collection-catalogue .category-card-copy strong{font-size:clamp(1rem,1.5vw,1.35rem)}
+.showcase .product-image,.feature .feature-image{background:#f4f1eb}
+.showcase .product-image img,.feature .feature-image>img{object-fit:contain!important;object-position:center center!important;background:#f4f1eb}
+@media(max-width:900px){.collection-page .collection-catalogue .catalogue-categories{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+.collection-page .collection-catalogue .catalogue-categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.collection-page .collection-catalogue .category-card{padding:12px}
+.collection-page .collection-catalogue .category-card-copy{margin:0 -12px -12px;width:calc(100% + 24px);padding:12px 9px 9px}
+.collection-page .collection-catalogue .category-card-copy small{font-size:.43rem}
+.collection-page .collection-catalogue .category-card-copy strong{font-size:1rem}
+.collection-page .collection-catalogue .category-card-copy>span{font-size:.68rem}
+}
