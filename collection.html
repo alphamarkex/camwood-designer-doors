@@ -119,7 +119,7 @@
  }
  function openDetail(product){
   document.getElementById("detailTitle").textContent=product.code;
-  document.getElementById("detailModel").textContent=title+" · Portfolio page "+product.page;
+  document.getElementById("detailModel").textContent=title;
   document.getElementById("detailMaterial").textContent="As pictured in Camwood catalogue; confirm exact material and finish";
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
   detailImage.replaceChildren();
@@ -160,7 +160,7 @@
    const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
    const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
    const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<small>PORTFOLIO PAGE '+product.page+'</small><strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">Material, dimensions and finish: confirm with Camwood</span>';
+   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">Material, dimensions and finish: confirm with Camwood</span>';
    card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
   });
  }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
