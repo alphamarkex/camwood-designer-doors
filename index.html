@@ -70,27 +70,30 @@
 
 <style>
 #cwLeadOverlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(12,20,28,.38);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);align-items:center;justify-content:center;padding:20px}
-#cwLeadCard{position:relative;width:min(420px,100%);background:#fff;border-radius:16px;padding:28px;box-shadow:0 20px 70px #0003;font-family:inherit}
-#cwLeadCard h2{margin:0 30px 8px 0;font-size:23px;color:#172b3a}#cwLeadCard p{margin:0 0 18px;color:#5d6871;font-size:14px}
-#cwLeadCard input{box-sizing:border-box;width:100%;padding:13px 14px;margin:0 0 12px;border:1px solid #d5dde3;border-radius:9px;font-size:16px}
-#cwLeadCard button[type=submit]{width:100%;padding:13px;border:0;border-radius:9px;background:#124d70;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
-#cwLeadClose{position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:25px;cursor:pointer;color:#65717a}
-#cwLeadStatus{font-size:13px;margin-top:10px;min-height:16px}
+#cwLeadCard{position:relative;width:min(390px,100%);background:#fff;border-radius:14px;padding:24px;box-shadow:0 20px 70px #0003;font-family:inherit}
+#cwLeadCard h2{margin:0 28px 7px 0;font-size:22px;color:#172b3a}#cwLeadCard p{margin:0 0 16px;color:#5d6871;font-size:13px;line-height:1.5}
+#cwLeadCard input{box-sizing:border-box;width:100%;padding:12px 13px;margin:0 0 10px;border:1px solid #d5dde3;border-radius:8px;font-size:15px}
+#cwLeadCard button[type=submit]{width:100%;padding:12px;border:0;border-radius:8px;background:#124d70;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+#cwLeadClose{position:absolute;right:12px;top:8px;border:0;background:transparent;font-size:24px;cursor:pointer;color:#65717a}
+#cwLeadStatus{font-size:12px;margin-top:9px;min-height:16px}
 </style>
-<div id="cwLeadOverlay" aria-hidden="true"><section id="cwLeadCard" role="dialog" aria-modal="true" aria-labelledby="cwLeadTitle"><button id="cwLeadClose" aria-label="Close">×</button><h2 id="cwLeadTitle">Welcome to Camwood</h2><p>Share your name and mobile number so our team can help with your door and window enquiry.</p><form id="cwLeadForm"><input name="name" placeholder="Your name" minlength="2" maxlength="100" required autocomplete="name"><input name="phone" placeholder="Mobile number" type="tel" minlength="10" maxlength="20" required autocomplete="tel"><input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"><button type="submit">Continue browsing</button><div id="cwLeadStatus" role="status"></div></form></section></div>
+<div id="cwLeadOverlay" aria-hidden="true"><section id="cwLeadCard" role="dialog" aria-modal="true" aria-labelledby="cwLeadTitle"><button id="cwLeadClose" aria-label="Close">×</button><h2 id="cwLeadTitle">Welcome to Camwood</h2><p>Enter your details to continue. Our team can help with your door and window enquiry.</p><form id="cwLeadForm"><input name="name" placeholder="Your name" minlength="2" maxlength="100" required autocomplete="name"><input name="phone" placeholder="Mobile number" type="tel" minlength="10" maxlength="20" required autocomplete="tel"><input name="email" placeholder="Email address (optional)" type="email" maxlength="254" autocomplete="email"><input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"><button type="submit">Submit to continue</button><div id="cwLeadStatus" role="status"></div></form></section></div>
 <script>
 (function(){
  const overlay=document.getElementById('cwLeadOverlay'),form=document.getElementById('cwLeadForm'),status=document.getElementById('cwLeadStatus');
  if(!overlay||sessionStorage.getItem('cwLeadPromptSeen'))return;
- let shown=false;
  function close(){overlay.style.display='none';overlay.setAttribute('aria-hidden','true');sessionStorage.setItem('cwLeadPromptSeen','1')}
- function maybeShow(){if(shown||sessionStorage.getItem('cwLeadPromptSeen'))return;const max=document.documentElement.scrollHeight-innerHeight; if(max>0&&scrollY/max>=.35){shown=true;overlay.style.display='flex';overlay.setAttribute('aria-hidden','false')}}
- window.addEventListener('scroll',maybeShow,{passive:true});document.getElementById('cwLeadClose').addEventListener('click',close);
- overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.style.display==='flex')close()});
+ function show(){overlay.style.display='flex';overlay.setAttribute('aria-hidden','false')}
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(show,350));
+ if(document.readyState!=='loading')setTimeout(show,350);
+ document.getElementById('cwLeadClose').addEventListener('click',close);
+ overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.style.display==='flex')close()});
  form.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(form);if(fd.get('website')){close();return}
- const name=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim();if(name.length<2||phone.replace(/\D/g,'').length<10){status.textContent='Please enter a valid name and mobile number.';return}
+ const name=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),email=String(fd.get('email')||'').trim();
+ if(name.length<2||phone.replace(/\D/g,'').length<10){status.textContent='Please enter a valid name and mobile number.';return}
  const btn=form.querySelector('button[type=submit]');btn.disabled=true;status.textContent='Submitting…';
- try{const res=await fetch('https://apwlblpynxxitofkvqdh.supabase.co/functions/v1/capture-website-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,source_path:location.pathname})});if(!res.ok)throw new Error('submit failed');status.textContent='Thank you! You can continue browsing.';sessionStorage.setItem('cwLeadPromptSeen','1');setTimeout(()=>{overlay.style.display='none';overlay.setAttribute('aria-hidden','true')},900)}
+ try{const res=await fetch('https://apwlblpynxxitofkvqdh.supabase.co/functions/v1/capture-website-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({full_name:name,phone,email,source_path:location.pathname})});if(!res.ok)throw new Error('submit failed');status.textContent='Thank you! You can continue browsing.';sessionStorage.setItem('cwLeadPromptSeen','1');setTimeout(()=>{overlay.style.display='none';overlay.setAttribute('aria-hidden','true')},900)}
  catch(err){status.textContent='Could not submit right now. You can close this and keep browsing.';btn.disabled=false}
  });
 })();
