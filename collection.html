@@ -73,7 +73,7 @@
  document.title=title+" | Camwood Designer Doors & Windows";
  document.getElementById("collectionTitle").textContent=title;
  document.getElementById("collectionCrumb").textContent=title.toUpperCase();
- document.getElementById("collectionDescription").textContent="Browse authentic "+title.toLowerCase()+" references from the Camwood portfolio. The model code follows the catalogue. Confirm dimensions, material, finish and availability with our team.";
+ document.getElementById("collectionDescription").textContent=slug==="membrane-door"?"Explore Camwood membrane door designs for indoor spaces. These doors are intended for areas protected from direct sunlight and water. Browse finishes and catalogue models, then confirm exact sizes and availability with our team.":"Browse authentic "+title.toLowerCase()+" references from the Camwood portfolio. The model code follows the catalogue. Confirm dimensions, material, finish and availability with our team.";
  const grid=document.getElementById("catalogueProducts"),detail=document.getElementById("productDetail"),detailImage=document.getElementById("detailImage");
  const parseIndex=async()=>{const r=await fetch("image-index.csv");if(!r.ok)throw Error("Image index unavailable");return (await r.text()).trim().split(/\r?\n/).slice(1).map(line=>{const a=line.split(",");return {file:a[0],page:Number(a[1]),w:Number(a[3]),h:Number(a[4])}})};
  const explicit={
@@ -120,7 +120,7 @@
  function openDetail(product){
   document.getElementById("detailTitle").textContent=product.code;
   document.getElementById("detailModel").textContent=title;
-  document.getElementById("detailMaterial").textContent="As pictured in Camwood catalogue; confirm exact material and finish";
+  const membraneSpecs=slug==="membrane-door";\n  document.getElementById("detailMaterial").textContent=membraneSpecs?"Fine wood framing; core filling name to be confirmed":"As pictured in Camwood catalogue; confirm exact material and finish";\n  const specValues=detail.querySelectorAll(".detail-specs > div strong");\n  if(membraneSpecs){specValues[1].textContent="30 mm";specValues[2].textContent="6–8 ft range; confirm exact listed size";specValues[3].textContent="Andhra Teak Rosewood Double Colour, Rosewood Flower, Andhra Teak Flower, Andhra Teak Glossy, Rosewood Glossy; other finishes may be available";}\n  else {specValues[1].textContent="Confirm for selected model";specValues[2].textContent="Confirm required size";specValues[3].textContent="As pictured; availability to confirm";}\n  const honesty=document.querySelector(".detail-honesty");\n  honesty.textContent=membraneSpecs?"Membrane door details supplied to Camwood: indoor use only, away from direct sunlight and water. Frame: fine wood. Core-filling material name and exact size increments should be confirmed before publishing as final specifications.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.";
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
   detailImage.replaceChildren();
   detailImage.className="product-detail-image";
@@ -160,7 +160,7 @@
    const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
    const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
    const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">Material, dimensions and finish: confirm with Camwood</span>';
+   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm · Fine wood frame · Indoor use · Multiple finishes":"Material, dimensions and finish: confirm with Camwood")+'</span>';
    card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
   });
  }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
