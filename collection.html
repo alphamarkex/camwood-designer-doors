@@ -124,7 +124,7 @@
   const texturedSpecs=slug==="textured-door";
   const digitalSpecs=slug==="digital-door";
   const sharedInteriorSpecs=membraneSpecs||texturedSpecs||digitalSpecs;
-  document.getElementById("detailMaterial").textContent=membraneSpecs?"Fine wood framing; core filling name to be confirmed":texturedSpecs?"MDF inner layer for a textured, 3D-style surface; confirm full construction with Camwood":digitalSpecs?"Digital-print finish; ask Camwood to confirm substrate and construction":"As pictured in Camwood catalogue; confirm exact material and finish";
+  document.getElementById("detailMaterial").textContent=membraneSpecs?"Pine wood side frame; inner core: mixed wood, including poplar and similar materials":texturedSpecs?"MDF inner layer for a textured, 3D-style surface; confirm full construction with Camwood":digitalSpecs?"Digital-print finish; ask Camwood to confirm substrate and construction":"As pictured in Camwood catalogue; confirm exact material and finish";
   const specValues=detail.querySelectorAll(".detail-specs > div strong");
   if(sharedInteriorSpecs){
     specValues[1].textContent="30 mm (confirm for selected model)";
@@ -136,7 +136,7 @@
     specValues[3].textContent="As pictured; availability to confirm";
   }
   const honesty=document.querySelector(".detail-honesty");
-  honesty.textContent=membraneSpecs?"Membrane door details supplied to Camwood: indoor use only, away from direct sunlight and water. Frame: fine wood. Core-filling material name and exact size increments should be confirmed before publishing as final specifications.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.";
+  honesty.textContent=membraneSpecs?"Membrane door construction: pine wood side frame with an inner core made from mixed wood, including poplar and similar materials. For indoor use; keep away from direct sunlight and water. Confirm the exact size and finish for the selected model.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.";
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
   detailImage.replaceChildren();
   detailImage.className="product-detail-image";
