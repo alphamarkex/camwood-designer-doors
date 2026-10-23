@@ -715,3 +715,118 @@ body.detail-open{overflow:hidden}
   }
   .collection-page .collection-catalogue .category-card-copy { padding: 14px 10px 12px !important; }
 }
+
+
+/* Mobile detail modal: compact image, fully visible controls, and predictable scrolling. */
+@media (max-width: 700px) {
+  .product-detail-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 8px !important;
+    overflow: hidden !important;
+    overscroll-behavior: contain !important;
+  }
+  .product-detail-dialog {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 620px !important;
+    max-height: calc(100dvh - 16px) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border-radius: 16px !important;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
+  }
+  .product-detail-image {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .detail-main-photo {
+    width: 100% !important;
+    height: clamp(210px, 29dvh, 300px) !important;
+    min-height: 210px !important;
+    padding: 8px 44px 0 !important;
+    overflow: hidden !important;
+  }
+  .detail-main-photo > img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+  .door-view-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    position: static !important;
+    padding: 8px !important;
+    gap: 6px !important;
+    background: #eeeae2 !important;
+  }
+  .door-view-gallery button {
+    min-width: 0 !important;
+    min-height: 58px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+  }
+  .detail-thumb, .detail-view-placeholder { height: 30px !important; }
+  .door-view-gallery button > span:last-child {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .product-detail-copy {
+    min-width: 0 !important;
+    padding: 22px 18px 26px !important;
+    overflow: visible !important;
+  }
+  .product-detail-copy .section-kicker {
+    font-size: .62rem !important;
+    line-height: 1.5 !important;
+    letter-spacing: .12em !important;
+    overflow-wrap: anywhere !important;
+  }
+  .product-detail-copy h2 {
+    font-size: clamp(2rem, 8.5vw, 2.65rem) !important;
+    line-height: 1.05 !important;
+    margin: 12px 0 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .detail-model { font-size: .82rem !important; line-height: 1.5 !important; }
+  .detail-specs { margin: 18px 0 !important; }
+  .detail-specs > div {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr) !important;
+    gap: 10px !important;
+    padding: 12px 0 !important;
+  }
+  .detail-specs span, .detail-specs strong {
+    min-width: 0 !important;
+    font-size: .76rem !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .product-detail-close {
+    position: sticky !important;
+    float: right !important;
+    top: 8px !important;
+    right: 8px !important;
+    margin: 8px 8px -48px auto !important;
+    width: 40px !important;
+    height: 40px !important;
+    z-index: 10 !important;
+  }
+}
+@media (max-width: 380px) {
+  .detail-main-photo { height: 230px !important; min-height: 230px !important; padding-left: 38px !important; padding-right: 38px !important; }
+  .product-detail-copy { padding: 20px 15px 24px !important; }
+  .detail-specs > div { grid-template-columns: 1fr !important; gap: 5px !important; }
+}
