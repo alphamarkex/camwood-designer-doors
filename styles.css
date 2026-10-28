@@ -860,38 +860,38 @@ body.detail-open{overflow:hidden}
 .hero{
   --scene-progress:0;
   min-height:100svh;height:100svh;max-height:none;
-  background:radial-gradient(ellipse at 74% 48%,rgba(48,53,143,.28),transparent 42%),
-    linear-gradient(125deg,hsl(calc(225 + var(--scene-progress)*8) 30% 5%) 0%,hsl(calc(232 + var(--scene-progress)*6) 32% 10%) 52%,hsl(calc(205 + var(--scene-progress)*6) 30% 15%) 100%);
+  background:radial-gradient(ellipse at 74% 48%,rgba(20,184,184,.28),transparent 44%),
+    linear-gradient(125deg,#20245f 0%,#262d78 52%,#30358f 100%);
 }
-.cinematic-atmosphere{position:absolute;inset:-12%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 73% 48%,rgba(141,224,216,.18),transparent 34%),radial-gradient(ellipse at 20% 85%,rgba(48,53,143,.23),transparent 40%);opacity:calc(.75 + var(--scene-progress)*.25);transform:translate3d(0,calc(var(--scene-progress)*-2%),0);will-change:transform,opacity}
+.cinematic-atmosphere{position:absolute;inset:-12%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 73% 48%,rgba(20,184,184,.22),transparent 34%),radial-gradient(ellipse at 20% 85%,rgba(48,53,143,.23),transparent 40%);opacity:calc(.75 + var(--scene-progress)*.25);transform:translate3d(0,calc(var(--scene-progress)*-2%),0);will-change:transform,opacity}
 .hero-grid{opacity:.055;background-size:88px 88px;mask-image:radial-gradient(ellipse at 70% 45%,black,transparent 75%)}
 .hero-copy{top:24%;left:8%;max-width:500px;text-shadow:0 3px 26px #0008}
-.hero .eyebrow{color:#c3d3d8}
+.hero .eyebrow{color:#d7dcff}
 .hero h1{font-size:clamp(3rem,6.3vw,6.2rem);text-wrap:balance}
-.hero h1 em{color:#8de0d8}
-.hero-copy>p{color:#c4cbd1}
-.hero .button-teal{background:#8de0d8;color:#15171b}
-.hero .text-link{border-color:#8de0d8;color:#d9ffff}
-.hero .geo{opacity:.13;filter:saturate(.35)}
+.hero h1 em{color:#14b8b8}
+.hero-copy>p{color:#e0e3ff}
+.hero .button-teal{background:#14b8b8;color:#20245f}
+.hero .text-link{border-color:#14b8b8;color:#d9ffff}
+.hero .geo{opacity:.22;filter:saturate(1)}
 .door-stage{right:11%;top:13%;height:76%;width:min(35vw,430px);perspective:1800px;filter:drop-shadow(0 38px 65px #0008)}
-.door-glow{inset:2% -28% -5%;background:radial-gradient(ellipse,rgba(141,224,216,.22),rgba(48,53,143,.18) 36%,transparent 69%);filter:blur(28px)}
-.doorway{inset:0 4% 0 0;padding:12px 12px 0;background:linear-gradient(90deg,#20245f,#8de0d8 12%,#30358f 17%,#181a20 84%,#8de0d8 96%);box-shadow:0 0 0 1px #8de0d855,0 38px 90px #000b;transform:translateZ(0)}
+.door-glow{inset:2% -28% -5%;background:radial-gradient(ellipse,rgba(20,184,184,.26),rgba(48,53,143,.18) 36%,transparent 69%);filter:blur(28px)}
+.doorway{inset:0 4% 0 0;padding:12px 12px 0;background:linear-gradient(90deg,#20245f,#f7c62f 12%,#30358f 17%,#181a20 84%,#14b8b8 96%);box-shadow:0 0 0 1px #14b8b855,0 38px 90px #000b;transform:translateZ(0)}
 .inside-room{background:linear-gradient(145deg,#e9e4d9,#8998a0 70%,#363e43);overflow:hidden}
 .room-wall{background:linear-gradient(110deg,#e9e4d9,#a8b0ac 60%,#59656a)}
 .room-light{background:#fff1c9;opacity:.58}
 .room-floor{background:linear-gradient(175deg,#c9b89d,#626a6c)}
 .room-plant{color:#3d6659}
-.door-leaf{background:linear-gradient(90deg,#16182c,#22284c 12%,#30365e 26%,#20245f 48%,#30365e 72%,#15171a);border:9px solid #15171a;box-shadow:inset 0 0 0 2px #8de0d8,inset 0 0 0 11px #292725,15px 14px 38px #000a;will-change:transform;backface-visibility:hidden;animation:none;transform:rotateY(0deg)}
-.door-design{border-color:#8de0d8;box-shadow:inset 0 0 0 8px #202124,inset 0 0 0 10px #8de0d8}
-.inset{border-color:#8de0d8}.door-line{background:#8de0d8}
-.door-knob{background:#8de0d8;box-shadow:0 0 0 4px #24201a,0 0 0 6px #8de0d8}
+.door-leaf{background:linear-gradient(90deg,#16182c,#22284c 12%,#30365e 26%,#20245f 48%,#30365e 72%,#15171a);border:9px solid #15171a;box-shadow:inset 0 0 0 2px #14b8b8,inset 0 0 0 11px #292725,15px 14px 38px #000a;will-change:transform;backface-visibility:hidden;animation:none;transform:rotateY(0deg)}
+.door-design{border-color:#14b8b8;box-shadow:inset 0 0 0 8px #202124,inset 0 0 0 10px #14b8b8}
+.inset{border-color:#14b8b8}.door-line{background:#14b8b8}
+.door-knob{background:#14b8b8;box-shadow:0 0 0 4px #24201a,0 0 0 6px #14b8b8}
 .gate-brand{position:absolute;z-index:2;left:14%;right:14%;top:39%;display:flex;flex-direction:column;align-items:center;gap:0;color:#d9ffff;text-align:center;pointer-events:none;text-shadow:0 2px 12px #0009;transform:translateZ(2px)}
 .gate-brand span,.gate-brand strong{font-family:Nunito,sans-serif;font-size:clamp(1.3rem,2.6vw,2.7rem);font-weight:900;letter-spacing:.18em;line-height:1.02}
 .gate-brand strong{color:#ffffff;letter-spacing:.24em;font-size:clamp(1.1rem,2.1vw,2.2rem)}
-.gate-brand small{font-size:clamp(.35rem,.62vw,.58rem);letter-spacing:.23em;margin-top:10px;color:#8de0d8}
-.door-note{color:#c3d3d8}.door-note span{color:#8de0d8}
+.gate-brand small{font-size:clamp(.35rem,.62vw,.58rem);letter-spacing:.23em;margin-top:10px;color:#14b8b8}
+.door-note{color:#c3d3d8}.door-note span{color:#14b8b8}
 .hero-bottom{border-color:#ffffff1c;color:#b7bdc2;background:linear-gradient(90deg,#06080bb8,transparent,#06080bb8)}
-.hero-bottom b{color:#8de0d8}
+.hero-bottom b{color:#14b8b8}
 
 /* Scroll-story motion: layered reveals, gentle depth, and video-like image movement. */
 .reveal{opacity:0;transform:translate3d(0,38px,0) scale(.985);filter:blur(5px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),filter .8s ease;will-change:opacity,transform}
