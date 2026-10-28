@@ -143,7 +143,9 @@
     specValues[3].textContent="As pictured; availability to confirm";
   }
   const honesty=document.querySelector(".detail-honesty");
+  const warrantyNote="Expected service life: approximately 25–30 years with proper installation and care. Warranty: Membrane doors include a 10-year replacement warranty; other door categories carry warranty only, with terms to be confirmed with Camwood.";
   honesty.textContent=membraneSpecs?"Membrane door construction: pine wood side frame with an inner core made from mixed wood, including poplar and similar materials. For indoor use; keep away from direct sunlight and water. Confirm the exact size and finish for the selected model.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.";
+  honesty.textContent += " " + warrantyNote;
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
   detailImage.replaceChildren();
   detailImage.className="product-detail-image";
@@ -183,7 +185,7 @@
    const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
    const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
    const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm · Fine wood frame · Indoor use · Multiple finishes":slug==="textured-door"?"MDF inner layer · 3D texture · Indoor use":slug==="digital-door"?"Custom design/photo printing · Indoor use":"Material, dimensions and finish: confirm with Camwood")+'</span>';
+   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm · Fine wood frame · Indoor use · 10-year replacement warranty":slug==="textured-door"?"MDF inner layer · 3D texture · Indoor use · Warranty available":slug==="digital-door"?"Custom design/photo printing · Indoor use · Warranty available":"Material, dimensions and finish: confirm with Camwood · Warranty available")+'</span>';
    card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
   });
  }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
