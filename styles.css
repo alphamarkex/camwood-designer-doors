@@ -881,15 +881,15 @@ body.detail-open{overflow:hidden}
 .room-light{background:#fff1c9;opacity:.58}
 .room-floor{background:linear-gradient(175deg,#c9b89d,#626a6c)}
 .room-plant{color:#3d6659}
-.door-leaf{background:linear-gradient(90deg,#16182c,#22284c 12%,#30365e 26%,#20245f 48%,#30365e 72%,#15171a);border:9px solid #15171a;box-shadow:inset 0 0 0 2px #14b8b8,inset 0 0 0 11px #292725,15px 14px 38px #000a;will-change:transform;backface-visibility:hidden;animation:none;transform:rotateY(0deg)}
-.door-design{border-color:#14b8b8;box-shadow:inset 0 0 0 8px #202124,inset 0 0 0 10px #14b8b8}
-.inset{border-color:#14b8b8}.door-line{background:#14b8b8}
-.door-knob{background:#14b8b8;box-shadow:0 0 0 4px #24201a,0 0 0 6px #14b8b8}
+.door-leaf{background:linear-gradient(90deg,#3b2118,#70432d 12%,#94603d 26%,#593725 48%,#865333 72%,#321d16);border:9px solid #2b1a14;box-shadow:inset 0 0 0 2px #c99b6b,inset 0 0 0 11px #4a2c20,15px 14px 38px #000a;will-change:transform;backface-visibility:hidden;animation:none;transform:rotateY(0deg)}
+.door-design{border-color:#d0a477;box-shadow:inset 0 0 0 8px #593625,inset 0 0 0 10px #b17b50}
+.inset{border-color:#d0a477}.door-line{background:#d0a477}
+.door-knob{background:#f7c62f;box-shadow:0 0 0 4px #32241e,0 0 0 6px #d0a477}
 .gate-brand{position:absolute;z-index:2;left:14%;right:14%;top:39%;display:flex;flex-direction:column;align-items:center;gap:0;color:#d9ffff;text-align:center;pointer-events:none;text-shadow:0 2px 12px #0009;transform:translateZ(2px)}
 .gate-brand span,.gate-brand strong{font-family:Nunito,sans-serif;font-size:clamp(1.3rem,2.6vw,2.7rem);font-weight:900;letter-spacing:.18em;line-height:1.02}
 .gate-brand strong{color:#ffffff;letter-spacing:.24em;font-size:clamp(1.1rem,2.1vw,2.2rem)}
 .gate-brand small{font-size:clamp(.35rem,.62vw,.58rem);letter-spacing:.23em;margin-top:10px;color:#14b8b8}
-.door-note{color:#c3d3d8}.door-note span{color:#14b8b8}
+.door-note{color:#c3d3d8}.door-note span{color:#f7c62f}
 .hero-bottom{border-color:#ffffff1c;color:#b7bdc2;background:linear-gradient(90deg,#06080bb8,transparent,#06080bb8)}
 .hero-bottom b{color:#14b8b8}
 
