@@ -11,28 +11,45 @@ if('IntersectionObserver'in window){
   revealTargets.forEach(el=>observer.observe(el));
 }else revealTargets.forEach(el=>el.classList.add('in-view'));
 
-// Door opening is tied to the user's scroll, so the catalogue is literally revealed by the door.
+// Cinematic gate opening follows the hero's own scroll progress, not total page scroll.
 const hero=document.querySelector('.hero');
 const door=document.querySelector('.door-leaf');
 const heroCopy=document.querySelector('.hero-copy');
 const latestBg=document.querySelector('.latest-bg');
 let ticking=false;
+const clamp01=value=>Math.max(0,Math.min(1,value));
 function updateScrollMotion(){
-  const y=window.scrollY||window.pageYOffset;
+  const vh=window.innerHeight||1;
   if(hero&&door){
-    const distance=Math.max(1,hero.offsetHeight*.78);
-    const progress=Math.max(0,Math.min(1,y/distance));
+    const rect=hero.getBoundingClientRect();
+    const progress=clamp01(-rect.top/Math.max(1,hero.offsetHeight*.72));
     const eased=progress*progress*(3-2*progress);
-    door.style.setProperty('--door-open',`${-eased*112}deg`);
-    door.style.transform=`rotateY(${-eased*112}deg)`;
-    if(heroCopy){heroCopy.style.transform=`translate3d(0,${-progress*36}px,0)`;heroCopy.style.opacity=String(1-progress*.45)}
+    const angle=-eased*116;
+    door.style.transform='rotateY('+angle+'deg)';
+    hero.style.setProperty('--scene-progress',String(progress));
+    hero.style.setProperty('--door-open',angle+'deg');
+    if(heroCopy){
+      heroCopy.style.transform='translate3d(0,'+(-progress*28)+'px,0)';
+      heroCopy.style.opacity=String(1-progress*.62);
+    }
   }
   if(latestBg){
     const section=latestBg.closest('.latest-drop');
     const rect=section.getBoundingClientRect();
-    const progress=(window.innerHeight-rect.top)/(window.innerHeight+rect.height);
-    latestBg.style.transform=`scale(1.12) translate3d(0,${(progress-.5)*-42}px,0)`;
+    const progress=(vh-rect.top)/(vh+rect.height);
+    latestBg.style.transform='scale(1.12) translate3d(0,'+((progress-.5)*-42)+'px,0)';
   }
+  // A subtle cinematic color grade evolves as the visitor moves through the page.
+  const sections=[...document.querySelectorAll('main > section')];
+  let activeIndex=0, best=-Infinity;
+  sections.forEach((section,index)=>{
+    const rect=section.getBoundingClientRect();
+    const score=Math.min(rect.bottom,vh)-Math.max(rect.top,0);
+    if(score>best){best=score;activeIndex=index}
+  });
+  const grades=['#090c12','#151a24','#20245f','#122e37','#20245f','#111820'];
+  document.body.style.setProperty('--scroll-grade',grades[activeIndex%grades.length]);
+  document.body.classList.toggle('cinematic-scroll',window.scrollY<vh*.35);
   ticking=false;
 }
 function requestScrollMotion(){if(!ticking){window.requestAnimationFrame(updateScrollMotion);ticking=true}}
