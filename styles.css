@@ -862,7 +862,7 @@ body.detail-open{overflow:hidden}
   min-height:100svh;height:100svh;max-height:none;
   background:
     radial-gradient(ellipse at 74% 48%,rgba(52,84,102,.34),transparent 42%),
-    linear-gradient(125deg,#05070c 0%,#10151e 52%,#202b36 100%);
+    linear-gradient(125deg,hsl(calc(210 + var(--scene-progress)*42) 24% 5%) 0%,hsl(calc(218 + var(--scene-progress)*36) 25% 10%) 52%,hsl(calc(205 + var(--scene-progress)*28) 22% 17%) 100%);
   transition:background-color .35s ease;
 }
 .cinematic-atmosphere{position:absolute;inset:-12%;z-index:0;pointer-events:none;background:
