@@ -84,8 +84,8 @@
  if(!overlay||sessionStorage.getItem('cwLeadPromptSeen'))return;
  function close(){overlay.style.display='none';overlay.setAttribute('aria-hidden','true');sessionStorage.setItem('cwLeadPromptSeen','1')}
  function show(){overlay.style.display='flex';overlay.setAttribute('aria-hidden','false')}
- document.addEventListener('DOMContentLoaded',()=>setTimeout(show,350));
- if(document.readyState!=='loading')setTimeout(show,350);
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(show,12000));
+ if(document.readyState!=='loading')setTimeout(show,12000);
  document.getElementById('cwLeadClose').addEventListener('click',close);
  overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.style.display==='flex')close()});
