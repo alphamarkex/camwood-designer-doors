@@ -856,19 +856,14 @@ body.detail-open{overflow:hidden}
 .collection-material-note .button{margin:8px 10px 0 0}
 
 
-/* CAMWOOD CINEMATIC GATE EXPERIENCE — responsive, scroll-driven and GPU-friendly */
+/* CAMWOOD GATE HERO — scoped to the opening scene; all other sections retain their original theme. */
 .hero{
   --scene-progress:0;
   min-height:100svh;height:100svh;max-height:none;
-  background:
-    radial-gradient(ellipse at 74% 48%,rgba(52,84,102,.34),transparent 42%),
+  background:radial-gradient(ellipse at 74% 48%,rgba(52,84,102,.34),transparent 42%),
     linear-gradient(125deg,hsl(calc(210 + var(--scene-progress)*42) 24% 5%) 0%,hsl(calc(218 + var(--scene-progress)*36) 25% 10%) 52%,hsl(calc(205 + var(--scene-progress)*28) 22% 17%) 100%);
-  transition:background-color .35s ease;
 }
-.cinematic-atmosphere{position:absolute;inset:-12%;z-index:0;pointer-events:none;background:
-  radial-gradient(ellipse at 73% 48%,rgba(104,158,168,.18),transparent 34%),
-  radial-gradient(ellipse at 20% 85%,rgba(48,53,143,.23),transparent 40%);
-  opacity:calc(.75 + var(--scene-progress)*.25);transform:translate3d(0,calc(var(--scene-progress)*-2%),0);will-change:transform,opacity}
+.cinematic-atmosphere{position:absolute;inset:-12%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 73% 48%,rgba(104,158,168,.18),transparent 34%),radial-gradient(ellipse at 20% 85%,rgba(48,53,143,.23),transparent 40%);opacity:calc(.75 + var(--scene-progress)*.25);transform:translate3d(0,calc(var(--scene-progress)*-2%),0);will-change:transform,opacity}
 .hero-grid{opacity:.055;background-size:88px 88px;mask-image:radial-gradient(ellipse at 70% 45%,black,transparent 75%)}
 .hero-copy{top:24%;left:8%;max-width:500px;text-shadow:0 3px 26px #0008}
 .hero .eyebrow{color:#c3d3d8}
@@ -877,7 +872,7 @@ body.detail-open{overflow:hidden}
 .hero-copy>p{color:#c4cbd1}
 .hero .button-teal{background:#c4a77a;color:#15171b}
 .hero .text-link{border-color:#c4a77a;color:#e4d9c8}
-.geo{opacity:.13!important;filter:saturate(.35)}
+.hero .geo{opacity:.13;filter:saturate(.35)}
 .door-stage{right:11%;top:13%;height:76%;width:min(35vw,430px);perspective:1800px;filter:drop-shadow(0 38px 65px #0008)}
 .door-glow{inset:2% -28% -5%;background:radial-gradient(ellipse,rgba(206,174,126,.22),rgba(64,102,113,.13) 36%,transparent 69%);filter:blur(28px)}
 .doorway{inset:0 4% 0 0;padding:12px 12px 0;background:linear-gradient(90deg,#5c4a37,#c5a87e 12%,#433729 17%,#181a20 84%,#a78b62 96%);box-shadow:0 0 0 1px #d4bd9455,0 38px 90px #000b;transform:translateZ(0)}
@@ -888,20 +883,25 @@ body.detail-open{overflow:hidden}
 .room-plant{color:#3d6659}
 .door-leaf{background:linear-gradient(90deg,#16181c,#292a2d 12%,#393a3b 26%,#202226 48%,#333435 72%,#15171a);border:9px solid #15171a;box-shadow:inset 0 0 0 2px #c4a77a,inset 0 0 0 11px #292725,15px 14px 38px #000a;will-change:transform;backface-visibility:hidden;animation:none;transform:rotateY(0deg)}
 .door-design{border-color:#c4a77a;box-shadow:inset 0 0 0 8px #202124,inset 0 0 0 10px #9c8058}
-.inset{border-color:#c4a77a}
-.door-line{background:#c4a77a}
+.inset{border-color:#c4a77a}.door-line{background:#c4a77a}
 .door-knob{background:#d9bd80;box-shadow:0 0 0 4px #24201a,0 0 0 6px #c4a77a}
 .gate-brand{position:absolute;z-index:2;left:14%;right:14%;top:39%;display:flex;flex-direction:column;align-items:center;gap:0;color:#e5d5b7;text-align:center;pointer-events:none;text-shadow:0 2px 12px #0009;transform:translateZ(2px)}
 .gate-brand span,.gate-brand strong{font-family:Nunito,sans-serif;font-size:clamp(1.3rem,2.6vw,2.7rem);font-weight:900;letter-spacing:.18em;line-height:1.02}
 .gate-brand strong{color:#f2e8d5;letter-spacing:.24em;font-size:clamp(1.1rem,2.1vw,2.2rem)}
 .gate-brand small{font-size:clamp(.35rem,.62vw,.58rem);letter-spacing:.23em;margin-top:10px;color:#c4a77a}
-.door-note{color:#d5c5a6}
-.door-note span{color:#e2c58a}
+.door-note{color:#d5c5a6}.door-note span{color:#e2c58a}
 .hero-bottom{border-color:#ffffff1c;color:#b7bdc2;background:linear-gradient(90deg,#06080bb8,transparent,#06080bb8)}
 .hero-bottom b{color:#d8bb83}
-body.cinematic-scroll .intro{background:#090c12}
-body.cinematic-scroll .intro-word{color:#c4a77a;-webkit-text-stroke:1px #e9dfce}
-body.cinematic-scroll .intro-rule{background:#c4a77a}
+
+/* Scroll-story motion: layered reveals, gentle depth, and video-like image movement. */
+.reveal{opacity:0;transform:translate3d(0,38px,0) scale(.985);filter:blur(5px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),filter .8s ease;will-change:opacity,transform}
+.reveal.in-view{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+.scroll-title{clip-path:inset(0 0 100% 0);transform:translate3d(0,24px,0);transition:clip-path .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.scroll-title.title-in-view{clip-path:inset(0 0 0 0);transform:translate3d(0,0,0)}
+.product-card,.category-card,.top-selling,.collection-row,.feature-image,.latest-content{transform-origin:center center;transition:transform .65s cubic-bezier(.2,.7,.2,1),box-shadow .65s ease}
+.product-card:hover,.category-card:hover,.top-selling:hover{transform:translateY(-7px) scale(1.012);box-shadow:0 22px 50px #20245f18}
+.scroll-parallax-media{will-change:transform;transform:translate3d(0,var(--media-shift,0px),0) scale(1.035);transition:transform .25s linear}
+.latest-bg{will-change:transform}
 @media (max-width:900px){
  .hero{min-height:100svh;height:100svh;padding-bottom:72px}
  .hero-copy{left:7%;top:15%;max-width:48%;z-index:4}
@@ -934,7 +934,5 @@ body.cinematic-scroll .intro-rule{background:#c4a77a}
 @media (prefers-reduced-motion:reduce){
  html{scroll-behavior:auto}
  .door-leaf,.cinematic-atmosphere,.hero-copy{animation:none!important;transition:none!important}
- .reveal{transition:none!important;transform:none!important;opacity:1!important}
+ .reveal,.scroll-title{transition:none!important;transform:none!important;filter:none!important;clip-path:none!important;opacity:1!important}
 }
-
-body{--scroll-grade:#090c12}
