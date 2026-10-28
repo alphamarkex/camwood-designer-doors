@@ -11,6 +11,13 @@ if('IntersectionObserver'in window){
   revealTargets.forEach(el=>observer.observe(el));
 }else revealTargets.forEach(el=>el.classList.add('in-view'));
 
+
+// Trend-style scroll storytelling: stagger headings and give real media a subtle parallax drift.
+const storyHeadings=document.querySelectorAll('main h1,main h2,main h3');
+storyHeadings.forEach((el,i)=>{if(!el.closest('.hero')){el.classList.add('scroll-title');if('IntersectionObserver'in window){const titleObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('title-in-view');titleObserver.unobserve(entry.target)}}),{threshold:.25});titleObserver.observe(el)}else el.classList.add('title-in-view')}});
+const parallaxMedia=document.querySelectorAll('.product-card img,.category-card img,.feature-image img,.latest-bg,.collection-row img,.top-selling img');
+parallaxMedia.forEach(el=>el.classList.add('scroll-parallax-media'));
+
 // Cinematic gate opening follows the hero's own scroll progress, not total page scroll.
 const hero=document.querySelector('.hero');
 const door=document.querySelector('.door-leaf');
@@ -39,6 +46,13 @@ function updateScrollMotion(){
     const progress=(vh-rect.top)/(vh+rect.height);
     latestBg.style.transform='scale(1.12) translate3d(0,'+((progress-.5)*-42)+'px,0)';
   }
+  parallaxMedia.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.bottom>-120&&rect.top<vh+120){
+      const center=(rect.top+rect.height/2-vh/2)/vh;
+      el.style.setProperty('--media-shift',(center*-13)+'px');
+    }
+  });
   // A subtle cinematic color grade evolves as the visitor moves through the page.
   const sections=[...document.querySelectorAll('main > section')];
   let activeIndex=0, best=-Infinity;
