@@ -972,3 +972,6 @@ img{max-width:100%;height:auto}
  .feature-image{min-height:280px}
  .collection-row img{width:76px;height:76px;object-fit:contain}
 }
+
+/* Ensure native hidden state wins over the mobile modal display rules. */
+.product-detail-backdrop[hidden]{display:none!important}
