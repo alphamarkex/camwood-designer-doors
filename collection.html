@@ -73,7 +73,7 @@
    16:["KD-32","KD-33","KD-34","KD-38","KD-39","KD-40","KD-35","KD-36","KD-37","KD-41","KD-42","KD-43"],
    17:["KD-44","KD-45","KD-46","KD-47","KD-48","KD-49"]}},
   "solid-wood-window":{title:"Solid Wood Window",pages:[18],codes:{18:["W-01","W-02","W-03","W-04","W-05"]}},
-  "jali-glass-window-door":{title:"Jali & Glass Window and Door",pages:[18],codes:{18:["W-06","W-07"]}}
+  "jali-glass-window-door":{title:"Jali & Glass Window and Door",pages:[18],codes:{18:["W-06"]}}
  };
  const slug=new URLSearchParams(location.search).get("category")||"membrane-door";
  const category=categories[slug]||categories["membrane-door"],title=category.title;
@@ -179,7 +179,7 @@
    codes.forEach((code,i)=>{const file=safeFiles.length?safeFiles[i%safeFiles.length]:null;if(file)products.push({code,file,page:p,category:title})});
   });
   if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
-   const all=explicit[18];products.forEach((product,i)=>{product.file=all[i]||null});
+   const all=explicit[18];const selected=slug==="solid-wood-window"?all.slice(0,5):all.slice(5);products.forEach((product,i)=>{product.file=selected[i]||null});
    for(let i=products.length-1;i>=0;i--){if(!products[i].file)products.splice(i,1)}
   }
   document.getElementById("productCount").textContent=products.length+" catalogue designs";
