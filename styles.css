@@ -975,3 +975,16 @@ img{max-width:100%;height:auto}
 
 /* Ensure native hidden state wins over the mobile modal display rules. */
 .product-detail-backdrop[hidden]{display:none!important}
+
+/* Product detail modal: anchor each image to its own frame so thumbnails cannot overlap the main photo. */
+.detail-main-photo{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;flex:0 0 auto!important}
+.detail-main-photo>img{position:absolute!important;inset:8px 8px 0!important;width:calc(100% - 16px)!important;height:calc(100% - 8px)!important;min-height:0!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
+.detail-thumb{position:relative!important;display:flex!important;flex:0 0 auto!important;overflow:hidden!important}
+.detail-thumb>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
+.product-detail-image>.detail-main-photo{width:100%!important}
+.product-collection-hero h1.scroll-title,.product-collection-hero h1{clip-path:none!important;transform:none!important;opacity:1!important;filter:none!important;visibility:visible!important}
+.product-collection-hero h1{display:block!important;position:relative!important;line-height:1.05!important;margin:24px 0!important}
+@media(max-width:700px){
+ .detail-main-photo{height:clamp(250px,38dvh,360px)!important;min-height:250px!important}
+ .detail-main-photo>img{padding:0!important}
+}
