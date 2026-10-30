@@ -988,3 +988,179 @@ img{max-width:100%;height:auto}
  .detail-main-photo{height:clamp(250px,38dvh,360px)!important;min-height:250px!important}
  .detail-main-photo>img{padding:0!important}
 }
+
+
+/* CAMWOOD MOBILE TYPOGRAPHY NORMALIZATION — 2026-10 */
+@media (max-width: 650px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body.collection-page { font-size: 16px; }
+  .collection-page .nav { height: 72px; padding-inline: 5%; }
+  .collection-page .brand-word { font-size: 1.65rem; }
+  .collection-page .brand small { font-size: .48rem; }
+
+  /* Keep animated headings readable on small screens. */
+  .collection-page .collection-hero-copy,
+  .collection-page .collection-hero h1,
+  .collection-page .collection-intro h2,
+  .collection-page .collection-catalogue h2,
+  .collection-page .collection-favourites h2,
+  .collection-page .collection-contact h2 {
+    clip-path: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .collection-page .collection-hero {
+    min-height: 0;
+    height: auto;
+    padding: 118px 6% 42px;
+  }
+  .collection-page .collection-hero-copy { width: 100%; max-width: 100%; }
+  .collection-page .collection-hero .eyebrow {
+    font-size: .68rem;
+    line-height: 1.45;
+    letter-spacing: .12em;
+  }
+  .collection-page .collection-breadcrumb {
+    gap: 10px;
+    margin: 25px 0 22px;
+    font-size: .68rem;
+    line-height: 1.4;
+  }
+  .collection-page .collection-hero h1 {
+    font-size: clamp(2.45rem, 10vw, 3.35rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.055em;
+    margin: 0 0 18px;
+  }
+  .collection-page .collection-hero-description {
+    max-width: 100%;
+    font-size: .96rem;
+    line-height: 1.65;
+    margin: 0 0 22px;
+  }
+  .collection-page .collection-hero .button {
+    min-height: 50px;
+    padding: 13px 16px;
+    gap: 16px;
+    font-size: .9rem;
+    line-height: 1.35;
+  }
+  .collection-page .collection-hero-foot {
+    gap: 10px 16px;
+    margin-top: 32px;
+    padding-top: 14px;
+    font-size: .62rem;
+    line-height: 1.5;
+    letter-spacing: .1em;
+  }
+  .collection-page .collection-hero-stamp {
+    width: 82px;
+    height: 82px;
+    right: 6%;
+    bottom: 5%;
+  }
+  .collection-page .collection-hero-stamp strong { font-size: 1.1rem; }
+  .collection-page .collection-hero-stamp span { font-size: .34rem; }
+  .collection-page .collection-hero-stamp i { font-size: .25rem; }
+
+  .collection-page .collection-intro {
+    display: block;
+    padding: 52px 6%;
+  }
+  .collection-page .collection-intro .section-kicker,
+  .collection-page .collection-catalogue .section-kicker,
+  .collection-page .collection-favourites .section-kicker,
+  .collection-page .collection-contact .section-kicker {
+    display: block;
+    font-size: .68rem;
+    line-height: 1.5;
+    letter-spacing: .13em;
+    margin: 0 0 14px;
+  }
+  .collection-page .collection-intro h2 {
+    font-size: clamp(2rem, 8.2vw, 2.65rem) !important;
+    line-height: 1.08;
+    letter-spacing: -.045em;
+    margin: 0 0 18px;
+  }
+  .collection-page .collection-intro > p {
+    max-width: 100%;
+    font-size: .98rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .collection-page .collection-intro-mark {
+    top: 14%;
+    right: 5%;
+    font-size: 4.3rem;
+  }
+
+  .collection-page .collection-page .collections,
+  .collection-page .collection-catalogue {
+    padding: 54px 6% 42px;
+    gap: 25px;
+  }
+  .collection-page .collections-heading { gap: 0; }
+  .collection-page .collections-heading h2 {
+    font-size: clamp(2.05rem, 8.5vw, 2.7rem) !important;
+    line-height: 1.08;
+    letter-spacing: -.045em;
+    margin: 2px 0 0;
+  }
+  .collection-page .collections-heading > p {
+    font-size: .98rem;
+    line-height: 1.68;
+    margin: 16px 0 0;
+    max-width: 100%;
+  }
+  .collection-page .category-note {
+    margin-top: 17px;
+    font-size: .62rem;
+    line-height: 1.5;
+    letter-spacing: .1em;
+  }
+  .collection-page .catalogue-categories { gap: 10px; }
+  .collection-page .category-card { min-height: 174px; padding: 11px; }
+  .collection-page .category-number { font-size: .62rem; }
+  .collection-page .category-card-copy { gap: 6px; }
+  .collection-page .category-card-copy small {
+    font-size: .56rem;
+    line-height: 1.35;
+    letter-spacing: .07em;
+  }
+  .collection-page .category-card-copy strong {
+    font-size: 1rem !important;
+    line-height: 1.16;
+    letter-spacing: -.025em;
+  }
+  .collection-page .category-card-copy > span {
+    font-size: .66rem;
+    line-height: 1.35;
+    padding-top: 8px;
+  }
+
+  .collection-page .collection-favourites { padding: 54px 6%; }
+  .collection-page .favourites-top { gap: 12px; margin-bottom: 22px; }
+  .collection-page .favourites-top h2,
+  .collection-page .collection-contact h2 {
+    font-size: clamp(2.1rem, 8.5vw, 2.8rem) !important;
+    line-height: 1.08;
+    margin: 0;
+  }
+  .collection-page .favourites-top > p,
+  .collection-page .collection-contact > p {
+    font-size: .98rem;
+    line-height: 1.68;
+    margin: 0;
+  }
+  .collection-page .favourites-list strong { font-size: 1rem; line-height: 1.3; }
+  .collection-page .collection-contact { padding: 58px 6%; }
+  .collection-page .collection-contact h2 { margin: 0 0 16px; }
+  .collection-page .collection-contact .button { font-size: .9rem; }
+
+  .collection-page .site-footer,
+  .collection-page footer { font-size: .78rem; line-height: 1.6; }
+}
