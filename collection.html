@@ -72,8 +72,8 @@
    15:["KD-20","KD-21","KD-22","KD-26","KD-27","KD-28","KD-23","KD-24","KD-25","KD-29","KD-30","KD-31"],
    16:["KD-32","KD-33","KD-34","KD-38","KD-39","KD-40","KD-35","KD-36","KD-37","KD-41","KD-42","KD-43"],
    17:["KD-44","KD-45","KD-46","KD-47","KD-48","KD-49"]}},
-  "solid-wood-window":{title:"Solid Wood Window",pages:[18],codes:{18:["W-01","W-02","W-03","W-04","W-05"]}},
-  "jali-glass-window-door":{title:"Jali & Glass Window and Door",pages:[18],codes:{18:["W-06"]}}
+  "solid-wood-window":{title:"Solid Wood Window",pages:[18],codes:{18:["W-01","W-03","W-04"]}},
+  "jali-glass-window-door":{title:"Jali Doors",pages:[18],codes:{18:["W-02","W-05","W-06"]}}
  };
  const slug=new URLSearchParams(location.search).get("category")||"membrane-door";
  const category=categories[slug]||categories["membrane-door"],title=category.title;
@@ -130,23 +130,24 @@
   const membraneSpecs=slug==="membrane-door";
   const texturedSpecs=slug==="textured-door";
   const digitalSpecs=slug==="digital-door";
-  const windowSpecs=slug==="solid-wood-window"||slug==="jali-glass-window-door";
+  const windowSpecs=slug==="solid-wood-window";
+  const jaliDoorSpecs=slug==="jali-glass-window-door";
   const sharedInteriorSpecs=membraneSpecs||texturedSpecs||digitalSpecs;
-  document.getElementById("detailMaterial").textContent=membraneSpecs?"Pine wood side frame; inner core: mixed wood, including poplar and similar materials":texturedSpecs?"MDF inner layer for a textured, 3D-style surface; confirm full construction with Camwood":digitalSpecs?"Digital-print finish; ask Camwood to confirm substrate and construction":windowSpecs?"Wood / frame construction; confirm wood species and exact material with Camwood":"As pictured in Camwood catalogue; confirm exact material and finish";
+  document.getElementById("detailMaterial").textContent=membraneSpecs?"Pine wood side frame; inner core: mixed wood, including poplar and similar materials":texturedSpecs?"MDF inner layer for a textured, 3D-style surface; confirm full construction with Camwood":digitalSpecs?"Digital-print finish; ask Camwood to confirm substrate and construction":windowSpecs?"Wood / frame construction; confirm wood species and exact material with Camwood":jaliDoorSpecs?"Jali door construction and wood species; confirm exact material with Camwood":"As pictured in Camwood catalogue; confirm exact material and finish";
   const specValues=detail.querySelectorAll(".detail-specs > div strong");
   if(sharedInteriorSpecs){
     specValues[1].textContent="30 mm (confirm for selected model)";
     specValues[2].textContent="6–8 ft range; confirm exact listed size";
     specValues[3].textContent=membraneSpecs?"Andhra Teak Rosewood Double Colour, Rosewood Flower, Andhra Teak Flower, Andhra Teak Glossy, Rosewood Glossy; other finishes may be available":texturedSpecs?"Textured / 3D designs; available colours and finishes to confirm":"Custom design or photo printing may be available; confirm artwork and finish options";
   } else {
-    specValues[1].textContent=windowSpecs?"Confirm for selected window model":"Confirm for selected model";
-    specValues[2].textContent=windowSpecs?"Confirm width and height":"Confirm required size";
-    specValues[3].textContent=windowSpecs?"As pictured; finish and availability to confirm":"As pictured; availability to confirm";
+    specValues[1].textContent=windowSpecs?"Confirm for selected window model":jaliDoorSpecs?"Confirm for selected jali-door model":"Confirm for selected model";
+    specValues[2].textContent=windowSpecs?"Confirm window width and height":jaliDoorSpecs?"Confirm door width and height":"Confirm required size";
+    specValues[3].textContent=windowSpecs?"As pictured; finish and availability to confirm":jaliDoorSpecs?"As pictured; door finish and availability to confirm":"As pictured; availability to confirm";
   }
   const honesty=document.querySelector(".detail-honesty");
-  const isWindow=slug==="solid-wood-window"||slug==="jali-glass-window-door";
-  const warrantyNote=isWindow?"":" Warranty terms and expected service life should be confirmed with Camwood for the selected model.";
-  honesty.textContent=membraneSpecs?"Membrane door construction: pine wood side frame with an inner core made from mixed wood, including poplar and similar materials. For indoor use; keep away from direct sunlight and water. Confirm the exact size and finish for the selected model.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":windowSpecs?"This is a catalogue reference for a window design. The supplied catalogue does not confirm the wood species, frame section, glass type, opening style, hardware, dimensions or warranty for every model. Please confirm these details with Camwood before ordering.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements."
+  const isWindow=slug==="solid-wood-window";
+  const warrantyNote=isWindow||jaliDoorSpecs?"":" Warranty terms and expected service life should be confirmed with Camwood for the selected model.";
+  honesty.textContent=membraneSpecs?"Membrane door construction: pine wood side frame with an inner core made from mixed wood, including poplar and similar materials. For indoor use; keep away from direct sunlight and water. Confirm the exact size and finish for the selected model.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":windowSpecs?"This is a catalogue reference for a window design. The supplied catalogue does not confirm the wood species, frame section, glass type, opening style, hardware, dimensions or warranty for every model. Please confirm these details with Camwood before ordering.":jaliDoorSpecs?"This is a jali-door catalogue reference. Please confirm the wood species, panel construction, hardware, dimensions, finish and availability with Camwood before ordering.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements."
   honesty.textContent += " " + warrantyNote;
   document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
   detailImage.replaceChildren();
@@ -179,7 +180,10 @@
    codes.forEach((code,i)=>{const file=safeFiles.length?safeFiles[i%safeFiles.length]:null;if(file)products.push({code,file,page:p,category:title})});
   });
   if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
-   const all=explicit[18];const selected=slug==="solid-wood-window"?all.slice(0,5):all.slice(5);products.forEach((product,i)=>{product.file=selected[i]||null});
+   // Page 18 includes window references and jali-door references. Preserve the
+   // catalogue image assigned to each model code while separating the categories.
+   const page18ByCode={"W-01":explicit[18][0],"W-02":explicit[18][1],"W-03":explicit[18][2],"W-04":explicit[18][3],"W-05":explicit[18][4],"W-06":explicit[18][5]};
+   products.forEach(product=>{product.file=page18ByCode[product.code]||null});
    for(let i=products.length-1;i>=0;i--){if(!products[i].file)products.splice(i,1)}
   }
   document.getElementById("productCount").textContent=products.length+" catalogue designs";
@@ -188,7 +192,7 @@
    const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
    const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
    const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm (confirm model) · Fine wood frame · Indoor use":slug==="textured-door"?"MDF inner layer · 3D texture · Indoor use":slug==="digital-door"?"Custom design/photo printing · Indoor use":(slug==="solid-wood-window"||slug==="jali-glass-window-door")?"Window material, dimensions and finish: confirm with Camwood":"Material, dimensions and finish: confirm with Camwood")+'</span>';
+   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm (confirm model) · Fine wood frame · Indoor use":slug==="textured-door"?"MDF inner layer · 3D texture · Indoor use":slug==="digital-door"?"Custom design/photo printing · Indoor use":slug==="solid-wood-window"?"Window material, dimensions and finish: confirm with Camwood":slug==="jali-glass-window-door"?"Door material, dimensions and finish: confirm with Camwood":"Material, dimensions and finish: confirm with Camwood")+'</span>';
    card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
   });
  }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
