@@ -18,6 +18,22 @@ storyHeadings.forEach((el,i)=>{if(!el.closest('.hero')){el.classList.add('scroll
 const parallaxMedia=document.querySelectorAll('.product-card img,.category-card img,.feature-image img,.latest-bg,.collection-row img,.top-selling img');
 parallaxMedia.forEach(el=>el.classList.add('scroll-parallax-media'));
 
+// Cinematic backdrop crossfades between real Camwood catalogue photographs as
+// the visitor moves through sections. Two layers avoid a hard image cut.
+const cinematicPhotos=[
+  'page-03-image-395.webp','page-09-image-6914.webp','page-12-image-11313.webp',
+  'page-14-image-12887.webp','page-18-image-15887.webp','page-18-image-16870.webp'
+];
+const cinematicBackdrop=document.createElement('div');
+cinematicBackdrop.className='cinematic-scroll-backdrop';
+cinematicBackdrop.setAttribute('aria-hidden','true');
+const backdropLayers=[0,1].map(()=>{const layer=document.createElement('div');layer.className='cinematic-scroll-layer';cinematicBackdrop.appendChild(layer);return layer});
+document.body.prepend(cinematicBackdrop);
+let activeBackdrop=-1;
+const scrollStoryCards=document.querySelectorAll('.category-card,.catalogue-product-card,.product-card,.collection-row,.feature-image,.board-size-card');
+scrollStoryCards.forEach((el,i)=>{el.classList.add('scroll-story-card');el.style.setProperty('--story-order',String(i%6))});
+
+
 // Cinematic gate opening follows the hero's own scroll progress, not total page scroll.
 const hero=document.querySelector('.hero');
 const door=document.querySelector('.door-leaf');
@@ -50,7 +66,18 @@ function updateScrollMotion(){
     const rect=el.getBoundingClientRect();
     if(rect.bottom>-120&&rect.top<vh+120){
       const center=(rect.top+rect.height/2-vh/2)/vh;
-      el.style.setProperty('--media-shift',(center*-13)+'px');
+      el.style.setProperty('--media-shift',(center*-24)+'px');
+      el.style.setProperty('--media-zoom',String(1.035+Math.max(0,1-Math.abs(center))*0.035));
+    }
+  });
+  // Cards glide at slightly different depths while their photos gently scale.
+  scrollStoryCards.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.bottom>-100&&rect.top<vh+100){
+      const center=(rect.top+rect.height/2-vh/2)/vh;
+      const depth=Math.max(-1,Math.min(1,center));
+      el.style.setProperty('--card-scroll-y',(depth*-7)+'px');
+      el.style.setProperty('--card-scroll-scale',String(1.008+(1-Math.abs(depth))*.008));
     }
   });
   // A subtle cinematic color grade evolves as the visitor moves through the page.
@@ -64,6 +91,16 @@ function updateScrollMotion(){
   const grades=['#090c12','#151a24','#20245f','#122e37','#20245f','#111820'];
   document.body.style.setProperty('--scroll-grade',grades[activeIndex%grades.length]);
   document.body.classList.toggle('cinematic-scroll',window.scrollY<vh*.35);
+  // Fade to a catalogue photograph that matches the section currently in view.
+  const nextBackdrop=activeIndex%cinematicPhotos.length;
+  if(nextBackdrop!==activeBackdrop){
+    const nextLayer=backdropLayers[activeBackdrop===0?1:0];
+    nextLayer.style.backgroundImage="url('"+cinematicPhotos[nextBackdrop]+"')";
+    nextLayer.classList.add('is-active');
+    backdropLayers.forEach(layer=>{if(layer!==nextLayer)layer.classList.remove('is-active')});
+    activeBackdrop=nextBackdrop;
+  }
+  document.body.classList.add('cinematic-scroll-active');
   ticking=false;
 }
 function requestScrollMotion(){if(!ticking){window.requestAnimationFrame(updateScrollMotion);ticking=true}}
