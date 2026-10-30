@@ -1250,3 +1250,38 @@ img{max-width:100%;height:auto}
   .collection-page .collection-catalogue .category-icon,
   .collection-page .collection-catalogue .category-card-copy { position: relative; z-index: 2; }
 }
+
+
+/* FINAL CATEGORY IMAGE FIX: fill the mobile cards with the complete source photo,
+   while cropping only the unused page margins; do not inject duplicate thumbnails. */
+.collection-page .collection-catalogue .category-card{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#20245f!important;
+}
+.collection-page .collection-catalogue .category-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background-image:var(--category-image)!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center 38%!important;
+  opacity:1!important;
+  filter:none!important;
+  transform:scale(1.02);
+}
+.collection-page .collection-catalogue .category-card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(180deg,rgba(15,20,48,.02) 0%,rgba(15,20,48,.08) 34%,rgba(19,24,62,.60) 62%,rgba(18,22,55,.96) 100%)!important;
+}
+.collection-page .collection-catalogue .category-card .category-photo{display:none!important}
+@media(max-width:650px){
+  .collection-page .collection-catalogue .category-card{min-height:205px!important}
+  .collection-page .collection-catalogue .category-card:before{background-position:center 36%!important}
+}
