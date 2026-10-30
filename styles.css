@@ -1164,3 +1164,89 @@ img{max-width:100%;height:auto}
   .collection-page .site-footer,
   .collection-page footer { font-size: .78rem; line-height: 1.6; }
 }
+
+
+/* MOBILE FIX ROUND 2: reveal animated headings, restore catalogue images, scale type consistently. */
+@media (max-width: 700px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  /* The scroll-title reveal was leaving headings clipped on mobile when the observer missed them. */
+  .scroll-title,
+  .scroll-title.title-in-view,
+  main h1.scroll-title,
+  main h2.scroll-title,
+  main h3.scroll-title {
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .board-sizes-section > h2,
+  .section-top h2,
+  .latest-content h2,
+  .feature-copy h2,
+  .contact h2 {
+    font-size: clamp(2rem, 8.5vw, 2.75rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.045em !important;
+  }
+  .board-sizes-section { padding: 52px 6% !important; }
+  .board-sizes-section > .section-kicker { font-size: .68rem; line-height: 1.5; }
+  .board-sizes-section > p { font-size: .98rem; line-height: 1.68; }
+  .board-size-card { padding: 20px; }
+  .board-size-card h3 { font-size: 1.08rem; line-height: 1.3; }
+  .board-size-card p { font-size: .96rem; line-height: 1.65; overflow-wrap: anywhere; }
+
+  .latest-drop { min-height: 680px !important; padding: 76px 6% 60px !important; }
+  .latest-content { width: 100%; max-width: 100%; }
+  .latest-content .section-kicker,
+  .latest-overline { font-size: .68rem; line-height: 1.5; letter-spacing: .13em; }
+  .latest-overline { margin: 24px 0 12px; }
+  .latest-content h2 { margin: 0 0 18px !important; }
+  .latest-description { font-size: .98rem !important; line-height: 1.7 !important; max-width: 100%; }
+  .latest-counter { margin-top: 34px; }
+  .latest-counter span { font-size: .62rem; line-height: 1.5; }
+  .latest-side-label { font-size: .42rem; }
+  .latest-bg { background-image: url('/page-12-image-11311.webp') !important; background-position: center 42%; }
+
+  /* Put real category photos above the card background and below readable text. */
+  .collection-page .collection-catalogue .category-card { position: relative; isolation: isolate; }
+  .collection-page .collection-catalogue .category-card:before { display: none !important; }
+  .collection-page .collection-catalogue .category-card:after {
+    z-index: 1 !important;
+    background: linear-gradient(180deg, #151a4b05 0%, #171b4b20 44%, #171b4bd9 100%) !important;
+  }
+  .collection-page .collection-catalogue .category-card .category-photo {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 14px 12px 52px !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #f2eee5 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .collection-page .collection-catalogue .category-number,
+  .collection-page .collection-catalogue .category-icon,
+  .collection-page .collection-catalogue .category-card-copy {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  .collection-page .collection-catalogue .category-card { min-height: 188px !important; }
+  .collection-page .collection-catalogue .category-card-copy strong {
+    font-size: 1rem !important;
+    line-height: 1.16 !important;
+  }
+}
+@media (min-width: 701px) {
+  .collection-page .collection-catalogue .category-card .category-photo { z-index: 0 !important; }
+  .collection-page .collection-catalogue .category-card:after { z-index: 1; }
+  .collection-page .collection-catalogue .category-number,
+  .collection-page .collection-catalogue .category-icon,
+  .collection-page .collection-catalogue .category-card-copy { position: relative; z-index: 2; }
+}
