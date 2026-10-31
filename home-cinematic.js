@@ -21,7 +21,7 @@
     {image:'page-18-image-16870.webp',alt:'Camwood decorative jali door design',number:'06 / JALI & DECORATIVE DETAILS',title:'Crafted to stand apart.',copy:'Decorative patterns and intricate details turn functional openings into architectural features.'}
   ];
   let film=null,sceneEls=[];
-  if(stage){
+  if(stage&&!reduce){
     film=document.createElement('div');
     film.className='cw-film-sequence';
     film.setAttribute('aria-label','Scroll through the Camwood door collections');
