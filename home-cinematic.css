@@ -101,3 +101,5 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
  .cw-film-progress{right:3vw}
 }
 @media(prefers-reduced-motion:reduce){.cw-film-scene,.cw-film-visual img{transition:none!important;transform:none!important}}
+
+@media(prefers-reduced-motion:reduce){.cw-cinematic{height:100svh!important}.cw-film-sequence{display:none!important}}
