@@ -3,6 +3,7 @@
   if(!root)return;
   const stage=root.querySelector('.cw-sticky-stage');
   const panel=root.querySelector('.cw-door-panel');
+  const doorway=root.querySelector('.cw-doorway');
   const copy=root.querySelector('.cw-stage-copy');
   const counter=root.querySelector('.cw-progress-number');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -92,6 +93,7 @@
       stage.style.setProperty('--cw-light',clamp((progress-.1)*1.8).toFixed(4));
     }
     if(panel)panel.style.transform='rotateY('+(-doorProgress*112)+'deg)';
+    if(doorway)doorway.style.opacity=String(1-clamp((progress-.13)/.10));
     if(copy){
       const fade=clamp(progress/.17);
       copy.style.opacity=String(1-fade);
