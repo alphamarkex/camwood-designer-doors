@@ -99,7 +99,9 @@
       scene.style.visibility=active?'visible':'hidden';
       scene.style.opacity=String(opacity);
       scene.style.transform='scale('+(1.055-.055*opacity)+') translate3d(0,'+((1-opacity)*18)+'px,0)';
-      img.style.transform='translate3d('+( (1-opacity)*34 )+'px,0,0) scale('+(1.04+opacity*.035)+')';
+      const tilt=(index%2===0?1:-1)*(1-opacity)*3.5;
+      img.style.transform='translate3d('+((1-opacity)*42)+'px,0,0) rotateY('+tilt+'deg) scale('+(1.055+opacity*.035)+')';
+      img.style.filter='blur('+((1-opacity)*3)+'px) drop-shadow(0 35px 45px #020822bb)';
       scene.classList.toggle('is-active',opacity>.02);
       const dot=film?.querySelectorAll('.cw-film-progress i')[index];
       if(dot)dot.classList.toggle('active',opacity>.15);
