@@ -272,3 +272,78 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
   .cw-cinematic{height:100svh!important}
   .cw-film-sequence{display:none!important}
 }
+
+
+/* Continuous showroom corridor: fixed 3D exhibits pass the camera as the page scrolls. */
+.cw-cinematic{height:1080vh;overflow:clip}
+.cw-sticky-stage{perspective:1050px;perspective-origin:50% 48%;transform-style:preserve-3d;isolation:isolate}
+.cw-showroom-walkway{
+  position:absolute;inset:0;z-index:7;overflow:visible;pointer-events:none;
+  transform-style:preserve-3d;will-change:transform;
+  background:
+    radial-gradient(ellipse at 50% 55%,#ffffff12 0%,transparent 44%),
+    linear-gradient(180deg,transparent 0%,#10184228 54%,#0a123a70 100%);
+}
+.cw-showroom-ceiling{position:absolute;left:-30%;top:-78%;width:160%;height:125%;transform:translateZ(-3600px) rotateX(-74deg);transform-origin:bottom center;background:linear-gradient(180deg,#10184200,#111a4a66);border-bottom:1px solid #ffffff18}
+.cw-showroom-floor{position:absolute;left:-35%;bottom:-68%;width:170%;height:135%;transform:translateZ(-3600px) rotateX(76deg);transform-origin:top center;background:repeating-linear-gradient(90deg,#ffffff08 0 1px,transparent 1px 150px),linear-gradient(180deg,#17245d,#10173f 70%,#090e2d);box-shadow:0 -35px 100px #070d2c88}
+.cw-showroom-wall{position:absolute;top:-20%;width:43%;height:145%;transform-style:preserve-3d;transform:translateZ(-3600px);background:linear-gradient(90deg,#111a4b00,#111a4b88 72%,#0a123caa);border-color:#ffffff18}
+.cw-showroom-wall-left{left:-40%;border-right:1px solid #ffffff22;transform:translateZ(-3600px) rotateY(78deg);transform-origin:right center}
+.cw-showroom-wall-right{right:-40%;border-left:1px solid #ffffff22;transform:translateZ(-3600px) rotateY(-78deg);transform-origin:left center}
+.cw-showroom-bay{
+  position:absolute;left:50%;top:48%;width:clamp(230px,27vw,390px);height:min(76vh,760px);
+  transform-style:preserve-3d;transform-origin:center center;
+  will-change:opacity;display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.cw-bay-left{transform:translate3d(calc(-50% - 330px),-50%,var(--bay-z)) rotateY(62deg)}
+.cw-bay-right{transform:translate3d(calc(-50% + 330px),-50%,var(--bay-z)) rotateY(-62deg)}
+.cw-showroom-frame{
+  position:relative;width:100%;height:100%;padding:12px;
+  background:linear-gradient(135deg,#b7a17d,#3d2a20 18%,#161d4a 78%,#b8a078);
+  border:1px solid #d6c49a88;
+  box-shadow:0 35px 80px #030823a8,0 0 45px #c3d6ff18,inset 0 0 0 5px #ffffff12;
+  transform-style:preserve-3d;overflow:hidden;
+}
+.cw-showroom-frame:before{content:"";position:absolute;inset:8px;border:1px solid #f1dfbd88;z-index:2;pointer-events:none}
+.cw-showroom-frame img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#101638;filter:drop-shadow(0 22px 28px #030817aa);backface-visibility:hidden;transition:filter .35s}
+.cw-showroom-light{position:absolute;inset:-30%;pointer-events:none;background:linear-gradient(110deg,transparent 36%,#ffffff25 49%,#ffffff48 51%,transparent 64%);transform:translateX(-130%);animation:cw-showroom-sweep 8s ease-in-out infinite}
+.cw-showroom-door-caption{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;color:#e5edff;text-shadow:0 2px 12px #07102e;font:9px Arial,sans-serif;letter-spacing:.16em}
+.cw-showroom-door-caption strong{color:#12d0cb;font-size:10px}
+.cw-showroom-door-caption span{text-align:right;color:#d5defa;font-size:8px;letter-spacing:.08em}
+.cw-showroom-endwall{position:absolute;left:50%;top:47%;width:min(60vw,760px);height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;transform:translate3d(-50%,-50%,-7900px);background:linear-gradient(135deg,#19245cdd,#10183fe8);border:1px solid #ffffff38;box-shadow:0 0 100px #08c5c033;color:#fff;text-align:center}
+.cw-showroom-endwall strong{font:800 clamp(30px,5vw,64px)/1 Arial,sans-serif;letter-spacing:-.05em}
+.cw-showroom-endwall span{font:700 10px Arial,sans-serif;letter-spacing:.25em;color:#10d1cb}
+.cw-showroom-chapter{position:absolute;z-index:10;left:6%;bottom:9%;display:flex;flex-direction:column;gap:9px;max-width:72%;color:#fff;text-shadow:0 2px 16px #050b28;pointer-events:none}
+.cw-showroom-chapter span{font:700 9px Arial,sans-serif;letter-spacing:.22em;color:#f0c52f}
+.cw-showroom-chapter strong{font:800 clamp(22px,3.2vw,42px)/1 Arial,sans-serif;letter-spacing:-.04em}
+.cw-showroom-chapter small{font:700 9px Arial,sans-serif;letter-spacing:.18em;color:#11c9c5}
+.cw-showroom-progress{position:absolute;z-index:11;right:4%;top:50%;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
+.cw-showroom-progress i{display:block;width:3px;height:20px;background:#ffffff45;transition:background .25s,transform .25s}
+.cw-showroom-progress i.active{background:#0ac8c3;transform:scaleY(1.4)}
+@keyframes cw-showroom-sweep{0%,58%{transform:translateX(-130%)}78%,100%{transform:translateX(130%)}}
+@media(max-width:760px){
+ .cw-cinematic{height:900vh}
+ .cw-sticky-stage{perspective:780px;perspective-origin:50% 48%}
+ .cw-showroom-ceiling{left:-80%;width:260%;top:-65%;height:110%;transform:translateZ(-2800px) rotateX(-72deg)}
+ .cw-showroom-floor{left:-90%;width:280%;bottom:-54%;height:100%;transform:translateZ(-2800px) rotateX(74deg)}
+ .cw-showroom-wall{width:65%;height:130%;top:-15%;transform:translateZ(-2800px)}
+ .cw-showroom-wall-left{left:-58%;transform:translateZ(-2800px) rotateY(78deg)}
+ .cw-showroom-wall-right{right:-58%;transform:translateZ(-2800px) rotateY(-78deg)}
+ .cw-showroom-bay{top:46%;width:clamp(190px,57vw,270px);height:57vh;max-height:510px;gap:10px}
+ .cw-bay-left{transform:translate3d(calc(-50% - 145px),-50%,var(--bay-z)) rotateY(58deg)}
+ .cw-bay-right{transform:translate3d(calc(-50% + 145px),-50%,var(--bay-z)) rotateY(-58deg)}
+ .cw-showroom-frame{padding:7px}
+ .cw-showroom-frame:before{inset:5px}
+ .cw-showroom-door-caption{flex-direction:column;align-items:flex-start;gap:5px;font-size:7px;letter-spacing:.12em}
+ .cw-showroom-door-caption strong{font-size:8px}
+ .cw-showroom-door-caption span{text-align:left;font-size:7px}
+ .cw-showroom-endwall{width:78vw;height:56vh}
+ .cw-showroom-chapter{left:6%;bottom:8%;max-width:80%;gap:7px}
+ .cw-showroom-chapter span{font-size:7px}
+ .cw-showroom-chapter strong{font-size:clamp(20px,6vw,30px)}
+ .cw-showroom-progress{right:3%;gap:7px}
+ .cw-showroom-progress i{height:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cw-showroom-walkway,.cw-showroom-bay,.cw-showroom-frame{will-change:auto}
+ .cw-showroom-light{animation:none}
+}
