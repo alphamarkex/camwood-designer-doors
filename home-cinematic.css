@@ -29,3 +29,40 @@
 
 /* The legacy site-wide scroll backdrop is disabled on this redesigned homepage. */
 body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
+
+
+/* Cinematic motion upgrade — scoped to the Camwood homepage */
+.cw-sticky-stage{--cw-progress:0;--cw-light:0;perspective:1200px}
+.cw-sticky-stage:before{content:"";position:absolute;inset:-20%;z-index:1;pointer-events:none;background:linear-gradient(112deg,transparent 35%,#e4c79a12 47%,#fff2 50%,#c49a6220 53%,transparent 65%);transform:translateX(calc((var(--cw-progress) - .5)*-38%));mix-blend-mode:screen}
+.cw-sticky-stage:after{content:"";position:absolute;z-index:2;inset:0;pointer-events:none;background:radial-gradient(ellipse at 74% 48%,#e8c99a calc(var(--cw-light)*7%),transparent 42%);opacity:.5;mix-blend-mode:screen}
+.cw-doorway{transform:translate3d(calc((var(--cw-progress)*-5vw)), -50%, calc(var(--cw-progress)*90px)) scale(calc(1 + var(--cw-progress)*.12));transition:filter .2s}
+.cw-door-panel{backface-visibility:visible}
+.cw-door-image{transition:filter .25s;filter:contrast(1.08) saturate(1.08)}
+.cw-room{transform:scale(calc(1 + var(--cw-progress)*.12));transform-origin:center;transition:filter .2s;filter:brightness(calc(.72 + var(--cw-progress)*.45))}
+.cw-room-glow{opacity:calc(.25 + var(--cw-progress)*.75)}
+.cw-stage-copy h1{animation:cw-title-arrive 1.2s cubic-bezier(.2,.7,.2,1) both}
+.cw-kicker{animation:cw-fade-up .9s .15s both}
+.cw-scroll-hint b{animation:cw-scroll-pulse 1.7s ease-in-out infinite}
+.cw-stage-outro strong{ text-shadow:0 12px 40px #0008}
+.cw-atmosphere{position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none}
+.cw-dust{position:absolute;bottom:-12px;width:3px;height:3px;border-radius:50%;background:#f2d6a8;opacity:0;box-shadow:0 0 12px 3px #f2d6a855;animation:cw-dust-rise var(--duration,12s) var(--delay,0s) linear infinite}
+.cw-door-glint{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(110deg,transparent 35%,#fff3 48%,#fff8 50%,#fff2 52%,transparent 65%);transform:translateX(-130%);animation:cw-door-glint 7s 1.2s ease-in-out infinite;mix-blend-mode:screen}
+.cw-category-card,.product-card,.latest-content,.feature-copy,.feature-image,.teaser-copy,.contact>*{--cw-reveal-y:34px}
+.cw-motion-reveal{opacity:0;transform:translate3d(0,var(--cw-reveal-y),0) scale(.985);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);will-change:transform,opacity}
+.cw-motion-reveal.cw-in-view{opacity:1;transform:translate3d(0,0,0) scale(1)}
+.cw-category-card.cw-motion-reveal{transition-delay:var(--cw-delay,0ms),var(--cw-delay,0ms)}
+.cw-category-card:before{will-change:transform}
+.cw-category-card.cw-in-view:before{animation:cw-image-settle 1.4s cubic-bezier(.2,.7,.2,1) both}
+.product-image{overflow:hidden}
+.product-image img{transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .8s;will-change:transform}
+.product-card.cw-in-view .product-image img{transform:scale(1.035)}
+.product-card:hover .product-image img{transform:scale(1.09);filter:saturate(1.12)}
+.cw-category-card:focus-visible{outline:3px solid #b18a5b;outline-offset:4px}
+@keyframes cw-title-arrive{from{opacity:0;transform:translateY(30px);filter:blur(8px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes cw-fade-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cw-scroll-pulse{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(7px);opacity:1}}
+@keyframes cw-dust-rise{0%{transform:translate3d(0,0,0) scale(.4);opacity:0}15%{opacity:.55}80%{opacity:.25}100%{transform:translate3d(var(--drift,30px),-105vh,0) scale(1.3);opacity:0}}
+@keyframes cw-door-glint{0%,55%{transform:translateX(-130%)}75%,100%{transform:translateX(130%)}}
+@keyframes cw-image-settle{from{transform:scale(1.09)}to{transform:scale(1)}}
+@media(max-width:760px){.cw-doorway{transform:translate3d(0,0,0) scale(calc(1 + var(--cw-progress)*.06))}.cw-sticky-stage:before{opacity:.5}.cw-dust{width:2px;height:2px}.cw-category-card.cw-motion-reveal{transition-duration:.65s}}
+@media(prefers-reduced-motion:reduce){.cw-dust,.cw-door-glint,.cw-scroll-hint b,.cw-stage-copy h1,.cw-kicker{animation:none!important}.cw-motion-reveal{opacity:1;transform:none;transition:none!important}.product-image img,.cw-category-card:before{transition:none!important}}
