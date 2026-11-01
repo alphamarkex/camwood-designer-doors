@@ -9,7 +9,7 @@
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp=v=>Math.max(0,Math.min(1,v));
   const smooth=v=>{v=clamp(v);return v*v*(3-2*v)};
-  let raf=0,walkway=null,doorItems=[],chapterLabel=null,chapterIndex=-1;
+  let raf=0,walkway=null,doorItems=[],chapterLabel=null,chapterIndex=-1,visualProgress=0,targetProgress=0;
 
   const doors=[
     {image:'page-03-image-395.webp',alt:'Camwood membrane wooden door',name:'MEMBRANE DOORS',detail:'Warm textures. Timeless character.'},
@@ -86,7 +86,10 @@
   function render(){
     const rect=root.getBoundingClientRect();
     const travel=Math.max(1,root.offsetHeight-window.innerHeight);
-    const progress=clamp(-rect.top/travel);
+    targetProgress=clamp(-rect.top/travel);
+    visualProgress += (targetProgress-visualProgress)*.18;
+    if(Math.abs(targetProgress-visualProgress)<.0008)visualProgress=targetProgress;
+    const progress=visualProgress;
     const doorProgress=smooth(progress/.19);
     if(stage){
       stage.style.setProperty('--cw-progress',progress.toFixed(4));
@@ -129,6 +132,7 @@
     }
     if(counter)counter.textContent=String(Math.round(progress*100)).padStart(2,'0')+'%';
     raf=0;
+    if(Math.abs(targetProgress-visualProgress)>.0008)raf=requestAnimationFrame(render);
   }
   function request(){if(!raf)raf=requestAnimationFrame(render)}
   window.addEventListener('scroll',request,{passive:true});
