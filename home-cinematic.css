@@ -473,3 +473,49 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
   .cw-showroom-progress{right:5%;top:50%;gap:7px}
   .cw-showroom-progress i{height:17px}
 }
+
+
+/* Mobile opening composition correction: one clear entrance, then the showroom. */
+@media (max-width:760px){
+  .cw-stage-copy{
+    top:max(82px,11svh)!important;
+    left:50%!important;
+    width:min(90%,440px)!important;
+    text-align:center!important;
+    z-index:12!important;
+  }
+  .cw-stage-copy h1{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    animation:none!important;
+    font-size:clamp(39px,10.5vw,52px)!important;
+    line-height:.96!important;
+    margin:20px 0 14px!important;
+    color:#fff!important;
+  }
+  .cw-stage-copy h1 em{color:#08c5c0!important}
+  .cw-stage-copy p{margin:0 auto!important;max-width:330px!important}
+  .cw-doorway{
+    left:50%!important;right:auto!important;top:auto!important;
+    bottom:6svh!important;
+    width:min(58vw,270px)!important;
+    height:min(37svh,300px)!important;
+    min-height:190px!important;max-height:300px!important;
+    transform:translateX(-50%)!important;
+    z-index:5!important;
+  }
+  .cw-showroom-walkway{
+    z-index:7!important;
+    background:radial-gradient(ellipse at 50% 45%,#34458f 0%,#202b70 52%,#151c53 100%)!important;
+  }
+  .cw-showroom-bay{
+    left:50%!important;top:47%!important;
+    width:min(82vw,360px)!important;
+    height:67svh!important;max-height:590px!important;
+    transform:translate3d(-50%,-50%,0)!important;
+  }
+  .cw-showroom-frame{height:calc(100% - 48px)!important}
+  .cw-showroom-frame img{object-fit:contain!important;object-position:center!important}
+  .cw-showroom-door-caption{bottom:0!important}
+}
