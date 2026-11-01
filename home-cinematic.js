@@ -39,7 +39,7 @@
       bay.style.setProperty('--bay-index',String(index));
       const frame=document.createElement('div');frame.className='cw-showroom-frame';
       const img=document.createElement('img');img.src=data.image;img.alt=data.alt;
-      img.loading=index<2?'eager':'lazy';img.decoding='async';
+      img.loading='eager';img.decoding='async';img.fetchPriority=index<2?'high':'auto';
       const glow=document.createElement('span');glow.className='cw-showroom-light';
       frame.append(img,glow);
       const caption=document.createElement('div');caption.className='cw-showroom-door-caption';
@@ -106,16 +106,18 @@
     // A long, continuous camera dolly through the showroom. The same transform
     // runs in reverse when the visitor scrolls upward.
     const isMobile=window.matchMedia('(max-width:760px)').matches;
-    const walkStart=isMobile?.14:.205,walkEnd=.965,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
+    const walkStart=isMobile?.115:.205,walkEnd=.975,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
     if(walkway){
       if(isMobile){
         walkway.style.transform='none';
-        const position=walkProgress*doors.length;
+        const position=walkProgress*(doors.length-1);
         doorItems.forEach(({bay,frame,img,index})=>{
-          const proximity=clamp(1-Math.abs(position-index)/1.12);
+          // Adjacent scenes cross-fade across the full scroll range. The triangular
+          // blend guarantees at least one visible door at every point in the tour.
+          const proximity=clamp(1-Math.abs(position-index));
           bay.style.opacity=String(proximity);
-          bay.style.visibility=proximity>.015?'visible':'hidden';
-          bay.style.transform='translate3d(-50%,-50%,0) scale('+(0.86+proximity*.14)+')';
+          bay.style.visibility=proximity>.005?'visible':'hidden';
+          bay.style.transform='translate3d(-50%,-50%,0) scale('+(0.94+proximity*.06)+')';
           frame.style.transform='none';
           img.style.transform='scale('+(1+proximity*.025)+')';
         });
