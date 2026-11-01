@@ -446,3 +446,30 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
   .cw-cinematic{height:100svh!important}
   .cw-showroom-walkway{display:none!important}
 }
+
+
+/* Mobile showroom: use a stable, full-screen door gallery instead of deep 3D Z-space.
+   This prevents blank scroll gaps and tiny/cropped exhibits on narrow devices. */
+@media (max-width:760px){
+  .cw-cinematic{height:760svh!important;overflow:clip;background:#171d59}
+  .cw-sticky-stage{height:100svh;min-height:0;overflow:hidden;perspective:none;perspective-origin:center}
+  .cw-showroom-walkway{inset:0;transform:none!important;background:radial-gradient(ellipse at 50% 48%,#33458b 0%,#202b70 48%,#151c53 100%)}
+  .cw-showroom-ceiling,.cw-showroom-floor,.cw-showroom-wall{display:none!important}
+  .cw-showroom-bay{
+    left:50%;top:47%;width:min(78vw,330px);height:64svh;max-height:560px;
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    transform:translate3d(-50%,-50%,0);transform-origin:center;will-change:opacity,transform;
+    transition:opacity .08s linear;pointer-events:none
+  }
+  .cw-showroom-frame{width:100%;height:calc(100% - 42px);padding:9px;background:linear-gradient(135deg,#c1a47c,#3b2922 18%,#17245d 82%,#d2b17d);box-shadow:0 24px 70px #050a2b99,0 0 35px #b5d5ff22}
+  .cw-showroom-frame img{background:transparent;object-fit:contain;filter:drop-shadow(0 18px 24px #050a28aa)}
+  .cw-showroom-door-caption{position:absolute;left:0;right:0;bottom:0;flex-direction:column;align-items:center;gap:6px;text-align:center}
+  .cw-showroom-door-caption strong{font-size:11px;letter-spacing:.16em}
+  .cw-showroom-door-caption span{text-align:center;font-size:9px}
+  .cw-showroom-endwall{left:50%;top:47%;width:84vw;height:55svh;transform:translate3d(-50%,-50%,0);opacity:0}
+  .cw-showroom-chapter{left:7%;right:7%;bottom:7%;max-width:none;align-items:center;text-align:center;gap:7px}
+  .cw-showroom-chapter span{font-size:8px}
+  .cw-showroom-chapter strong{font-size:clamp(21px,6vw,30px)}
+  .cw-showroom-progress{right:5%;top:50%;gap:7px}
+  .cw-showroom-progress i{height:17px}
+}
