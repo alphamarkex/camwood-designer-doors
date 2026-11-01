@@ -105,19 +105,35 @@
 
     // A long, continuous camera dolly through the showroom. The same transform
     // runs in reverse when the visitor scrolls upward.
-    const walkStart=.205,walkEnd=.965,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
+    const isMobile=window.matchMedia('(max-width:760px)').matches;
+    const walkStart=isMobile?.14:.205,walkEnd=.965,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
     if(walkway){
-      const distance=walkProgress*6900;
-      const sway=Math.sin(walkProgress*Math.PI*3)*13;
-      walkway.style.transform='translate3d('+sway+'px,0,'+distance+'px)';
-      doorItems.forEach(({bay,frame,img,index})=>{
-        const relative=700+index*1120-distance;
-        const proximity=clamp(1-Math.abs(relative)/1350);
-        const passed=clamp((distance-(700+index*1120))/380);
-        bay.style.opacity=String(clamp(1-Math.max(0,passed)*.92));
-        frame.style.transform='scale('+(0.76+proximity*.28)+') rotateY('+(index%2===0?'18deg':'-18deg')+')';
-        img.style.transform='scale('+(1+proximity*.035)+')';
-      });
+      if(isMobile){
+        walkway.style.transform='none';
+        const position=walkProgress*doors.length;
+        doorItems.forEach(({bay,frame,img,index})=>{
+          const proximity=clamp(1-Math.abs(position-index)/1.12);
+          bay.style.opacity=String(proximity);
+          bay.style.visibility=proximity>.015?'visible':'hidden';
+          bay.style.transform='translate3d(-50%,-50%,0) scale('+(0.86+proximity*.14)+')';
+          frame.style.transform='none';
+          img.style.transform='scale('+(1+proximity*.025)+')';
+        });
+        const end=walkway.querySelector('.cw-showroom-endwall');
+        if(end){const endOpacity=clamp((walkProgress-.91)/.08);end.style.opacity=String(endOpacity);end.style.transform='translate3d(-50%,-50%,0) scale('+(0.94+endOpacity*.06)+')';}
+      }else{
+        const distance=walkProgress*6900;
+        const sway=Math.sin(walkProgress*Math.PI*3)*13;
+        walkway.style.transform='translate3d('+sway+'px,0,'+distance+'px)';
+        doorItems.forEach(({bay,frame,img,index})=>{
+          const relative=700+index*1120-distance;
+          const proximity=clamp(1-Math.abs(relative)/1350);
+          const passed=clamp((distance-(700+index*1120))/380);
+          bay.style.opacity=String(clamp(1-Math.max(0,passed)*.92));
+          frame.style.transform='scale('+(0.76+proximity*.28)+') rotateY('+(index%2===0?'18deg':'-18deg')+')';
+          img.style.transform='scale('+(1+proximity*.035)+')';
+        });
+      }
       const current=Math.min(doors.length-1,Math.max(0,Math.floor(walkProgress*doors.length)));
       if(chapterLabel&&current!==chapterIndex){
         chapterIndex=current;
