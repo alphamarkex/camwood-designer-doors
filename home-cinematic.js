@@ -106,18 +106,21 @@
     // A long, continuous camera dolly through the showroom. The same transform
     // runs in reverse when the visitor scrolls upward.
     const isMobile=window.matchMedia('(max-width:760px)').matches;
-    const walkStart=isMobile?.115:.205,walkEnd=.975,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
+    const walkStart=isMobile?.22:.205,walkEnd=.975,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
     if(walkway){
       if(isMobile){
         walkway.style.transform='none';
         const position=walkProgress*(doors.length-1);
+        const sceneReveal=smooth((progress-.155)/.085);
         doorItems.forEach(({bay,frame,img,index})=>{
-          // Adjacent scenes cross-fade across the full scroll range. The triangular
-          // blend guarantees at least one visible door at every point in the tour.
+          // Keep the showroom completely out of the opening hero. It cross-fades
+          // in only as the entrance door finishes opening, then one full-screen
+          // collection display follows the scroll without overlapping the hero.
           const proximity=clamp(1-Math.abs(position-index));
-          bay.style.opacity=String(proximity);
-          bay.style.visibility=proximity>.005?'visible':'hidden';
-          bay.style.transform='translate3d(-50%,-50%,0) scale('+(0.94+proximity*.06)+')';
+          const visibility=proximity*sceneReveal;
+          bay.style.opacity=String(visibility);
+          bay.style.visibility=visibility>.008?'visible':'hidden';
+          bay.style.transform='translate3d(-50%,-50%,0) scale('+(0.96+proximity*.04)+')';
           frame.style.transform='none';
           img.style.transform='scale('+(1+proximity*.025)+')';
         });
