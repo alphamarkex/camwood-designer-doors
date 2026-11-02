@@ -519,3 +519,53 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
   .cw-showroom-frame img{object-fit:contain!important;object-position:center!important}
   .cw-showroom-door-caption{bottom:0!important}
 }
+
+
+/* November 2026 premium entrance refinement — homepage only.
+   Preserve Camwood's existing indigo/teal identity; black is used only for the hero door. */
+.cw-sticky-stage{
+  background:
+    radial-gradient(ellipse at 72% 48%,#242b5c 0%,#11152f 34%,#050609 74%) !important;
+}
+.cw-door-panel{
+  background:linear-gradient(105deg,#050607 0%,#111318 48%,#050607 100%) !important;
+  border:1px solid #55b5b6 !important;
+  box-shadow:
+    inset 0 0 0 2px #30358f,
+    inset 0 0 0 5px #090b10,
+    inset 0 0 48px #000,
+    14px 12px 42px #000c !important;
+}
+.cw-door-image{
+  background-image:
+    linear-gradient(110deg,#030407e8 0%,#080b13b8 48%,#030407e8 100%),
+    url('page-03-image-395.webp') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  filter:grayscale(.72) brightness(.38) contrast(1.25) !important;
+}
+.cw-door-inset{
+  inset:5% !important;
+  border:1px solid #55b5b688 !important;
+  box-shadow:inset 0 0 0 7px #30358f55,inset 0 0 34px #000c !important;
+}
+.cw-door-brand{
+  color:#55b5b6 !important;
+  text-shadow:0 0 18px #55b5b655,0 2px 8px #000 !important;
+  letter-spacing:.2em !important;
+}
+.cw-door-brand span{color:#f7f8fc !important}
+.cw-door-handle{
+  background:radial-gradient(circle at 30% 25%,#fff 0%,#55b5b6 28%,#30358f 70%) !important;
+  box-shadow:0 0 0 4px #080a10,0 0 0 6px #55b5b688,0 3px 10px #000c !important;
+}
+.cw-room{
+  background:linear-gradient(90deg,#11152f 0%,#30358f 42%,#d8c5a6 100%) !important;
+}
+.cw-room-line{background:linear-gradient(170deg,#92795e,#20245f) !important}
+.cw-stage-copy h1 em{color:var(--teal,#55b5b6) !important}
+.cw-tour-scroll-hint b{color:var(--teal,#55b5b6) !important}
+@media(max-width:760px){
+  .cw-door-panel{border-width:1px !important}
+  .cw-door-inset{inset:5% !important}
+}
