@@ -87,18 +87,18 @@
     const rect=root.getBoundingClientRect();
     const travel=Math.max(1,root.offsetHeight-window.innerHeight);
     targetProgress=clamp(-rect.top/travel);
-    visualProgress += (targetProgress-visualProgress)*.18;
+    visualProgress += (targetProgress-visualProgress)*.34;
     if(Math.abs(targetProgress-visualProgress)<.0008)visualProgress=targetProgress;
     const progress=visualProgress;
-    const doorProgress=smooth(progress/.19);
+    const doorProgress=smooth(progress/.065);
     if(stage){
       stage.style.setProperty('--cw-progress',progress.toFixed(4));
       stage.style.setProperty('--cw-light',clamp((progress-.1)*1.8).toFixed(4));
     }
     if(panel)panel.style.transform='rotateY('+(-doorProgress*112)+'deg)';
-    if(doorway)doorway.style.opacity=String(1-clamp((progress-.13)/.10));
+    if(doorway)doorway.style.opacity=String(1-clamp((progress-.055)/.075));
     if(copy){
-      const fade=clamp(progress/.17);
+      const fade=clamp(progress/.085);
       copy.style.opacity=String(1-fade);
       copy.style.transform='translate3d(-50%,'+(-progress*35)+'px,0) scale('+(1-progress*.035)+')';
     }
@@ -106,12 +106,12 @@
     // A long, continuous camera dolly through the showroom. The same transform
     // runs in reverse when the visitor scrolls upward.
     const isMobile=window.matchMedia('(max-width:760px)').matches;
-    const walkStart=isMobile?.22:.205,walkEnd=.975,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
+    const walkStart=isMobile?.14:.13,walkEnd=.975,walkProgress=smooth((progress-walkStart)/(walkEnd-walkStart));
     if(walkway){
       if(isMobile){
         walkway.style.transform='none';
         const position=walkProgress*(doors.length-1);
-        const sceneReveal=smooth((progress-.155)/.085);
+        const sceneReveal=smooth((progress-.105)/.065);
         doorItems.forEach(({bay,frame,img,index})=>{
           // Keep the showroom completely out of the opening hero. It cross-fades
           // in only as the entrance door finishes opening, then one full-screen
