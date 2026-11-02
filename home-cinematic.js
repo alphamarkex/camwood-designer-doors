@@ -112,6 +112,8 @@
         walkway.style.transform='none';
         const position=walkProgress*(doors.length-1);
         const sceneReveal=smooth((progress-.105)/.065);
+        walkway.style.opacity=String(sceneReveal);
+        walkway.style.transition='opacity .35s ease';
         doorItems.forEach(({bay,frame,img,index})=>{
           // Keep the showroom completely out of the opening hero. It cross-fades
           // in only as the entrance door finishes opening, then one full-screen
