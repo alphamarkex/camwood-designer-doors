@@ -725,3 +725,11 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
  .cw-laptop-base{height:54px}
 }
 @media(prefers-reduced-motion:reduce){.cw-cinematic{height:100svh!important}.cw-laptop-wrap{transform:none!important}.cw-screen-page{transform:none!important}}
+
+/* Final homepage cinematic overrides: no laptop mockup, short-scroll transition, mobile-safe sizing. */
+.cw-web-experience,.cw-laptop-wrap,.cw-laptop-screen,.cw-laptop-base,.cw-reference-caption{display:none!important}
+.cw-cinematic{height:125vh!important}
+.cw-sticky-stage{height:100svh!important;min-height:0!important;overflow:hidden!important;position:sticky!important;top:0!important}
+.cw-doorway,.cw-door-panel,.cw-room{will-change:transform,filter}
+.cw-full-scene{background-position:center!important}
+@media(max-width:760px){.cw-cinematic{height:115svh!important}.cw-sticky-stage{height:100svh!important;min-height:0!important}.cw-doorway{left:50%;right:auto;bottom:7svh;top:auto;width:clamp(155px,51vw,220px);height:clamp(175px,28svh,235px);min-height:0;transform:translateX(-50%)}.cw-stage-copy{top:66px!important;left:5%!important;width:90%!important;max-width:none!important;text-align:center!important}.cw-stage-copy h1{font-size:clamp(34px,9vw,48px)!important}.cw-stage-copy p{font-size:11px!important;max-width:310px!important;margin-inline:auto!important}.cw-stage-caption{bottom:10px!important}}
