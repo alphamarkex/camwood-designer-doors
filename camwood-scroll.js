@@ -11,7 +11,7 @@
  function render(){
   const rect=root.getBoundingClientRect(),span=Math.max(1,root.offsetHeight-innerHeight),overall=reduce?0:clamp(-rect.top/span),segment=1/scenes.length;
   scenes.forEach((scene,index)=>{
-   const local=clamp((overall-index*segment)/segment),fadeIn=smooth(local/.22),fadeOut=index===scenes.length-1?1:1-smooth((local-.72)/.28);
+   const rawLocal=(overall-index*segment)/segment,local=clamp(rawLocal),fadeIn=index===0?1:smooth((rawLocal+.15)/.3),fadeOut=index===scenes.length-1?1:1-smooth((rawLocal-.65)/.3);
    const opacity=index===0?fadeOut:Math.min(fadeIn,fadeOut),visible=opacity>.015;
    scene.style.opacity=String(opacity);scene.style.visibility=visible?'visible':'hidden';
    scene.style.transform='translate3d(0,'+((1-opacity)*22)+'px,0) scale('+(1.018-opacity*.018)+')';scene.classList.toggle('is-active',visible);
