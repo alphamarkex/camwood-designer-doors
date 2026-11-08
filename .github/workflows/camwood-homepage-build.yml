@@ -1,0 +1,21 @@
+name: Homepage build check
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [camwood-motion-primitives]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build
+      - name: Verify existing inner pages are preserved
+        run: |
+          test -f dist/about.html
+          test -f dist/collections.html
+          test -f dist/contact.html
