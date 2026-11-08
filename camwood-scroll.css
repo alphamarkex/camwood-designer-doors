@@ -75,3 +75,9 @@
  .cw-scene-visual img,.cw-scene--opening .cw-opening-image img{transform:none!important}
  .cw-experience-progress{display:none}
 }
+/* Homepage-only transparent masthead, keeping the reference focused on the website itself. */
+.nav{position:absolute!important;top:0!important;left:0!important;right:0!important;z-index:30!important;background:linear-gradient(180deg,#08080888,transparent)!important;border-bottom:1px solid #ffffff1c!important;box-shadow:none!important}
+.nav .brand-word,.nav small,.nav nav a,.nav .nav-cta,.nav .menu{color:#f7f2e9!important}
+.nav .nav-cta{border-color:#d2b184!important;background:transparent!important}
+.nav .menu{background:transparent!important}
+html{scroll-behavior:smooth}
