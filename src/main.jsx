@@ -1,0 +1,1 @@
+import React from "react";import{createRoot}from"react-dom/client";import HomeExperience from"./home-experience.jsx";import"./home.css";const root=document.getElementById("camwood-react-home");if(root)createRoot(root).render(<HomeExperience/>);
