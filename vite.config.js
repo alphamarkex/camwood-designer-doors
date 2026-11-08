@@ -1,0 +1,1 @@
+import {defineConfig} from "vite";import {resolve} from "node:path";export default defineConfig({publicDir:false,build:{outDir:"dist",emptyOutDir:true,rollupOptions:{input:resolve(process.cwd(),"index.html")}}});
