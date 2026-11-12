@@ -914,3 +914,105 @@ html{scroll-behavior:smooth;scroll-padding-top:86px}
  .cw-parallax-media,.cw-product-tile img{transform:none!important;transition:none!important}
  .cw-product-rail{scroll-behavior:auto}
 }
+
+
+/* FINAL FIX — align the live hero to the Camwood 12-frame storyboard */
+.cw-cinematic{
+  height:420svh!important;
+  min-height:0!important;
+  background:#050916!important;
+}
+.cw-scroll-track{height:100%!important}
+.cw-sticky-stage{
+  height:100svh!important;min-height:0!important;position:sticky!important;top:0!important;
+  overflow:hidden!important;
+  background:radial-gradient(ellipse at 70% 52%,#20245f 0%,#10183f 35%,#030611 78%)!important;
+}
+.cw-stage-copy{
+  left:8%!important;top:50%!important;transform:translateY(-50%);
+  width:min(40vw,500px);max-width:500px!important;text-align:left;
+}
+.cw-stage-copy h1{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:clamp(42px,5.3vw,76px)!important;
+  line-height:.99!important;letter-spacing:-.055em!important;
+  margin:20px 0 18px!important;
+}
+.cw-stage-copy h1 em{color:#55b5b6!important;font-style:normal}
+.cw-stage-copy p{font-size:clamp(13px,1.15vw,16px)!important;line-height:1.7!important;color:#e0e5f8!important}
+.cw-kicker{color:#55b5b6!important;letter-spacing:.18em!important}
+.cw-hero-primary{background:#ffce42!important;color:#20245f!important;border:0!important}
+.cw-hero-secondary{color:#f7f8fc!important;border-color:#55b5b6!important}
+.cw-scroll-hint{color:#55b5b6!important}
+.cw-doorway{
+  right:8%!important;left:auto!important;top:50%!important;bottom:auto!important;
+  width:min(34vw,470px)!important;height:min(74vh,700px)!important;min-height:0!important;
+  transform:translateY(-50%)!important;perspective:1800px!important;
+  filter:drop-shadow(0 28px 60px #000b)!important;
+}
+.cw-room{
+  background:linear-gradient(90deg,#11152f 0%,#30358f 42%,#e6d3b2 100%)!important;
+  box-shadow:inset 0 0 100px #080d2b99!important;
+}
+.cw-room-word{color:#20245f!important}
+.cw-door-panel{
+  border:0!important;border-radius:1px!important;
+  background:#382316!important;
+  box-shadow:inset -18px 0 25px #0008,0 0 0 1px #55b5b666,12px 14px 50px #000b!important;
+  transform-origin:left center!important;
+}
+.cw-door-image{
+  background-image:linear-gradient(180deg,#160b0630,#160b0620),url('page-03-image-395.webp')!important;
+  background-size:cover!important;background-position:center!important;
+  filter:brightness(.88) saturate(1.08) contrast(1.04)!important;
+}
+.cw-door-inset{inset:4%!important;border:1px solid #d7c49b88!important;box-shadow:inset 0 0 0 5px #1b120b33!important}
+.cw-door-handle{right:8%!important;width:15px!important;height:15px!important;background:radial-gradient(circle at 30% 25%,#fff,#ffce42 44%,#87651c 85%)!important;box-shadow:0 2px 10px #000b!important}
+.cw-door-brand{color:#f7f8fc!important;text-shadow:0 2px 10px #000!important}
+.cw-door-brand span{color:#55b5b6!important}
+.cw-stage-caption{color:#c5ccef!important}
+.cw-tour-scroll-hint{color:#e0e5f8!important}
+.cw-full-scene{z-index:1!important;background-position:center!important}
+.cw-vignette{z-index:5!important}
+.cw-grain{z-index:6!important}
+.cw-atmosphere{z-index:3!important}
+.cw-stage-outro{z-index:8!important}
+@media(max-width:760px){
+ .cw-cinematic{height:360svh!important}
+ .cw-sticky-stage{height:100svh!important;min-height:0!important}
+ .cw-stage-copy{
+   left:6%!important;top:8.5svh!important;bottom:auto!important;
+   width:88%!important;max-width:none!important;
+   transform:none!important;text-align:center!important;
+ }
+ .cw-kicker{font-size:8px!important;letter-spacing:.13em!important}
+ .cw-stage-copy h1{
+   font-size:clamp(34px,9.2vw,46px)!important;
+   line-height:1.02!important;margin:14px 0 10px!important;
+ }
+ .cw-stage-copy p{font-size:12px!important;line-height:1.55!important;max-width:320px!important;margin:0 auto!important}
+ .cw-hero-actions{display:flex!important;justify-content:center!important;gap:8px!important;flex-wrap:wrap!important;margin-top:14px!important}
+ .cw-hero-primary,.cw-hero-secondary{font-size:10px!important;padding:11px 13px!important}
+ .cw-stage-copy .cw-scroll-hint{margin-top:12px!important;font-size:8px!important}
+ .cw-doorway{
+   left:50%!important;right:auto!important;top:auto!important;bottom:9svh!important;
+   width:clamp(220px,72vw,330px)!important;height:clamp(300px,43svh,440px)!important;
+   min-height:0!important;transform:translateX(-50%)!important;
+ }
+ .cw-door-panel{border:0!important}
+ .cw-door-inset{inset:4%!important;border-width:1px!important}
+ .cw-stage-caption{left:6%!important;right:6%!important;bottom:13px!important;font-size:7px!important}
+ .cw-tour-scroll-hint{bottom:42px!important;font-size:8px!important}
+ .cw-stage-outro{right:7%!important;top:35%!important}
+ .cw-stage-outro strong{font-size:38px!important}
+}
+@media(max-width:390px){
+ .cw-stage-copy h1{font-size:34px!important}
+ .cw-stage-copy p{font-size:11px!important}
+ .cw-doorway{width:74vw!important;height:40svh!important;bottom:10svh!important}
+ .cw-hero-primary,.cw-hero-secondary{font-size:9px!important;padding:10px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .cw-cinematic{height:100svh!important}
+ .cw-door-panel{transform:none!important}
+}
