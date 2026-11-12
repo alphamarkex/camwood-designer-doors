@@ -14,7 +14,7 @@
  const mobile=()=>window.innerWidth<=760;
 
  // A longer sticky runway gives the opening, camera move and interior reveal room to breathe.
- function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'190svh':'230svh'),'important')}
+ function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'360svh':'420svh'),'important')}
  setTrack();
 
  // Atmosphere and a moving highlight stay decorative and never block interaction.
@@ -43,24 +43,24 @@
    const runway=Math.max(1,root.offsetHeight-window.innerHeight);
    const progress=reduce?1:clamp(-rect.top/runway);
    // Door swing is the central interaction: camera approaches, then the door opens.
-   const camera=smooth(progress/.32);
-   const swing=smooth((progress-.18)/.53);
-   const reveal=smooth((progress-.40)/.43);
+   const camera=smooth(progress/.38);
+   const swing=smooth((progress-.16)/.38);
+   const reveal=smooth((progress-.48)/.34);
    if(door)door.style.transform='rotateY('+(-swing*116)+'deg)';
    if(doorway){
-     if(mobile())doorway.style.transform='translateX(-50%) scale('+(1+camera*.16)+')';
-     else doorway.style.transform='translate3d('+(camera*-4.5)+'vw,-50%,'+(camera*110)+'px) scale('+(1+camera*.13)+')';
+     if(mobile())doorway.style.transform='translateX(-50%) translateY('+(camera*-5)+'vh) scale('+(1+camera*.24)+')';
+     else doorway.style.transform='translate3d('+(camera*-7)+'vw,-50%,'+(camera*220)+'px) scale('+(1+camera*.25)+')';
    }
    if(room)room.style.filter='brightness('+(0.62+reveal*.48)+')';
    if(copy){
-     const fade=smooth((progress-.24)/.2);
+     const fade=smooth((progress-.20)/.18);
      copy.style.opacity=String(1-fade);
      copy.style.transform='translate3d(0,'+(-fade*34)+'px,0)';
    }
    scene.style.opacity=String(reveal);
    scene.style.transform='scale('+(1.14-reveal*.14)+')';
    if(outro){
-     const show=smooth((progress-.76)/.2);
+     const show=smooth((progress-.82)/.15);
      outro.style.opacity=String(show);
      outro.style.transform='translateY('+(25-show*25)+'px)';
    }
