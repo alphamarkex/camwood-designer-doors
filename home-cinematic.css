@@ -802,3 +802,115 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
 @media(max-width:760px){
   .cw-sticky-stage{background:radial-gradient(ellipse at 50% 74%,#30358f 0%,#20245f 38%,#090d24 82%)}
 }
+
+/* === CAMWOOD STORYBOARD BUILD: complete homepage motion system === */
+:root{--cw-indigo:#20245f;--cw-blue:#30358f;--cw-aqua:#55b5b6;--cw-teal:#2c929a;--cw-yellow:#ffce42;--cw-paper:#f7f8fc}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+.cw-cinematic{height:230svh!important;background:#080d22!important}
+.cw-sticky-stage{background:radial-gradient(ellipse at 72% 48%,#30358f 0%,#20245f 38%,#070b1c 78%)!important}
+.cw-sticky-stage:before{background:linear-gradient(112deg,transparent 35%,#55b5b61a 47%,#55b5b633 50%,#ffce4214 53%,transparent 65%)!important}
+.cw-sticky-stage:after{background:radial-gradient(ellipse at 74% 48%,#55b5b6 calc(var(--cw-light)*7%),transparent 42%)!important}
+.cw-doorway{filter:drop-shadow(0 24px 55px #10143f99)}
+.cw-door-panel{box-shadow:inset 0 0 0 2px #55b5b688,inset -15px 0 20px #0008,8px 0 20px #0008}
+.cw-door-inset{border-color:#55b5b688}
+.cw-door-handle{background:radial-gradient(circle at 30% 25%,#fff8,#ffce42 42%,#2c929a 82%)}
+.cw-stage-copy h1 em{color:var(--cw-yellow)}
+.cw-kicker,.cw-scroll-hint,.cw-section-eyebrow{color:var(--cw-aqua)}
+.cw-stage-outro span{color:var(--cw-yellow)}
+.cw-tour-scroll-hint{color:#d9dcf5}
+.cw-full-scene{filter:saturate(.92)}
+
+/* Brand story: split-screen cinematic reveal */
+.cw-story-section{position:relative;min-height:680px;display:grid;grid-template-columns:1.05fr .95fr;align-items:stretch;overflow:hidden;background:#0b1026;color:#f7f8fc}
+.cw-story-image{min-height:680px;background:linear-gradient(90deg,#080d1a10,#080d1a55),url('page-03-image-396.webp') center/cover no-repeat;transform:scale(1.08)}
+.cw-story-copy{padding:clamp(55px,8vw,120px) clamp(35px,8vw,110px);display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#20245f,#10172f)}
+.cw-section-eyebrow{display:block;font-size:10px;letter-spacing:.22em;font-weight:700}
+.cw-story-copy h2,.cw-section-heading h2,.cw-why-copy h2,.cw-project-copy h2{font:500 clamp(42px,5.4vw,72px)/.98 Georgia,serif;letter-spacing:-.045em;margin:22px 0;color:#f7f8fc}
+.cw-story-copy h2 em,.cw-section-heading h2 em,.cw-why-copy h2 em,.cw-project-copy h2 em{color:var(--cw-yellow);font-style:normal}
+.cw-story-copy>p,.cw-project-copy>p{font-size:14px;line-height:1.9;color:#d9dcf5;max-width:440px}
+.cw-line-link{display:inline-flex;gap:28px;align-items:center;width:max-content;margin:20px 0 40px;padding:13px 0;border-bottom:1px solid #55b5b6;color:#f7f8fc;font-size:12px;font-weight:700}
+.cw-line-link span{color:var(--cw-yellow);font-size:18px}
+.cw-story-stats{display:grid;gap:12px;border-top:1px solid #ffffff2c;padding-top:20px}
+.cw-story-stats span{font-size:11px;color:#d9dcf5;letter-spacing:.04em}
+.cw-story-stats b{color:var(--cw-aqua);margin-right:14px}
+
+/* Product showcase: real catalogue images in a scroll-snap horizontal rail */
+.cw-products-section{padding:110px 7% 90px;background:#f7f8fc;color:#20245f;overflow:hidden}
+.cw-section-heading{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:42px}
+.cw-section-heading h2{color:#20245f;margin-bottom:0}
+.cw-section-heading h2 em{color:#2c929a}
+.cw-section-heading>p{max-width:330px;color:#62688c;font-size:13px;line-height:1.8;margin:0 0 6px}
+.cw-product-rail-wrap{position:relative}
+.cw-product-rail{display:grid;grid-auto-columns:minmax(250px,31%);grid-auto-flow:column;gap:18px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#55b5b6 #dfe2f2;padding:5px 2px 18px}
+.cw-product-rail::-webkit-scrollbar{height:5px}.cw-product-rail::-webkit-scrollbar-thumb{background:#55b5b6;border-radius:10px}
+.cw-product-tile{position:relative;min-width:0;min-height:390px;display:flex;flex-direction:column;justify-content:end;overflow:hidden;scroll-snap-align:start;background:#20245f;color:#fff;padding:24px;isolation:isolate}
+.cw-product-tile:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#10172f00 25%,#10172fdc 100%)}
+.cw-product-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .8s}
+.cw-product-tile:hover img{transform:scale(1.08);filter:saturate(1.1)}
+.cw-product-tile>span{font-size:9px;letter-spacing:.18em;color:var(--cw-yellow)}
+.cw-product-tile strong{font:500 27px/1.05 Georgia,serif;margin:12px 0}
+.cw-product-tile>b{font-size:10px;letter-spacing:.08em;color:#dffbfa}
+.cw-rail-arrow{position:absolute;z-index:2;top:44%;width:42px;height:42px;border:1px solid #55b5b6;background:#20245f;color:white;border-radius:50%;font-size:22px;cursor:pointer;transition:background .2s,transform .2s}
+.cw-rail-arrow:hover{background:#30358f;transform:scale(1.06)}
+.cw-rail-prev{left:-18px}.cw-rail-next{right:-18px}
+.cw-rail-progress{display:flex;justify-content:space-between;color:#62688c;font-size:9px;letter-spacing:.16em;margin-top:16px}
+
+/* Existing collection cards receive a consistent staggered entrance */
+.cw-category-intro,.cw-category-grid{background:#f7f8fc!important;color:#20245f!important}
+.cw-category-intro h2 em{color:#2c929a!important}
+.cw-category-card{background:#20245f!important}
+.cw-category-card>span{color:#ffce42!important}
+.cw-category-card:after{border-color:#55b5b655!important}
+
+/* Why Camwood + project story */
+.cw-why-section{display:grid;grid-template-columns:.9fr 1.1fr;min-height:620px;background:#10172f;color:#f7f8fc;overflow:hidden}
+.cw-why-art{min-height:620px;background:linear-gradient(90deg,#10172f00,#10172f22),url('page-09-image-6914.webp') center/cover no-repeat}
+.cw-why-copy{padding:clamp(55px,8vw,110px);display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#20245f,#10172f)}
+.cw-benefit-list{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:21px}
+.cw-benefit-list li{display:flex;gap:17px;align-items:flex-start}
+.cw-benefit-list li>span{color:var(--cw-yellow);font-size:22px;line-height:1}
+.cw-benefit-list strong{display:block;font-size:14px;color:#fff;margin-bottom:5px}
+.cw-benefit-list small{font-size:12px;line-height:1.6;color:#c7cdef}
+.cw-project-section{min-height:600px;position:relative;display:flex;align-items:center;overflow:hidden;background:#090d1e;color:white;isolation:isolate}
+.cw-project-photo{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#080d1d0a 0%,#080d1dd9 100%),url('page-03-image-396.webp') center/cover no-repeat;transform:scale(1.08)}
+.cw-project-section:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#080d1d00 20%,#080d1dc9 75%)}
+.cw-project-copy{width:min(540px,48%);margin-left:auto;margin-right:9%;padding:90px 0}
+.cw-project-copy h2{font-size:clamp(42px,5vw,66px)}
+.cw-gold-button{display:inline-flex;align-items:center;gap:26px;margin-top:18px;padding:14px 20px;background:#ffce42;color:#20245f;font-size:11px;font-weight:800;border-radius:2px;transition:transform .25s,box-shadow .25s}
+.cw-gold-button:hover{transform:translateY(-3px);box-shadow:0 12px 30px #0005}
+.cw-gold-button span{font-size:18px}
+
+/* Scroll reveal + stagger + parallax */
+.cw-motion-reveal{opacity:0;transform:translate3d(0,38px,0);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform}
+.cw-motion-reveal.cw-in-view{opacity:1;transform:translate3d(0,0,0)}
+.cw-stagger-child{transition-delay:var(--cw-stagger,0ms)!important}
+.cw-parallax-media{will-change:transform}
+.cw-products-section .cw-product-tile.cw-motion-reveal{transition-delay:var(--cw-stagger,0ms)!important}
+.cw-cinematic .cw-stage-copy,.cw-doorway,.cw-stage-outro{will-change:transform,opacity}
+@media(max-width:900px){
+ .cw-section-heading{display:block}.cw-section-heading>p{margin-top:18px}
+ .cw-product-rail{grid-auto-columns:minmax(235px,45%)}
+ .cw-project-copy{width:58%;margin-right:6%}
+}
+@media(max-width:760px){
+ .cw-cinematic{height:190svh!important}
+ .cw-story-section,.cw-why-section{grid-template-columns:1fr}
+ .cw-story-image{min-height:330px;height:42svh}
+ .cw-story-copy,.cw-why-copy{padding:58px 7%}
+ .cw-story-copy h2,.cw-section-heading h2,.cw-why-copy h2,.cw-project-copy h2{font-size:clamp(39px,11vw,54px)}
+ .cw-story-stats{grid-template-columns:1fr 1fr}
+ .cw-products-section{padding:72px 6% 65px}
+ .cw-product-rail{grid-auto-columns:minmax(235px,82%);gap:12px}
+ .cw-product-tile{min-height:350px;padding:20px}
+ .cw-rail-prev{left:-12px}.cw-rail-next{right:-12px}
+ .cw-why-art{min-height:330px;height:42svh}
+ .cw-project-section{min-height:590px;align-items:end}
+ .cw-project-photo{background-position:38% center}
+ .cw-project-section:after{background:linear-gradient(0deg,#080d1df2 0%,#080d1d70 58%,#080d1d10 100%)}
+ .cw-project-copy{width:100%;margin:0;padding:270px 7% 60px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cw-motion-reveal{opacity:1!important;transform:none!important;transition:none!important}
+ .cw-parallax-media,.cw-product-tile img{transform:none!important;transition:none!important}
+ .cw-product-rail{scroll-behavior:auto}
+}
