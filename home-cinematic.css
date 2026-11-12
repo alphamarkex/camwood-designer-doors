@@ -733,3 +733,72 @@ body.cinematic-scroll-active .cinematic-scroll-backdrop{display:none!important}
 .cw-doorway,.cw-door-panel,.cw-room{will-change:transform,filter}
 .cw-full-scene{background-position:center!important}
 @media(max-width:760px){.cw-cinematic{height:115svh!important}.cw-sticky-stage{height:100svh!important;min-height:0!important}.cw-doorway{left:50%;right:auto;bottom:7svh;top:auto;width:clamp(155px,51vw,220px);height:clamp(175px,28svh,235px);min-height:0;transform:translateX(-50%)}.cw-stage-copy{top:66px!important;left:5%!important;width:90%!important;max-width:none!important;text-align:center!important}.cw-stage-copy h1{font-size:clamp(34px,9vw,48px)!important}.cw-stage-copy p{font-size:11px!important;max-width:310px!important;margin-inline:auto!important}.cw-stage-caption{bottom:10px!important}}
+
+
+/* Camwood official brand palette — homepage cinematic treatment */
+:root{
+  --camwood-indigo:#20245f;
+  --camwood-blue:#30358f;
+  --camwood-turquoise:#55b5b6;
+  --camwood-teal:#2c929a;
+  --camwood-yellow:#ffce42;
+  --camwood-paper:#f7f8fc;
+}
+.cw-cinematic{
+  background:var(--camwood-indigo);
+  color:#f7f8fc;
+}
+.cw-sticky-stage{
+  background:
+    radial-gradient(ellipse at 76% 48%,#30358f 0%,#20245f 34%,#090d24 76%);
+}
+.cw-sticky-stage:before{
+  background:linear-gradient(112deg,transparent 35%,#55b5b61a 47%,#55b5b633 50%,#ffce4214 53%,transparent 65%);
+}
+.cw-sticky-stage:after{
+  background:radial-gradient(ellipse at 74% 48%,#55b5b6 calc(var(--cw-light)*7%),transparent 42%);
+}
+.cw-kicker,.cw-scroll-hint,.cw-stage-outro span{
+  color:var(--camwood-turquoise);
+}
+.cw-stage-copy h1,.cw-stage-outro strong{color:#f7f8fc}
+.cw-stage-copy p{color:#d9dcf5}
+.cw-doorway{
+  filter:drop-shadow(0 24px 55px #10143f99);
+}
+.cw-room{
+  box-shadow:inset 0 0 80px #20245f88,0 0 0 8px #30358f;
+}
+.cw-room-glow{
+  background:radial-gradient(ellipse at 78% 40%,#ffce4288 0,transparent 45%);
+}
+.cw-door-inset{
+  border-color:#55b5b688;
+  box-shadow:inset 0 0 0 9px #20245f55,inset 0 0 35px #0005;
+}
+.cw-door-handle{
+  background:radial-gradient(circle at 30% 25%,#fff8,#ffce42 42%,#2c929a 82%);
+}
+.cw-door-brand span{color:var(--camwood-yellow)}
+.cw-stage-caption{color:#b9c1ee}
+.cw-stage-outro span{color:var(--camwood-yellow)}
+.cw-category-intro,.cw-category-grid{
+  background:var(--camwood-paper);
+  color:var(--camwood-indigo);
+}
+.cw-category-intro h2 em{color:var(--camwood-teal)}
+.cw-category-intro p{color:#62688c}
+.cw-category-card{
+  background:var(--camwood-indigo);
+}
+.cw-category-card:before{
+  background-image:linear-gradient(180deg,#20245f20 0%,#20245f12 35%,#10143fd9 100%),var(--cat-image);
+}
+.cw-category-card>span{color:var(--camwood-yellow)}
+.cw-category-card b{border-color:#55b5b688}
+.cw-category-card:after{border-color:#55b5b655}
+.cw-category-card:focus-visible{outline-color:var(--camwood-yellow)}
+.cw-full-scene{filter:saturate(.92)}
+@media(max-width:760px){
+  .cw-sticky-stage{background:radial-gradient(ellipse at 50% 74%,#30358f 0%,#20245f 38%,#090d24 82%)}
+}
