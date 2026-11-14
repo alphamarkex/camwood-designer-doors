@@ -1204,3 +1204,12 @@ body{overflow-x:hidden}
  .cw-motion-reveal{opacity:1!important;transform:none!important;transition:none!important}
  .cw-parallax-media,.cw-product-tile img,.cw-category-card:before{transform:none!important;transition:none!important}
 }
+
+/* One-swipe mobile entrance: keep the door responsive to the finger without a delayed, stepped feel. */
+@media (max-width:760px){
+  .cw-door-panel{transition:transform .08s linear;will-change:transform}
+  .cw-doorway{transform-origin:center center;will-change:transform}
+  .cw-film-sequence{touch-action:pan-y}
+  .cw-film-scene{transition:opacity .35s ease,transform .5s ease}
+  .cw-stage-copy .cw-scroll-hint{display:none}
+}
