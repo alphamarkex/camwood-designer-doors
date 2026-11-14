@@ -44,142 +44,56 @@
   </section>
 </div>
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script>
-(function(){
- const categories={
-  "textured-door":{title:"Textured Door",pages:[9,10,11],codes:{
-   9:["CW-073","CW-074","CW-075","CW-079","CW-080","CW-081","CW-076","CW-077","CW-078","CW-082","CW-083","CW-084"],
-   10:["CW-085","CW-086","CW-087","CW-091","CW-092","CW-093","CW-088","CW-089","CW-090","CW-094","CW-095","CW-096"],
-   11:["CW-097","CW-098","CW-099","CW-103","CW-104","CW-105","CW-100","CW-101","CW-102","CW-106","CW-107","CW-108"]}},
-  "membrane-door":{title:"Membrane Door",pages:[3,4,5,6,7,8],codes:{
-   3:["CW-002","CW-003","CW-004","CW-008","CW-009","CW-010","CW-005","CW-006","CW-007","CW-011","CW-012","CW-013"],
-   4:["CW-014","CW-015","CW-016","CW-020","CW-021","CW-022","CW-017","CW-018","CW-019","CW-023","CW-024","CW-025"],
-   5:["CW-026","CW-027","CW-028","CW-032","CW-033","CW-034","CW-029","CW-030","CW-031","CW-035","CW-036","CW-037"],
-   6:["CW-038","CW-039","CW-040","CW-044","CW-045","CW-046","CW-041","CW-042","CW-043","CW-047","CW-048","CW-049"],
-   7:["CW-050","CW-051","CW-052","CW-056","CW-057","CW-058","CW-053","CW-054","CW-055","CW-059","CW-060","CW-061"],
-   8:["CW-062","CW-063","CW-064","CW-068","CW-069","CW-070","CW-065","CW-066","CW-067","CW-071","CW-072","CW-121"]}},
-  "double-door":{title:"Double Door",pages:[12],codes:{12:["CW-109","CW-110","CW-111","CW-115","CW-116","CW-117","CW-112","CW-113","CW-114","CW-118","CW-119","CW-120"]}},
-  "digital-door":{title:"Digital Door",pages:[13,14,15,16,17],codes:{
-   13:["KD-01","KD-02","KD-03","KD-04","KD-05","KD-06","KD-07"],
-   14:["KD-08","KD-09","KD-10","KD-14","KD-15","KD-16","KD-11","KD-12","KD-13","KD-17","KD-18","KD-19"],
-   15:["KD-20","KD-21","KD-22","KD-26","KD-27","KD-28","KD-23","KD-24","KD-25","KD-29","KD-30","KD-31"],
-   16:["KD-32","KD-33","KD-34","KD-38","KD-39","KD-40","KD-35","KD-36","KD-37","KD-41","KD-42","KD-43"],
-   17:["KD-44","KD-45","KD-46","KD-47","KD-48","KD-49"]}},
-  "solid-wood-window":{title:"Solid Wood Window",pages:[18],codes:{18:["W-01","W-02","W-03","W-04","W-05"]}},
-  "jali-glass-window-door":{title:"Jali & Glass Window and Door",pages:[18],codes:{18:["W-06","W-07","W-08","W-09","W-10","W-11","W-12","W-13","W-14","W-15"]}}
- };
- const slug=new URLSearchParams(location.search).get("category")||"membrane-door";
- const category=categories[slug]||categories["membrane-door"],title=category.title;
- document.title=title+" | Camwood Designer Doors & Windows";
- document.getElementById("collectionTitle").textContent=title;
- document.getElementById("collectionCrumb").textContent=title.toUpperCase();
- document.getElementById("collectionDescription").textContent=slug==="membrane-door"?"Explore Camwood membrane door designs for indoor spaces. These doors are intended for areas protected from direct sunlight and water. Browse finishes and catalogue models, then confirm exact sizes and availability with our team.":slug==="textured-door"?"Explore Camwood textured doors with an MDF inner layer that creates a dimensional, 3D-style surface. Like the other interior door varieties, these are intended for indoor use away from direct sunlight and water.":slug==="digital-door"?"Explore Camwood digital doors for indoor use away from direct sunlight and water. You can ask about custom printing using your own design or photo, subject to artwork and production confirmation.":"Browse authentic "+title.toLowerCase()+" references from the Camwood portfolio. The model code follows the catalogue. Confirm dimensions, material, finish and availability with our team.";
- const grid=document.getElementById("catalogueProducts"),detail=document.getElementById("productDetail"),detailImage=document.getElementById("detailImage");
- const parseIndex=async()=>{const r=await fetch("image-index.csv");if(!r.ok)throw Error("Image index unavailable");return (await r.text()).trim().split(/\r?\n/).slice(1).map(line=>{const a=line.split(",");return {file:a[0],page:Number(a[1]),w:Number(a[3]),h:Number(a[4])}})};
- const explicit={
-  13:["page-13-image-11783.webp","page-13-image-11785.webp","page-13-image-11787.webp","page-13-image-11789.webp","page-13-image-11778.webp","page-13-image-11779.webp","page-13-image-11791.webp"],
-  17:["page-17-image-15764.webp","page-17-image-15765.webp","page-17-image-15766.webp","page-17-image-15768.webp","page-17-image-15769.webp","page-17-image-15770.webp"],
-  18:["page-18-image-15887.webp","page-18-image-16870.webp","page-18-image-16872.webp","page-18-image-16874.webp","page-18-image-16866.webp","page-18-image-16868.webp","page-18-image-16939.webp"]
- };
- const exactFiles={
-  3:["page-03-image-395.webp","page-03-image-396.webp","page-03-image-397.webp","page-03-image-386.webp","page-03-image-387.webp","page-03-image-388.webp","page-03-image-389.webp","page-03-image-390.webp","page-03-image-391.webp","page-03-image-392.webp","page-03-image-393.webp","page-03-image-394.webp"],
-  4:["page-04-image-2477.webp","page-04-image-2478.webp","page-04-image-2479.webp","page-04-image-2480.webp","page-04-image-2469.webp","page-04-image-2470.webp","page-04-image-2471.webp","page-04-image-2472.webp","page-04-image-2473.webp","page-04-image-2474.webp","page-04-image-2475.webp","page-04-image-2476.webp"],
-  5:["page-05-image-3581.webp","page-05-image-3582.webp","page-05-image-3583.webp","page-05-image-3584.webp","page-05-image-3585.webp","page-05-image-3574.webp","page-05-image-3575.webp","page-05-image-3576.webp","page-05-image-3577.webp","page-05-image-3578.webp","page-05-image-3579.webp","page-05-image-3580.webp"],
-  6:["page-06-image-4685.webp","page-06-image-4686.webp","page-06-image-4687.webp","page-06-image-4688.webp","page-06-image-4689.webp","page-06-image-4690.webp","page-06-image-4679.webp","page-06-image-4680.webp","page-06-image-4681.webp","page-06-image-4682.webp","page-06-image-4683.webp","page-06-image-4684.webp"],
-  7:["page-07-image-5789.webp","page-07-image-5790.webp","page-07-image-5791.webp","page-07-image-5792.webp","page-07-image-5793.webp","page-07-image-5794.webp","page-07-image-5795.webp","page-07-image-5784.webp","page-07-image-5785.webp","page-07-image-5786.webp","page-07-image-5787.webp","page-07-image-5788.webp"],
-  8:["page-08-image-6892.webp","page-08-image-6893.webp","page-08-image-6894.webp","page-08-image-6896.webp","page-08-image-6898.webp","page-08-image-6899.webp","page-08-image-6900.webp","page-08-image-6901.webp","page-08-image-6902.webp","page-08-image-6889.webp","page-08-image-6890.webp","page-08-image-6891.webp"],
-  9:["page-09-image-6914.webp","page-09-image-6915.webp","page-09-image-6916.webp","page-09-image-6917.webp","page-09-image-6918.webp","page-09-image-6907.webp","page-09-image-6908.webp","page-09-image-6909.webp","page-09-image-6910.webp","page-09-image-6911.webp","page-09-image-6912.webp","page-09-image-6913.webp"],
-  10:["page-10-image-9101.webp","page-10-image-9102.webp","page-10-image-9103.webp","page-10-image-9104.webp","page-10-image-9105.webp","page-10-image-9106.webp","page-10-image-9107.webp","page-10-image-9108.webp","page-10-image-9109.webp","page-10-image-9110.webp","page-10-image-9111.webp","page-10-image-9112.webp"],
-  11:["page-11-image-10206.webp","page-11-image-10207.webp","page-11-image-10208.webp","page-11-image-10209.webp","page-11-image-10210.webp","page-11-image-10211.webp","page-11-image-10212.webp","page-11-image-10213.webp","page-11-image-10214.webp","page-11-image-10215.webp","page-11-image-10216.webp","page-11-image-10217.webp"],
-  12:["page-12-image-11311.webp","page-12-image-11312.webp","page-12-image-11313.webp","page-12-image-11314.webp","page-12-image-11315.webp","page-12-image-11316.webp","page-12-image-11317.webp","page-12-image-11318.webp","page-12-image-11319.webp","page-12-image-11320.webp","page-12-image-11321.webp","page-12-image-11322.webp"],
-  14:["page-14-image-12887.webp","page-14-image-12888.webp","page-14-image-12889.webp","page-14-image-12890.webp","page-14-image-12891.webp","page-14-image-12892.webp","page-14-image-12893.webp","page-14-image-12894.webp","page-14-image-12895.webp","page-14-image-12896.webp","page-14-image-12898.webp","page-14-image-12900.webp"],
-  15:["page-15-image-14004.webp","page-15-image-14006.webp","page-15-image-14008.webp","page-15-image-14009.webp","page-15-image-13995.webp","page-15-image-13996.webp","page-15-image-13997.webp","page-15-image-13998.webp","page-15-image-13999.webp","page-15-image-14000.webp","page-15-image-14001.webp","page-15-image-14002.webp"],
-  16:["page-16-image-15109.webp","page-16-image-15110.webp","page-16-image-15111.webp","page-16-image-15112.webp","page-16-image-15113.webp","page-16-image-15114.webp","page-16-image-15115.webp","page-16-image-15103.webp","page-16-image-15104.webp","page-16-image-15106.webp","page-16-image-15107.webp","page-16-image-15108.webp"]
- };
- const roomClass=["view-original","view-modern","view-classic"];
- function setImage(el,src,alt){
-  el.replaceChildren();
-  const img=document.createElement("img");
-  img.alt=alt;img.loading="lazy";img.decoding="async";
-  img.src=src;
-  img.onerror=()=>{
-   const pageMatch=(src||"").match(/^page-(\d+)-image-/);
-   const pageNo=pageMatch?Number(pageMatch[1]):null;
-   const candidates=(window.__camwoodImageIndex||[]).filter(item=>pageNo&&item.page===pageNo&&item.w<500&&item.h>300&&item.file!==src);
-   let next=candidates.find(item=>!img.dataset.triedFiles?.split("|").includes(item.file));
-   if(next){
-    img.dataset.triedFiles=[...(img.dataset.triedFiles?img.dataset.triedFiles.split("|"):[]),src].join("|");
-    img.src=next.file;return;
-   }
-   img.onerror=null;img.classList.add("image-unavailable");
-   const notice=document.createElement("span");notice.className="image-fallback-label";notice.textContent="Image unavailable";
-   el.replaceChildren(notice);
-  };
-  el.appendChild(img);
- }
- function openDetail(product){
-  document.getElementById("detailTitle").textContent=product.code;
-  document.getElementById("detailModel").textContent=title;
-  const membraneSpecs=slug==="membrane-door";
-  const texturedSpecs=slug==="textured-door";
-  const digitalSpecs=slug==="digital-door";
-  const sharedInteriorSpecs=membraneSpecs||texturedSpecs||digitalSpecs;
-  document.getElementById("detailMaterial").textContent=membraneSpecs?"Pine wood side frame; inner core: mixed wood, including poplar and similar materials":texturedSpecs?"MDF inner layer for a textured, 3D-style surface; confirm full construction with Camwood":digitalSpecs?"Digital-print finish; ask Camwood to confirm substrate and construction":"As pictured in Camwood catalogue; confirm exact material and finish";
-  const specValues=detail.querySelectorAll(".detail-specs > div strong");
-  if(sharedInteriorSpecs){
-    specValues[1].textContent="30 mm (confirm for selected model)";
-    specValues[2].textContent="6–8 ft range; confirm exact listed size";
-    specValues[3].textContent=membraneSpecs?"Andhra Teak Rosewood Double Colour, Rosewood Flower, Andhra Teak Flower, Andhra Teak Glossy, Rosewood Glossy; other finishes may be available":texturedSpecs?"Textured / 3D designs; available colours and finishes to confirm":"Custom design or photo printing may be available; confirm artwork and finish options";
-  } else {
-    specValues[1].textContent="Confirm for selected model";
-    specValues[2].textContent="Confirm required size";
-    specValues[3].textContent="As pictured; availability to confirm";
-  }
-  const honesty=document.querySelector(".detail-honesty");
-  honesty.textContent=membraneSpecs?"Membrane door construction: pine wood side frame with an inner core made from mixed wood, including poplar and similar materials. For indoor use; keep away from direct sunlight and water. Confirm the exact size and finish for the selected model.":texturedSpecs?"Textured-door details supplied to Camwood: an MDF layer inside creates a 3D texture effect. Intended for indoor installation, away from direct sunlight and water. Confirm exact construction, dimensions and finish before ordering.":digitalSpecs?"Digital-door details supplied to Camwood: indoor use, away from direct sunlight and water. Custom printing of a customer-provided design or photo can be requested; confirm artwork requirements, construction and final dimensions with Camwood.":"Exact specifications are not printed against every design in the available catalogue. We show “confirm” rather than guessing measurements.";
-  document.getElementById("detailEnquire").href="contact.html?model="+encodeURIComponent(product.code)+"&category="+encodeURIComponent(title);
-  detailImage.replaceChildren();
-  detailImage.className="product-detail-image";
-  const main=document.createElement("div");main.className="detail-main-photo";
-  setImage(main,product.file,product.code+" original catalogue design");
-  detailImage.appendChild(main);
-  const gallery=document.createElement("div");gallery.className="door-view-gallery";
-  const original=document.createElement("button");original.type="button";original.className="is-active";
-  const thumb=document.createElement("span");thumb.className="detail-thumb";
-  setImage(thumb,product.file,product.code+" original design thumbnail");
-  const label=document.createElement("span");label.textContent="Original design";
-  original.append(thumb,label);original.onclick=()=>{main.replaceChildren();setImage(main,product.file,product.code+" original catalogue design");gallery.querySelectorAll("button").forEach(b=>b.classList.remove("is-active"));original.classList.add("is-active")};
-  gallery.appendChild(original);
-   // Only show real, available imagery. Removed fake “AI view / coming soon” gallery tiles.
-  detailImage.appendChild(gallery);
-  detail.hidden=false;document.body.classList.add("detail-open");document.getElementById("detailClose").focus();
- }
- document.getElementById("detailClose").onclick=()=>{detail.hidden=true;document.body.classList.remove("detail-open")};
- detail.onclick=e=>{if(e.target===detail){detail.hidden=true;document.body.classList.remove("detail-open")}};
- document.addEventListener("keydown",e=>{if(e.key==="Escape"){detail.hidden=true;document.body.classList.remove("detail-open")}});
- parseIndex().then(rows=>{
-  window.__camwoodImageIndex=rows;
-  const products=[];
-  category.pages.forEach(p=>{
-   const codes=category.codes[p]||[];
-   const indexedFiles=rows.filter(r=>r.page===p&&r.w<500&&r.h>300).map(r=>r.file);
-   const files=(explicit[p]||exactFiles[p]||indexedFiles).filter(file=>rows.some(r=>r.file===file));
-   const safeFiles=files.length?files:indexedFiles;
-   codes.forEach((code,i)=>{const file=safeFiles.length?safeFiles[i%safeFiles.length]:null;if(file)products.push({code,file,page:p,category:title})});
+(async function(){
+ const db=window.camwoodSupabase;
+ const grid=document.getElementById("catalogueProducts");
+ const detail=document.getElementById("productDetail");
+ const detailImage=document.getElementById("detailImage");
+ const slug=new URLSearchParams(location.search).get("category")||"";
+ const count=document.getElementById("productCount");
+ const title=document.getElementById("collectionTitle");
+ const crumb=document.getElementById("collectionCrumb");
+ const description=document.getElementById("collectionDescription");
+ const close=()=>{detail.hidden=true;document.body.style.overflow=""};
+ document.getElementById("detailClose").addEventListener("click",close);
+ detail.addEventListener("click",e=>{if(e.target===detail)close()});
+ if(!db||!slug){title.textContent="Collection";count.textContent="";grid.replaceChildren();return}
+ const {data:category,error:categoryError}=await db.from("product_categories").select("id,name,description").eq("slug",slug).eq("is_published",true).maybeSingle();
+ if(categoryError||!category){title.textContent="Collection unavailable";crumb.textContent="NOT FOUND";description.textContent="This collection has not been published by Camwood yet.";count.textContent="";return}
+ document.title=category.name+" | Camwood Designer Doors & Windows";
+ title.textContent=category.name;crumb.textContent=category.name.toUpperCase();
+ description.textContent=category.description||"Explore published designs from this Camwood collection. Contact our team to confirm availability and specifications.";
+ const {data:products,error}=await db.from("products").select("id,name,model_number,description,material,finish,dimensions,price_label,images").eq("category_id",category.id).eq("is_published",true).order("created_at",{ascending:false});
+ if(error){console.error(error);count.textContent="";return}
+ const items=products||[];
+ count.textContent=items.length?items.length+" published designs":"";
+ items.forEach(product=>{
+  const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";
+  const picture=document.createElement("span");picture.className="catalogue-product-image";
+  const imageUrl=Array.isArray(product.images)?product.images[0]:"";
+  if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=product.name;img.loading="lazy";picture.append(img)}
+  const info=document.createElement("span");info.className="catalogue-product-info";
+  const name=document.createElement("strong");name.textContent=product.name;
+  const model=document.createElement("span");model.textContent=product.model_number||"Camwood design";
+  const specs=document.createElement("span");specs.className="catalogue-inline-spec";specs.textContent=product.price_label||"Enquire for details";
+  info.append(name,model,specs);card.append(picture,info);grid.append(card);
+  card.addEventListener("click",()=>{
+   document.getElementById("detailTitle").textContent=product.name;
+   document.getElementById("detailModel").textContent=product.model_number||"";
+   document.getElementById("detailMaterial").textContent=product.material||"Confirm with Camwood";
+   detailImage.replaceChildren();
+   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=product.name;detailImage.append(img)}
+   const fields=detail.querySelectorAll(".detail-specs strong");
+   if(fields[1])fields[1].textContent=product.dimensions||"Confirm required size";
+   if(fields[2])fields[2].textContent=product.finish||"Confirm with Camwood";
+   const honesty=detail.querySelector(".detail-honesty");honesty.textContent=product.description||"Contact Camwood to confirm exact specifications and availability.";
+   const link=document.getElementById("detailEnquire");link.href="contact.html?product="+encodeURIComponent(product.name);
+   detail.hidden=false;document.body.style.overflow="hidden";
   });
-  if(slug==="solid-wood-window"||slug==="jali-glass-window-door"){
-   const all=explicit[18];products.forEach((product,i)=>{product.file=slug==="solid-wood-window"?all[i%5]:all[(i+5)%all.length]});
-  }
-  document.getElementById("productCount").textContent=products.length+" catalogue designs";
-  grid.replaceChildren();
-  products.forEach((product,i)=>{
-   const card=document.createElement("button");card.type="button";card.className="catalogue-product-card";card.setAttribute("aria-label","View "+product.code+" "+title);
-   const pic=document.createElement("span");pic.className="catalogue-product-image";setImage(pic,product.file,product.code+" "+title+" from Camwood portfolio");
-   const info=document.createElement("span");info.className="catalogue-product-info";
-   info.innerHTML='<strong>'+product.code+'</strong><span>'+title+' · View design details ↗</span><span class="catalogue-inline-spec">'+(slug==="membrane-door"?"30 mm · Fine wood frame · Indoor use · Multiple finishes":slug==="textured-door"?"MDF inner layer · 3D texture · Indoor use":slug==="digital-door"?"Custom design/photo printing · Indoor use":"Material, dimensions and finish: confirm with Camwood")+'</span>';
-   card.append(pic,info);card.addEventListener("click",()=>openDetail(product));grid.appendChild(card);
-  });
- }).catch(err=>{console.error(err);document.getElementById("productCount").textContent="Portfolio index unavailable. Please refresh."});
+ });
 })();
 </script>
 <footer class="site-footer"><div class="footer-main"><a class="brand footer-brand" href="index.html"><span class="brand-word">cam<span>wood</span></span><small>DESIGNER DOORS & WINDOWS</small></a><p>Thoughtful doors, windows and finishing details for your space.</p><div class="footer-social"><a href="https://www.instagram.com/Camwood2017/" target="_blank" rel="noopener">Instagram @Camwood2017 ↗</a><a href="https://www.camwood.in/">www.camwood.in ↗</a></div></div><div class="footer-column"><h2>Explore</h2><a href="index.html">Home</a><a href="about.html">About Camwood</a><a href="collections.html">Collections & Products</a><a href="contact.html">Contact & Locations</a></div><div class="footer-column"><h2>Contact</h2><a href="tel:9580466287">+91 95804 66287</a><a href="tel:9555375633">Office: 95553 75633</a><a href="tel:05424068679">0542-4068679</a><a href="mailto:camwoodshowroom@gmail.com">camwoodshowroom@gmail.com</a></div><div class="footer-column footer-address"><h2>Showroom</h2><p>S.14/81-A-4-1-B, Maldahiya, Ground Floor, opposite Singh Medical & Research Centre, Varanasi, Uttar Pradesh – 221002</p><a href="https://www.google.com/maps/search/?api=1&query=S.14%2F81-A-4-1-B%2C+Maldahiya%2C+Varanasi+221002" target="_blank" rel="noopener">Get directions ↗</a></div><div class="footer-bottom"><span>© <span id="copyrightYear">2026</span> Camwood Designer Doors & Windows. All rights reserved.</span><a href="contact.html">Contact Camwood</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div></footer>
