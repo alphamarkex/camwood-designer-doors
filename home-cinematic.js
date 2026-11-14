@@ -14,7 +14,7 @@
  const mobile=()=>window.innerWidth<=760;
 
  // A longer sticky runway gives the opening, camera move and interior reveal room to breathe.
- function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'360svh':'420svh'),'important')}
+ function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'185svh':'420svh'),'important')}
  setTrack();
 
  // Atmosphere and a moving highlight stay decorative and never block interaction.
@@ -43,9 +43,10 @@
    const runway=Math.max(1,root.offsetHeight-window.innerHeight);
    const progress=reduce?1:clamp(-rect.top/runway);
    // Door swing is the central interaction: camera approaches, then the door opens.
-   const camera=smooth(progress/.38);
-   const swing=smooth((progress-.16)/.38);
-   const reveal=smooth((progress-.48)/.34);
+   const camera=smooth(progress/(mobile()?.22:.38));
+   // On phones, a short swipe should complete the door opening; desktop keeps its longer cinematic pacing.
+   const swing=mobile()?smooth((progress-.015)/.18):smooth((progress-.16)/.38);
+   const reveal=mobile()?smooth((progress-.17)/.34):smooth((progress-.48)/.34);
    if(door)door.style.transform='rotateY('+(-swing*116)+'deg)';
    if(doorway){
      if(mobile())doorway.style.transform='translateX(-50%) translateY('+(camera*-5)+'vh) scale('+(1+camera*.24)+')';
