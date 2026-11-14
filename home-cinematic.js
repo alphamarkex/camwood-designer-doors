@@ -2,6 +2,10 @@
  const root=document.querySelector('.cw-cinematic');
  const stage=root?.querySelector('.cw-sticky-stage');
  if(!root||!stage)return;
+ // Remove the old invitation prompt: the visitor should enter directly through the door.
+ document.querySelectorAll('a,button,p,span,h1,h2,h3,div').forEach(el=>{
+   if(el.children.length===0 && /^come\\s+in[.!]?$/i.test((el.textContent||'').trim())) el.remove();
+ });
  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const door=stage.querySelector('.cw-door-panel');
  const doorway=stage.querySelector('.cw-doorway');
@@ -14,7 +18,7 @@
  const mobile=()=>window.innerWidth<=760;
 
  // A longer sticky runway gives the opening, camera move and interior reveal room to breathe.
- function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'185svh':'420svh'),'important')}
+ function setTrack(){root.style.setProperty('height',reduce?'100svh':(mobile()?'145svh':'420svh'),'important')}
  setTrack();
 
  // Atmosphere and a moving highlight stay decorative and never block interaction.
@@ -43,10 +47,10 @@
    const runway=Math.max(1,root.offsetHeight-window.innerHeight);
    const progress=reduce?1:clamp(-rect.top/runway);
    // Door swing is the central interaction: camera approaches, then the door opens.
-   const camera=smooth(progress/(mobile()?.22:.38));
+   const camera=smooth(progress/(mobile()?.18:.38));
    // On phones, a short swipe should complete the door opening; desktop keeps its longer cinematic pacing.
-   const swing=mobile()?smooth((progress-.015)/.18):smooth((progress-.16)/.38);
-   const reveal=mobile()?smooth((progress-.17)/.34):smooth((progress-.48)/.34);
+   const swing=mobile()?smooth((progress-.005)/.125):smooth((progress-.16)/.38);
+   const reveal=mobile()?smooth((progress-.12)/.22):smooth((progress-.48)/.34);
    if(door)door.style.transform='rotateY('+(-swing*116)+'deg)';
    if(doorway){
      if(mobile())doorway.style.transform='translateX(-50%) translateY('+(camera*-5)+'vh) scale('+(1+camera*.24)+')';
