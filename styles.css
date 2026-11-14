@@ -830,3 +830,16 @@ body.detail-open{overflow:hidden}
   .product-detail-copy { padding: 20px 15px 24px !important; }
   .detail-specs > div { grid-template-columns: 1fr !important; gap: 5px !important; }
 }
+
+/* Homepage header follows the compact Camwood navigation shown in the approved reference. */
+.home-page .nav{height:62px;padding:0 6%;position:absolute;background:rgba(22,25,65,.16);backdrop-filter:blur(8px)}
+.home-page .nav .brand-word{font-size:1.48rem}
+.home-page .nav .brand small{font-size:.38rem;letter-spacing:.12em}
+.home-page .nav nav{gap:30px;font-size:.68rem}
+.home-page .nav .nav-cta{font-size:.67rem;padding:8px 0}
+@media(max-width:760px){.home-page .nav{height:60px;padding:0 5%}.home-page .nav nav{gap:14px}.home-page .nav .brand-word{font-size:1.3rem}}
+/* Use a verified Camwood portfolio image in the collection hero instead of a missing asset path. */
+.collection-hero-art{background-image:url('page-03-image-395.webp');background-position:center 46%;background-size:cover}
+.collection-hero-shade{background:linear-gradient(90deg,rgba(32,36,95,.97) 0%,rgba(32,36,95,.88) 43%,rgba(32,36,95,.46) 78%,rgba(32,36,95,.32) 100%),linear-gradient(0deg,#20245f77,#20245f10)}
+/* Catalogue is intentionally empty until an administrator publishes categories and products. */
+.collection-catalogue .catalogue-categories:empty{display:none}
