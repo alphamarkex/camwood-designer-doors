@@ -1,0 +1,27 @@
+/* Universal Camwood footer (used on every page) */
+.foot{--f-ink:#0b0c33;--f-blue:#2e3192;--f-teal:#50a7b0;font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--f-teal);color:var(--f-ink);padding:100px 0 calc(56px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden;line-height:1.55;text-align:left}
+.foot *{box-sizing:border-box}
+.foot a{color:inherit;text-decoration:none}
+.foot .wrap{max-width:1228px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.foot .ftop{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.foot h2{margin:0;max-width:900px;color:#fff;font-size:clamp(34px,min(5.4vw,9vh),82px);font-weight:600;letter-spacing:-.05em;line-height:.96}
+.foot h2 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--f-ink)}
+.foot .cats{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.foot .cats[hidden]{display:none}
+.foot .cats a{padding:8px 16px;border-radius:999px;border:1px solid rgba(11,12,51,.35);font-size:13px;font-weight:500;transition:background .25s,color .25s}
+.foot .cats a:hover{background:var(--f-ink);color:#fff}
+.foot .btn{display:inline-flex;align-items:center;gap:8px;margin-top:34px;padding:15px 30px;border-radius:999px;background:var(--f-blue);color:#fff;font-weight:600;font-size:15px;transition:transform .25s,box-shadow .3s}
+.foot .btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(46,49,146,.45)}
+.foot .mark img{display:block;width:100%;max-width:520px;height:auto;margin:0 auto;filter:drop-shadow(0 10px 24px rgba(20,22,90,.3))}
+.foot .fcols{display:grid;grid-template-columns:1fr 1.2fr 1.4fr;gap:40px;margin-top:64px;padding-top:34px;border-top:1px solid rgba(11,12,51,.22)}
+.foot h4{margin:0 0 14px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;opacity:.75}
+.foot .fcols a,.foot .fcols p{display:block;margin:0 0 8px;font-size:14px;font-weight:500}
+.foot .fcols a{opacity:.92;transition:opacity .2s}
+.foot .fcols a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.foot .fcols p{max-width:340px;font-weight:400}
+.foot .fmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:40px;padding-top:22px;border-top:1px solid rgba(11,12,51,.22);font-size:13px;font-weight:500}
+.foot .tri{position:absolute;width:var(--z,60px);aspect-ratio:1.1;clip-path:polygon(50% 0,0 100%,100% 100%);background:linear-gradient(150deg,var(--a),var(--b));opacity:.85;animation:ftri 8s ease-in-out infinite alternate;animation-delay:var(--dl,0s);pointer-events:none}
+@keyframes ftri{to{transform:translateY(-24px) rotate(var(--r,20deg))}}
+@media(max-width:860px){.foot{padding-top:80px}.foot .ftop{grid-template-columns:1fr;gap:34px}.foot .mark img{max-width:340px}.foot .fcols{grid-template-columns:1fr 1fr;gap:30px}.foot .fcols>div:last-child{grid-column:1/-1}}
+@media(max-width:520px){.foot .fcols{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.foot .tri{animation:none}}

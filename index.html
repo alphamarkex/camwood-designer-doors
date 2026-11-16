@@ -208,25 +208,13 @@ nav .cta{padding:9px 18px;border-radius:999px;background:var(--pink);color:#fff;
 @media(max-height:760px){.chd .eyebrow,.rt .eyebrow,.wtop .eyebrow{display:none}.chd,.rt,.wtop{top:calc(74px + env(safe-area-inset-top,0px))}
 .cub{--h:min(30vh,108vw)}.cubw{margin-top:2vh}.sws{margin:10px 0}.sws button{width:38px;height:38px}.wbot{bottom:calc(46px + 8px)}.wbot .nm{font-size:20px}.wbot .btn{padding:10px 20px;font-size:13px}}
 /* footer */
-.foot{background:var(--teal);color:var(--ink);padding:100px 0 calc(56px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden}
-.foot h2{max-width:900px;color:#fff}.foot h2 em{color:var(--ink)}
-.foot .cats[hidden]{display:none}.foot .cats{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
-.foot .cats a{padding:8px 16px;border-radius:999px;border:1px solid rgba(11,12,51,.35);font-size:13px;font-weight:500}
-.foot .btn{margin-top:36px;background:var(--blue);color:#fff}
-.ftop{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}.foot h2{font-size:clamp(34px,min(5.4vw,9vh),82px)}.mark{user-select:none}.mark img{display:block;width:100%;max-width:520px;height:auto;margin:0 auto;filter:drop-shadow(0 10px 24px rgba(20,22,90,.3))}@media(max-width:860px){.ftop{grid-template-columns:1fr;gap:34px}.mark img{max-width:340px}}
-.fmeta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:48px;padding-top:22px;border-top:1px solid rgba(11,12,51,.22);font-size:13px;font-weight:500}
-.tri{position:absolute;width:var(--z,60px);aspect-ratio:1.1;clip-path:polygon(50% 0,0 100%,100% 100%);background:linear-gradient(150deg,var(--a),var(--b));opacity:.85;animation:fl 8s ease-in-out infinite alternate;animation-delay:var(--dl,0s);pointer-events:none}
-@keyframes fl{to{transform:translateY(-24px) rotate(var(--r,20deg))}}
 .tick{position:fixed;left:0;right:0;bottom:0;z-index:75;background:var(--ink);color:var(--gold);font-size:12px;letter-spacing:.08em;text-transform:uppercase;overflow:hidden;padding:9px 0 calc(9px + env(safe-area-inset-bottom,0px))}
 .tick div{display:flex;gap:40px;width:max-content;animation:mq 50s linear infinite}
 .tick span:before{content:"▲";color:var(--teal);margin-right:40px;font-size:8px}
 @media(prefers-reduced-motion:reduce){.in2:before,.dust i,.tri,.seam,.cue:after,.rc img,.cn img,.band div,.tick div,.shimmer,.trail:after{animation:none}.reveal,.w{opacity:1;filter:none;transform:none;transition:none}}
 
-.site-pages{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 26px;margin-top:20px;font-size:13px;font-weight:600}
-.site-pages a{color:var(--ink);opacity:.86;transition:opacity .2s}
-.site-pages a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
-@media(max-width:760px){.site-pages{gap:12px 18px;font-size:12px}}
 </style>
+<link rel="stylesheet" href="footer.css">
 </head>
 <body>
 <div id="prog"></div><div class="mouse" id="mouse"></div>
@@ -282,14 +270,7 @@ nav .cta{padding:9px 18px;border-radius:999px;background:var(--pink);color:#fff;
   <div class="wbot"><div class="nm" id="wn"></div><div class="sws" id="sws"></div><a class="btn trail mag" href="contact.html">Request a quote →</a></div>
 </div></div></section>
 
-<footer class="foot" id="visit"><div class="wrap">
-  <div class="ftop"><div class="fl"><h2 data-b>Built with craft. <em>Hung for life.</em></h2>
-  <div class="cats" id="footCats" hidden></div>
-  <a class="btn trail mag" href="contact.html">Contact Camwood →</a></div>
-  <div class="mark"><img src="assets/camwood-logo.png" alt="Camwood – Khusi Designer Doors &amp; Windows"></div></div>
-  <div class="fmeta"><span>Khusi Designer Doors &amp; Windows</span><span>A Unit of UG Group of Companies</span></div>
-  <div class="site-pages" aria-label="Website pages"><a href="index.html">Home</a><a href="about.html">About Camwood</a><a href="collections.html">Door &amp; Window Collections</a><a href="collection.html">Design Gallery</a><a href="contact.html">Contact &amp; Enquiries</a></div>
-</div></footer>
+<script src="footer.js"></script>
 <div class="tick"><div id="tk"></div></div>
 
 <div class="lb" id="lb"><div class="lbbg" id="lbbg"></div><button class="x" id="lbx" aria-label="Close">✕</button><button class="ar l" id="lbl" aria-label="Previous">‹</button><button class="ar r" id="lbr" aria-label="Next">›</button>
@@ -327,7 +308,6 @@ $('#band').innerHTML=[...BW,...BW,...BW,...BW].map(t=>`<span>${t}</span>`).join(
 const TK=['Khusi Designer Doors & Windows','Seasoned & treated wood','Made to size','A Unit of UG Group of Companies'];
 $('#tk').innerHTML=[...TK,...TK].map(t=>`<span>${t}</span>`).join('');
 const PC=[['#f7a335','#fbd23a'],['#e91e7a','#e0342b'],['#4caf50','#9ccc3c'],['#29b6e8','#2e3192']];
-[['5%','12%',70,0,20],['88%','16%',50,3,-24],['92%','58%',42,2,28],['2%','62%',50,1,-16]].forEach(([x,y,z,k,r],i)=>{const t=document.createElement('i');t.className='tri';t.style.cssText=`left:${x};top:${y};--z:${z}px;--a:${PC[k][0]};--b:${PC[k][1]};--r:${r}deg;--dl:${-i*1.7}s`;$('.foot').prepend(t)});
 // hall doors
 $('#hrow').innerHTML=IMG.H.map(s=>`<div class="hd"><img src="${s}" alt=""></div>`).join('');
 // nav dock + sliding highlight
@@ -428,12 +408,7 @@ function frame(now){
   requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
 
-// footer categories come from the admin panel (published categories only); hidden when there are none
-(async()=>{try{const db=window.camwoodSupabase;if(!db)return;
-  const {data}=await db.from('product_categories').select('name,slug').eq('is_published',true).order('sort_order').order('name');
-  const box=$('#footCats');if(!box||!data||!data.length)return;
-  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  box.innerHTML=data.map(c=>`<a href="collection.html?category=${encodeURIComponent(c.slug)}">${esc(c.name)}</a>`).join('');box.hidden=false}catch(e){}})();
+
 </script>
 </body>
 </html>
