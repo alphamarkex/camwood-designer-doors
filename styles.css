@@ -1340,3 +1340,15 @@ html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!
 .detail-thumbs img{width:100%;height:100%;object-fit:cover}
 .product-detail-image{position:relative}.product-detail-image>img{width:100%;height:100%;object-fit:cover;display:block}
 .catalogue-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 20px}
+
+/* Floating pill header (same as the home page) */
+.pill{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 14px;border-radius:999px;background:rgba(20,22,90,.72);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);max-width:calc(100% - 20px);font-family:'DM Sans',system-ui,sans-serif}
+.pill-logo img{height:24px;width:auto;display:block;margin-right:8px}
+.pill-links{display:flex}
+.pill-links a{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:500;color:#e4e6ff;white-space:nowrap;transition:background .3s,color .3s,transform .2s}
+.pill-links a:hover{background:rgba(255,255,255,.12)}
+.pill-links a[aria-current="page"]{background:#fbd23a;color:#0b0c33}
+.pill-cta{padding:9px 18px;border-radius:999px;background:#e91e7a;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;transition:transform .2s,box-shadow .3s}
+.pill-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(233,30,122,.45)}
+@media(max-width:760px){.pill{padding:5px 5px 5px 12px;gap:2px}.pill-logo img{height:20px;margin-right:4px}.pill-links a{padding:7px 10px;font-size:12px}.pill-cta{padding:8px 12px;font-size:12px}}
+@media(max-width:480px){.pill-cta{display:none}}

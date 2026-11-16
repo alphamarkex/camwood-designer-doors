@@ -5,7 +5,7 @@
   s.src='https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js';
   s.onload=function(){
     if(!window.Lenis) return;
-    var lenis=new Lenis({lerp:.09,smoothWheel:true,syncTouch:false,wheelMultiplier:1,autoRaf:true});
+    var lenis=new Lenis({duration:1.35,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true,syncTouch:false,wheelMultiplier:1.7,touchMultiplier:1.6,autoRaf:true});
     window.camwoodLenis=lenis;
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
       a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();lenis.scrollTo(t,{offset:-80,duration:1.4})}});

@@ -119,3 +119,8 @@ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   document.querySelector('.intro')?.remove();
   if(door)door.style.transform='rotateY(-12deg)';
 }
+// highlight the current page in the floating header
+(function(){var f=location.pathname.split('/').pop()||'index.html';if(f==='collection.html')f='collections.html';
+ document.querySelectorAll('.pill-links a').forEach(function(a){if(a.getAttribute('href')===f)a.setAttribute('aria-current','page')})})();
+// titles already on screen at load never wait for the observer
+requestAnimationFrame(function(){document.querySelectorAll('.scroll-title').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add('title-in-view')})});
