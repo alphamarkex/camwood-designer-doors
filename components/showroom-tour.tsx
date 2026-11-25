@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { contactDetails, doors } from '@/data/doors'
 
 const clamp = { clamp: true } as const
@@ -50,11 +50,65 @@ function ChapterCopy({ eyebrow, title, body }: { eyebrow: string; title: React.R
 }
 
 function SiteHeader() {
+  const linksRef = useRef<HTMLDivElement>(null)
+  const highlightRef = useRef<HTMLElement>(null)
+  const activeLink = useRef<HTMLAnchorElement | null>(null)
+
+  const moveHighlight = (link: HTMLAnchorElement) => {
+    const highlight = highlightRef.current
+    if (!highlight) return
+    highlight.style.width = `${link.offsetWidth}px`
+    highlight.style.transform = `translateX(${link.offsetLeft}px)`
+    linksRef.current?.querySelectorAll("a").forEach((item) => {
+      item.classList.toggle("hv", item === link)
+    })
+  }
+
+  useEffect(() => {
+    const homeLink = activeLink.current
+    if (!homeLink) return
+    const positionHighlight = () => moveHighlight(homeLink)
+    const frame = window.requestAnimationFrame(positionHighlight)
+    window.addEventListener("resize", positionHighlight)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener("resize", positionHighlight)
+    }
+  }, [])
+
   return (
-    <header className="site-header">
-      <a className="site-brand" href="#top" aria-label="Cam Wood home"><span className="site-brand-mark" aria-hidden="true">CW</span><span className="site-brand-name">Cam Wood<small>Khushi Designer Doors</small></span></a>
-      <a className="header-phone" href={`tel:${contactDetails.mobile}`} aria-label={`Call Cam Wood at ${formatPhone(contactDetails.mobile)}`}>Call {formatPhone(contactDetails.mobile)}</a>
-    </header>
+    <nav
+      id="nav"
+      aria-label="Main navigation"
+      onPointerMove={(event) => {
+        const links = linksRef.current
+        if (!links) return
+        const anchors = [...links.querySelectorAll("a")]
+        anchors.forEach((link) => {
+          const bounds = link.getBoundingClientRect()
+          const distance = Math.abs(event.clientX - (bounds.left + bounds.width / 2))
+          link.style.transform = `scale(${1 + 0.16 * Math.max(0, 1 - distance / 90)})`
+        })
+        const target = (event.target as HTMLElement).closest("a")
+        if (target instanceof HTMLAnchorElement && links.contains(target)) moveHighlight(target)
+      }}
+      onPointerLeave={() => {
+        linksRef.current?.querySelectorAll("a").forEach((link) => (link.style.transform = ""))
+        if (activeLink.current) moveHighlight(activeLink.current)
+      }}
+    >
+      <a href="index.html" aria-label="Camwood home">
+        <Image id="nl" src="/camwood-logo.png" alt="Camwood" width={148} height={38} priority />
+      </a>
+      <div className="links" id="links" ref={linksRef}>
+        <i className="hl" id="hl" ref={highlightRef} aria-hidden="true" />
+        <a href="index.html" aria-current="page" ref={activeLink}>Home</a>
+        <a href="about.html">About</a>
+        <a href="collections.html">Collections</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a className="cta trail" href="contact.html">Enquire</a>
+    </nav>
   )
 }
 
@@ -100,9 +154,8 @@ export function ShowroomTour() {
         <div className="tour-stage">
           <motion.section className="tour-chapter exterior-chapter" style={{ opacity: heroOpacity }} aria-label="Showroom exterior">
             <Image className="exterior-image" src="/showroom-exterior.png" alt="The Cam Wood Khushi Designer Doors and Windows showroom at night" fill priority sizes="100vw" /><div className="exterior-shade" />
-            <div className="sign-board" aria-label="Cam Wood Designer Doors"><span className="sign-glass" /><span className="sign-wordmark">cam wood</span><span className="sign-tag">DESIGNER DOORS</span><span className="sign-glass" /></div>
             <div className="hero-copy"><span className="eyebrow font-mono">Khushi Designer Doors &amp; Windows</span><h1>Every home has<br />a way <em className="font-serif">in.</em></h1><p>Come inside. See the craft, the details and the doors made to feel like yours.</p><span className="scroll-cue"><i /> Scroll to enter</span></div>
-            <div className="entry-frame" aria-hidden="true"><GlassDoor side="left" progress={panelOpen} /><GlassDoor side="right" progress={panelOpen} /></div><div className="showroom-neon" aria-hidden="true">CAM WOOD <span>Khushi Designer</span></div>
+            <div className="entry-frame" aria-hidden="true"><GlassDoor side="left" progress={panelOpen} /><GlassDoor side="right" progress={panelOpen} /></div>
             <div className="hero-foot"><span>VARANASI · INDIA</span><span>SCROLL TO WALK IN <b>↓</b></span></div>
           </motion.section>
           <motion.div className="interior-atmosphere" style={{ opacity: interiorOpacity, x: leftTurn }} aria-hidden="true"><div className="interior-ceiling" /><div className="interior-floor" /><div className="interior-wall" /><div className="hall-display"><span /><span /><span /><span /></div><div className="reception-desk"><b>CAM WOOD</b><span>Khushi Designer Doors &amp; Windows</span></div><div className="interior-light" /></motion.div>
