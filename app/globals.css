@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "./showroom.css";
+
+@theme inline {
+  --color-background: #0b0c33;
+  --color-foreground: #f4f5fc;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-inter), Arial, sans-serif;
+}
+
+:root {
+  --blue: #2e3192;
+  --deep: #14165a;
+  --ink: #0b0c33;
+  --teal: #50a7b0;
+  --gold: #c9a36a;
+  --yel: #fbd23a;
+  --pink: #e91e7a;
+  --paper: #f4f5fc;
+  --fg: #15163f;
+  --mut: #6a6d99;
+  --night: var(--ink);
+  --ivory: var(--paper);
+  --cyan: var(--teal);
+  --wood: var(--gold);
+  --red: var(--pink);
+  --muted: rgba(244, 245, 252, .72);
+  color-scheme: dark;
+  background: var(--night);
+  color: var(--ivory);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--night); }
+body { min-height: 100%; margin: 0; overflow-x: clip; background: var(--night); color: var(--ivory); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { color: var(--night); background: var(--cyan); }
