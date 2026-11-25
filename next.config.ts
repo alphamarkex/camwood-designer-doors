@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }]
   },
+  async rewrites() {
+    return [{ source: "/index.html", destination: "/" }]
+  },
 }
 
 export default nextConfig
