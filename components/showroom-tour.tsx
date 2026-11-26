@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useTransform, type MotionValue } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { contactDetails, doors } from '@/data/doors'
 
@@ -9,11 +9,6 @@ const clamp = { clamp: true } as const
 const formatPhone = (phone: string) => `${phone.slice(0, 5)} ${phone.slice(5)}`
 
 type DoorCardProps = { door: (typeof doors)[number]; index: number; progress: MotionValue<number>; reduced: boolean }
-
-function GlassDoor({ side, progress }: { side: 'left' | 'right'; progress: MotionValue<number> }) {
-  const rotateY = useTransform(progress, [0, 1], side === 'left' ? [0, -108] : [0, 108], clamp)
-  return <motion.div className={`glass-door glass-door-${side}`} style={{ rotateY }} aria-hidden="true"><span className="glass-rail" /><span className="glass-handle" /><span className="glass-reflection" /></motion.div>
-}
 
 function DoorCard({ door, index, progress, reduced }: DoorCardProps) {
   const start = 0.3 + index * 0.045
@@ -39,18 +34,7 @@ function DoorWall({ progress, reduced }: { progress: MotionValue<number>; reduce
   )
 }
 
-function Chapter({ className, progress, range, children, last = false }: { className: string; progress: MotionValue<number>; range: [number, number]; children: React.ReactNode; last?: boolean }) {
-  const end = Math.min(range[1], 1)
-  const opacity = useTransform(progress, [range[0], range[0] + 0.035, end - 0.04, end], last ? [0, 1, 1, 1] : [0, 1, 1, 0], clamp)
-  const scale = useTransform(progress, [range[0], end], [1.05, 1], clamp)
-  return <motion.section className={`tour-chapter ${className}`} style={{ opacity, scale }}>{children}</motion.section>
-}
-
-function ChapterCopy({ eyebrow, title, body }: { eyebrow: string; title: React.ReactNode; body: string }) {
-  return <div className="chapter-copy"><span className="eyebrow font-mono">{eyebrow}</span><h2>{title}</h2><p>{body}</p></div>
-}
-
-function SiteHeader() {
+export function SiteHeader() {
   const linksRef = useRef<HTMLDivElement>(null)
   const highlightRef = useRef<HTMLElement>(null)
   const activeLink = useRef<HTMLAnchorElement | null>(null)
@@ -113,7 +97,7 @@ function SiteHeader() {
   )
 }
 
-function ContactStop() {
+export function ContactStop() {
   return (
     <section className="contact-stop" aria-label="Contact and visit Cam Wood">
       <div className="contact-panel"><span className="eyebrow font-mono">The last stop · your first step</span><h2>Let&apos;s find<br />your <em className="font-serif">door.</em></h2><p>Visit the showroom, explore the finishes and talk with our team about your space.</p>
@@ -125,49 +109,19 @@ function ContactStop() {
   )
 }
 
-function WhatsappButton() {
+export function WhatsappButton() {
   return <a className="whatsapp-float" href={`https://wa.me/91${contactDetails.whatsapp}`} target="_blank" rel="noreferrer" aria-label={`Chat with Cam Wood on WhatsApp at ${formatPhone(contactDetails.whatsapp)}`}><span aria-hidden="true">WhatsApp</span></a>
 }
 
-export function ShowroomTour() {
-  const runway = useRef<HTMLElement>(null)
-  const reduced = useReducedMotion() ?? false
-  const { scrollYProgress } = useScroll({ target: runway, offset: ['start start', 'end end'] })
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.12, 0.2], [1, 1, 0], clamp)
-  const interiorOpacity = useTransform(scrollYProgress, [0.13, 0.23, 0.87, 0.94], [0, 1, 1, 0], clamp)
-  const leftTurn = useTransform(scrollYProgress, [0.17, 0.34], [0, -16], clamp)
-  const panelOpen = useTransform(scrollYProgress, [0.08, 0.25], [0, 1], clamp)
-  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1])
-
-  if (reduced) return (
+export function ReducedTour() {
+  const progress = useMotionValue(0)
+  return (
     <main className="reduced-tour" id="top"><SiteHeader />
       <div className="reduced-hero"><Image src="/showroom-exterior.png" alt="Cam Wood designer doors showroom at night" fill priority sizes="100vw" /><div className="reduced-hero-copy"><span className="eyebrow font-mono">Khushi Designer Doors &amp; Windows</span><h1>A warmer welcome<br />starts at the door.</h1></div></div>
-      <section className="reduced-collection"><DoorWall progress={scrollYProgress} reduced /></section>
+      <section className="reduced-collection"><DoorWall progress={progress} reduced /></section>
       <section className="reduced-chapters" aria-label="More of the showroom"><article><span className="eyebrow font-mono">The welcome desk</span><h2>Thoughtful design, from the first hello.</h2><p>Talk through the space, the measurements and the feeling you want to come home to.</p></article><article><span className="eyebrow font-mono">The finishing touch</span><h2>Handles and hardware, chosen with care.</h2><p>Explore details that bring a door, its frame and its room together.</p></article><article><span className="eyebrow font-mono">Let the daylight in</span><h2>Windows made for the way you live.</h2><p>Discover options that balance natural light, privacy and lasting character.</p></article></section>
       <ContactStop /><WhatsappButton />
     </main>
   )
-
-  return (
-    <main id="top"><SiteHeader />
-      <section ref={runway} className="tour-runway" aria-label="A scroll-driven visit to the Cam Wood showroom">
-        <motion.div className="tour-progress" style={{ scaleX: progressScale }} aria-hidden="true" />
-        <div className="tour-stage">
-          <motion.section className="tour-chapter exterior-chapter" style={{ opacity: heroOpacity }} aria-label="Showroom exterior">
-            <Image className="exterior-image" src="/showroom-exterior.png" alt="The Cam Wood Khushi Designer Doors and Windows showroom at night" fill priority sizes="100vw" /><div className="exterior-shade" />
-            <div className="hero-copy"><span className="eyebrow font-mono">Khushi Designer Doors &amp; Windows</span><h1>Every home has<br />a way <em className="font-serif">in.</em></h1><p>Come inside. See the craft, the details and the doors made to feel like yours.</p><span className="scroll-cue"><i /> Scroll to enter</span></div>
-            <div className="entry-frame" aria-hidden="true"><GlassDoor side="left" progress={panelOpen} /><GlassDoor side="right" progress={panelOpen} /></div>
-            <div className="hero-foot"><span>VARANASI · INDIA</span><span>SCROLL TO WALK IN <b>↓</b></span></div>
-          </motion.section>
-          <motion.div className="interior-atmosphere" style={{ opacity: interiorOpacity, x: leftTurn }} aria-hidden="true"><div className="interior-ceiling" /><div className="interior-floor" /><div className="interior-wall" /><div className="hall-display"><span /><span /><span /><span /></div><div className="reception-desk"><b>CAM WOOD</b><span>Khushi Designer Doors &amp; Windows</span></div><div className="interior-light" /></motion.div>
-          <DoorWall progress={scrollYProgress} reduced={false} />
-          <Chapter className="reception-chapter" progress={scrollYProgress} range={[0.63, 0.75]}><div className="reception-scene"><div className="desk-detail"><span className="eyebrow font-mono">The welcome desk</span><b>Let&apos;s make<br />room for <em className="font-serif">good design.</em></b><p>Talk through the space, the measurements and the feeling you want to come home to.</p></div><div className="desk-art"><span className="desk-lamp" /><div className="desk-top"><strong>CAM WOOD</strong><small>Khushi Designer Doors &amp; Windows</small></div></div></div></Chapter>
-          <Chapter className="hardware-chapter" progress={scrollYProgress} range={[0.74, 0.84]}><div className="hardware-scene"><div className="handle-wall"><span className="handle handle-one" /><span className="handle handle-two" /><span className="handle handle-three" /><span className="handle handle-four" /></div><ChapterCopy eyebrow="The finishing touch" title={<>A detail worth<br /><em className="font-serif">reaching for.</em></>} body="Door handles, hinges and hardware chosen to bring the whole composition together." /></div></Chapter>
-          <Chapter className="window-chapter" progress={scrollYProgress} range={[0.83, 0.93]}><div className="window-scene"><div className="window-view"><div className="window-pane" /><div className="window-sill" /></div><ChapterCopy eyebrow="Let the daylight in" title={<>A better view<br />of <em className="font-serif">home.</em></>} body="Explore thoughtfully made windows that balance natural light, privacy and lasting character." /></div></Chapter>
-          <Chapter className="contact-chapter" progress={scrollYProgress} range={[0.88, 1]} last><ContactStop /></Chapter>
-          <div className="scene-marker"><span>CAM WOOD SHOWROOM TOUR</span><span>SCROLL TO EXPLORE</span></div>
-        </div>
-      </section><WhatsappButton />
-    </main>
-  )
 }
+

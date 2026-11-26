@@ -1,5 +1,5 @@
-import { ShowroomTour } from "@/components/showroom-tour"
+import { VideoTour } from "@/components/video-tour"
 
 export default function HomePage() {
-  return <ShowroomTour />
+  return <VideoTour />
 }
