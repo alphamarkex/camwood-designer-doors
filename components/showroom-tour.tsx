@@ -39,9 +39,10 @@ function DoorWall({ progress, reduced }: { progress: MotionValue<number>; reduce
   )
 }
 
-function Chapter({ className, progress, range, children }: { className: string; progress: MotionValue<number>; range: [number, number]; children: React.ReactNode }) {
-  const opacity = useTransform(progress, [range[0], range[0] + 0.035, range[1] - 0.04, range[1]], [0, 1, 1, 0], clamp)
-  const scale = useTransform(progress, [range[0], range[1]], [1.05, 1], clamp)
+function Chapter({ className, progress, range, children, last = false }: { className: string; progress: MotionValue<number>; range: [number, number]; children: React.ReactNode; last?: boolean }) {
+  const end = Math.min(range[1], 1)
+  const opacity = useTransform(progress, [range[0], range[0] + 0.035, end - 0.04, end], last ? [0, 1, 1, 1] : [0, 1, 1, 0], clamp)
+  const scale = useTransform(progress, [range[0], end], [1.05, 1], clamp)
   return <motion.section className={`tour-chapter ${className}`} style={{ opacity, scale }}>{children}</motion.section>
 }
 
@@ -163,7 +164,7 @@ export function ShowroomTour() {
           <Chapter className="reception-chapter" progress={scrollYProgress} range={[0.63, 0.75]}><div className="reception-scene"><div className="desk-detail"><span className="eyebrow font-mono">The welcome desk</span><b>Let&apos;s make<br />room for <em className="font-serif">good design.</em></b><p>Talk through the space, the measurements and the feeling you want to come home to.</p></div><div className="desk-art"><span className="desk-lamp" /><div className="desk-top"><strong>CAM WOOD</strong><small>Khushi Designer Doors &amp; Windows</small></div></div></div></Chapter>
           <Chapter className="hardware-chapter" progress={scrollYProgress} range={[0.74, 0.84]}><div className="hardware-scene"><div className="handle-wall"><span className="handle handle-one" /><span className="handle handle-two" /><span className="handle handle-three" /><span className="handle handle-four" /></div><ChapterCopy eyebrow="The finishing touch" title={<>A detail worth<br /><em className="font-serif">reaching for.</em></>} body="Door handles, hinges and hardware chosen to bring the whole composition together." /></div></Chapter>
           <Chapter className="window-chapter" progress={scrollYProgress} range={[0.83, 0.93]}><div className="window-scene"><div className="window-view"><div className="window-pane" /><div className="window-sill" /></div><ChapterCopy eyebrow="Let the daylight in" title={<>A better view<br />of <em className="font-serif">home.</em></>} body="Explore thoughtfully made windows that balance natural light, privacy and lasting character." /></div></Chapter>
-          <Chapter className="contact-chapter" progress={scrollYProgress} range={[0.88, 1.05]}><ContactStop /></Chapter>
+          <Chapter className="contact-chapter" progress={scrollYProgress} range={[0.88, 1]} last><ContactStop /></Chapter>
           <div className="scene-marker"><span>CAM WOOD SHOWROOM TOUR</span><span>SCROLL TO EXPLORE</span></div>
         </div>
       </section><WhatsappButton />
